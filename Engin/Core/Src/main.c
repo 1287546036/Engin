@@ -43,9 +43,10 @@ uint8_t dbus_resive[18];
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 extern motor_measure_t motor_chassis[4];
+extern motor_measure_t motor_lifting[4];
 pids motor_pid;
-int16_t pid_ID[4];
-fp32 set_speed[4];
+int16_t pid_ID[8];
+fp32 set_speed[8];
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -57,6 +58,7 @@ fp32 set_speed[4];
 
 /* USER CODE BEGIN PV */
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan);
+void HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan);
 //void USART3_IRQHandler(void);
 void CAN_cmd_chassis(int16_t motor[]);
 void CAN_cmd_lifting(int16_t motor[]);
@@ -128,10 +130,10 @@ short set_speedx,set_speedy,set_speedw=0;
 
     /* USER CODE BEGIN 3 */
 		////////////////////chassis////////////////////////////////////////////////////
-//	  	set_speedx = rc_ctrl.rc.ch[1]* unit_speed;
-//  		set_speedy = rc_ctrl.rc.ch[0]* unit_speed;
-	  	set_speedx =1000;
-	  	set_speedy =100;
+	  	set_speedx = rc_ctrl.rc.ch[1]* unit_speed;
+  		set_speedy = rc_ctrl.rc.ch[0]* unit_speed;
+//////	  	set_speedx =20;
+//////	  	set_speedy =100;
 	    Chassis_SolutionForward(set_speed,set_speedx,set_speedy,set_speedw);
    		pid_ID[0] = PID_calc(&motor_pid,motor_chassis[0].speed_rpm,set_speed[0]);
       pid_ID[1] = PID_calc(&motor_pid,motor_chassis[1].speed_rpm,set_speed[1]);
@@ -139,27 +141,31 @@ short set_speedx,set_speedy,set_speedw=0;
 	  	pid_ID[3] = PID_calc(&motor_pid,motor_chassis[3].speed_rpm,set_speed[3]);
   	
 		if (rc_ctrl.rc.s[0] == switch_right)//mei,ju
-		{CAN_cmd_chassis(pid_ID);}
+		{
+		CAN_cmd_chassis(pid_ID);
+}
 		else
 			CAN_cmd_chassis(0);
 	 	
-		/////////////////开环
-//////		set_speedx = 1000;
-//////		set_speedy = 1000;
-//////	//	pid_ID[0] =PID_calc(&motor_pid,motor_chassis[0].speed_rpm,set_speedy);
-//////			pid_ID[0] =	PID_calc(&motor_pid,0,set_speedy);
-//////	  CAN_cmd_chassis(pid_ID);
+//////////////		/////////////////开环
+//////////////		set_speedx = 1000;
+//////////////		set_speedy = 100;
+//////////////		pid_ID[0] =PID_calc(&motor_pid,motor_chassis[0].speed_rpm,set_speedy);
+//////////////	//		pid_ID[0] =	PID_calc(&motor_pid,0,set_speedy);
+//////////////	  CAN_cmd_chassis(pid_ID);
 
 
-///////////////////////lifting  debug///////////////////////////////////////////////
-      set_speed[0] =1000;
-	    set_speed[1] =1000;
-   		pid_ID[0] = PID_calc(&motor_pid,motor_chassis[0].speed_rpm,set_speed[0]);
-      pid_ID[1] = PID_calc(&motor_pid,motor_chassis[1].speed_rpm,set_speed[1]);
+///////////////////////////lifting  debug///////////////////////////////////////////////
+////      set_speed[4] =500;
+////	    set_speed[5] =500;
+////   		pid_ID[4] = PID_calc(&motor_pid,motor_lifting[0].speed_rpm,set_speed[4]);
+////      pid_ID[5] = PID_calc(&motor_pid,motor_lifting[1].speed_rpm,set_speed[5]);
 
-      CAN_cmd_lifting(pid_ID);
+////      CAN_cmd_lifting(pid_ID);
 
   }
+	
+	//pid,rc>motor>chassic,lifting??
   /* USER CODE END 3 */
 }
 
@@ -209,8 +215,64 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+void Lifting(pids *motor_pid,uint16_t pid_ID[],motor_measure_t *motor[])
+{
+	fp32 deviation;
+	fp32 set_angle[2];
+	fp32 tar_angle[2];
+	fp32 tar_speed[2];
+	fp32 tar_current[2];
+
+#define angle_ratio 0.001*8191/660.0	
+
+ 	set_angle[0] = rc_ctrl.rc.ch[2]*angle_ratio;////same
+ 	set_angle[1] = rc_ctrl.rc.ch[2]*angle_ratio;
+	tar_angle[0] = motor[0]->real_angle +set_angle[0];////same
+	tar_angle[1] = motor[1]->real_angle +set_angle[1];
+	
+	
+	tar_speed[0]= PID_calc(motor_pid,motor[0]->real_angle,tar_angle[0]);////same
+	tar_speed[1]= PID_calc(motor_pid,motor[1]->real_angle,tar_angle[1]);
+	
+	tar_current[0] = PID_calc(motor_pid,motor[0]->speed_rpm,tar_speed[0]);
+  tar_current[1] = PID_calc(motor_pid,motor[1]->speed_rpm,tar_speed[1]);////deffirent
+	deviation = 0.5f*(tar_speed[0] - tar_speed[1]);
+	
+	pid_ID[4] = PID_calc(motor_pid,motor[0]->real_current,tar_current[0]);//
+  pid_ID[5] = PID_calc(motor_pid,motor[1]->real_current,tar_current[1])-deviation;
+}
+/*
+    float speed_diff = motor1->speed - motor2->speed;
+
+    float sync_adjustment = 0.5f * speed_diff; // ????????,????????????
+
+    motor1->pid_output = pid_controller(setpoint_speed, motor1->speed, params);
+    motor2->pid_output = pid_controller(setpoint_speed, motor2->speed, params) - sync_adjustment; // ??????????
+*/
+
 
 /* USER CODE END 4 */
+
+/**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM7 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM7) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
+}
 
 /**
   * @brief  This function is executed in case of error occurrence.

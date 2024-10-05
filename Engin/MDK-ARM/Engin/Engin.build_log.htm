@@ -3,88 +3,118 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: ¦ÌVision V5.37.0.0
-Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: 1 Lenovo, 1, LIC=----
+IDE-Version: ¦ÌVision V5.40.0.0
+Copyright (C) 2024 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: 0 stulti, HP Inc., LIC=QF82M-XDMN9-ARQXW-Q9GZR-E7BG7-K8RRL
  
 Tool Versions:
-Toolchain:       MDK-Lite  Version: 5.37.0.0
-Toolchain Path:  C:\Users\Lenovo\AppData\Local\Keil_v5\ARM\ARM\ARMCLANG\Bin
-C Compiler:      ArmClang.exe V6.18
-Assembler:       Armasm.exe V6.18
-Linker/Locator:  ArmLink.exe V6.18
-Library Manager: ArmAr.exe V6.18
-Hex Converter:   FromElf.exe V6.18
-CPU DLL:         SARMCM3.DLL V5.37.0.0
+Toolchain:       MDK-ARM Plus  Version: 5.40.0.3
+Toolchain Path:  C:\Users\stulti\AppData\Local\Keil_v5\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.22
+Assembler:       Armasm.exe V6.22
+Linker/Locator:  ArmLink.exe V6.22
+Library Manager: ArmAr.exe V6.22
+Hex Converter:   FromElf.exe V6.22
+CPU DLL:         SARMCM3.DLL V5.40.0.3
 Dialog DLL:      DCM.DLL V1.17.5.0
-Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.9.0
-Dialog DLL:      TCM.DLL V1.56.1.0
+Target DLL:      CMSIS_AGDI.dll V1.33.18.0
+Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
-C:\Users\Lenovo\Desktop\Engin\MDK-ARM\Engin.uvprojx
-Project File Date:  10/01/2024
+F:\Engin\Engin\MDK-ARM\Engin.uvprojx
+Project File Date:  10/05/2024
 
 <h2>Output:</h2>
-*** Using Compiler 'V6.18', folder: 'C:\Users\Lenovo\AppData\Local\Keil_v5\ARM\ARM\ARMCLANG\Bin'
+*** Using Compiler 'V6.22', folder: 'C:\Users\stulti\AppData\Local\Keil_v5\ARM\ARMCLANG\Bin'
 Rebuild target 'Engin'
+compiling main.c...
+compiling gpio.c...
+assembling startup_stm32f407xx.s...
 compiling can.c...
 compiling usart.c...
-assembling startup_stm32f407xx.s...
 compiling stm32f4xx_hal_msp.c...
 compiling dma.c...
-compiling gpio.c...
-compiling stm32f4xx_hal_rcc_ex.c...
 compiling stm32f4xx_it.c...
-compiling main.c...
+compiling stm32f4xx_hal_rcc_ex.c...
+compiling stm32f4xx_hal_timebase_tim.c...
 compiling stm32f4xx_hal_flash.c...
-compiling stm32f4xx_hal_flash_ex.c...
 compiling stm32f4xx_hal_rcc.c...
 compiling stm32f4xx_hal_flash_ramfunc.c...
 compiling stm32f4xx_hal_can.c...
+compiling stm32f4xx_hal_flash_ex.c...
 compiling stm32f4xx_hal_gpio.c...
 compiling stm32f4xx_hal_dma_ex.c...
-compiling stm32f4xx_hal_pwr_ex.c...
 compiling stm32f4xx_hal_pwr.c...
-compiling stm32f4xx_hal_exti.c...
-compiling stm32f4xx_hal_tim.c...
-compiling stm32f4xx_hal.c...
-compiling stm32f4xx_hal_tim_ex.c...
 compiling stm32f4xx_hal_dma.c...
+compiling stm32f4xx_hal_pwr_ex.c...
 compiling stm32f4xx_hal_cortex.c...
+compiling stm32f4xx_hal_exti.c...
+compiling stm32f4xx_hal.c...
 compiling system_stm32f4xx.c...
-compiling bsp_rc.c...
+compiling stm32f4xx_hal_tim_ex.c...
 compiling motor.c...
+compiling bsp_rc.c...
 compiling pid.c...
-compiling lifting.c...
+compiling stm32f4xx_hal_tim.c...
 compiling remote_control.c...
+bsp/lifting.c(3): error: type specifier missing, defaults to 'int'; ISO C99 and later do not support implicit int [-Wimplicit-int]
+    3 |                 pid_ID[4] = PID_calc(&motor_pid,motor_lifting[0].speed_rpm,set_speed[4]);
+      |                 ^
+      |                 int
+bsp/lifting.c(3): error: use of undeclared identifier 'motor_lifting'
+    3 |                 pid_ID[4] = PID_calc(&motor_pid,motor_lifting[0].speed_rpm,set_speed[4]);
+      |                                                 ^
+bsp/lifting.c(3): error: use of undeclared identifier 'set_speed'
+    3 |                 pid_ID[4] = PID_calc(&motor_pid,motor_lifting[0].speed_rpm,set_speed[4]);
+      |                                                                            ^
+bsp/lifting.c(3): error: use of undeclared identifier 'motor_pid'
+    3 |                 pid_ID[4] = PID_calc(&motor_pid,motor_lifting[0].speed_rpm,set_speed[4]);
+      |                                       ^
+bsp/lifting.c(4): error: type specifier missing, defaults to 'int'; ISO C99 and later do not support implicit int [-Wimplicit-int]
+    4 |       pid_ID[5] = PID_calc(&motor_pid,motor_lifting[1].speed_rpm,set_speed[5]);
+      |       ^
+      |       int
+bsp/lifting.c(4): error: redefinition of 'pid_ID' with a different type: 'int[5]' vs 'int[4]'
+bsp/lifting.c(3): note: previous definition is here
+    3 |                 pid_ID[4] = PID_calc(&motor_pid,motor_lifting[0].speed_rpm,set_speed[4]);
+      |                 ^
+bsp/lifting.c(4): error: use of undeclared identifier 'motor_lifting'
+    4 |       pid_ID[5] = PID_calc(&motor_pid,motor_lifting[1].speed_rpm,set_speed[5]);
+      |                                       ^
+bsp/lifting.c(4): error: use of undeclared identifier 'set_speed'
+    4 |       pid_ID[5] = PID_calc(&motor_pid,motor_lifting[1].speed_rpm,set_speed[5]);
+      |                                                                  ^
+bsp/lifting.c(4): error: use of undeclared identifier 'motor_pid'
+    4 |       pid_ID[5] = PID_calc(&motor_pid,motor_lifting[1].speed_rpm,set_speed[5]);
+      |                             ^
+9 errors generated.
+compiling lifting.c...
 compiling stm32f4xx_hal_uart.c...
-linking...
-Program Size: Code=10238 RO-data=458 RW-data=12 ZI-data=2140  
-FromELF: creating hex file...
-"Engin\Engin.axf" - 0 Error(s), 0 Warning(s).
+"Engin\Engin.axf" - 9 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
 
 Package Vendor: ARM
                 https://www.keil.com/pack/ARM.CMSIS.6.1.0.pack
-                ARM.CMSIS.6.1.0
+                ARM::CMSIS@6.1.0
                 CMSIS (Common Microcontroller Software Interface Standard)
    * Component: CORE Version: 6.1.0
 
 Package Vendor: Keil
                 https://www.keil.com/pack/Keil.STM32F4xx_DFP.2.17.1.pack
-                Keil.STM32F4xx_DFP.2.17.1
+                Keil::STM32F4xx_DFP@2.17.1
                 STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
 
 <h2>Collection of Component include folders:</h2>
   ./RTE/_Engin
-  C:/Users/Lenovo/AppData/Local/Arm/Packs/ARM/CMSIS/6.1.0/CMSIS/Core/Include
-  C:/Users/Lenovo/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include
+  C:/Users/stulti/AppData/Local/Arm/Packs/ARM/CMSIS/6.1.0/CMSIS/Core/Include
+  C:/Users/stulti/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include
 
 <h2>Collection of Component Files used:</h2>
 
-   * Component: ARM::CMSIS:CORE:6.1.0
+   * Component: ARM::CMSIS:CORE@6.1.0
       Include file:  CMSIS/Core/Include/tz_context.h
+Target not created.
 Build Time Elapsed:  00:00:02
 </pre>
 </body>
