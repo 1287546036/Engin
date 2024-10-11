@@ -24,4 +24,4 @@ engin/lifting.o: bsp\lifting.c bsp\lifting.h ..\Core\Inc\can.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h bsp\pid.h \
-  bsp\struct_typedef.h
+  bsp\struct_typedef.h bsp\remote_control.h bsp\bsp_rc.h

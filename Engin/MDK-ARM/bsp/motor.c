@@ -18,7 +18,7 @@ void can_filter_fifo0_init(void)
     can_filter_st.FilterMaskIdLow = 0x204<<5;
     can_filter_st.FilterBank = 0;
     can_filter_st.FilterFIFOAssignment = CAN_RX_FIFO0;
-	  can_filter_st.SlaveStartFilterBank = 14;
+	//  can_filter_st.SlaveStartFilterBank = 14;
     HAL_CAN_ConfigFilter(&hcan1, &can_filter_st);
 
 }
@@ -76,10 +76,11 @@ void CAN_cmd_chassis(int16_t motor[])
 	  HAL_Delay(1);
 }
 ///////////////fifo1-5678
-void CAN_cmd_lifting(int16_t motor[])
-{
 	  uint8_t lifting_can_send_data[8]; 
     CAN_TxHeaderTypeDef lifting_tx_message;
+void CAN_cmd_lifting(int16_t motor[])
+{
+
     uint32_t send_mail_box;
 	
     lifting_tx_message.StdId=CAN_AUXILIARY_ALL_ID;//0x1ff
@@ -87,15 +88,15 @@ void CAN_cmd_lifting(int16_t motor[])
     lifting_tx_message.RTR=CAN_RTR_DATA;
     lifting_tx_message.DLC=0x08;
 	
-    lifting_can_send_data[0]=motor[4]>>8;
-    lifting_can_send_data[1]=motor[4];
-    lifting_can_send_data[2]=motor[5]>>8;
-    lifting_can_send_data[3]=motor[5];
-    lifting_can_send_data[4]=motor[6]>>8;
-    lifting_can_send_data[5]=motor[6];
-    lifting_can_send_data[6]=motor[7]>>8;
-    lifting_can_send_data[7]=motor[7];
-    
+    lifting_can_send_data[0]=motor[0]>>8;
+    lifting_can_send_data[1]=motor[0];
+    lifting_can_send_data[2]=motor[1]>>8;
+    lifting_can_send_data[3]=motor[1];
+    lifting_can_send_data[4]=motor[2]>>8;
+    lifting_can_send_data[5]=motor[2];
+    lifting_can_send_data[6]=motor[3]>>8;
+    lifting_can_send_data[7]=motor[3];
+   
     HAL_CAN_AddTxMessage(&hcan1,&lifting_tx_message,lifting_can_send_data,&send_mail_box);
 	
 	  HAL_Delay(1);

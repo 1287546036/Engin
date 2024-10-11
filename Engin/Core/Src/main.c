@@ -45,7 +45,8 @@ uint8_t dbus_resive[18];
 extern motor_measure_t motor_chassis[4];
 extern motor_measure_t motor_lifting[4];
 pids motor_pid;
-int16_t pid_ID[8];
+int16_t pid_ID[4];
+int16_t pid_lifting[4];
 fp32 set_speed[8];
 /* USER CODE END PD */
 
@@ -64,6 +65,7 @@ void CAN_cmd_chassis(int16_t motor[]);
 void CAN_cmd_lifting(int16_t motor[]);
 fp32 PID_calc(pids *pid, fp32 ref, fp32 set);
 void Chassis_SolutionForward( fp32 wheel_rpm[],short vx,short vy,short vw);
+void Lifting_dual_motor_pid(pids *motor_dual_pid,int16_t pid_dual_out[],motor_measure_t *motor1_dual,motor_measure_t *motor2_dual);
 //////void RC_Unpack(RC_ctrl_t *rc);
 
 /* USER CODE END PV */
@@ -113,6 +115,7 @@ short set_speedx,set_speedy,set_speedw=0;
   MX_DMA_Init();
   MX_CAN1_Init();
   MX_USART3_UART_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 	remote_control_init();
   HAL_UART_Receive_DMA(&huart3,dbus_resive,18);
@@ -129,24 +132,24 @@ short set_speedx,set_speedy,set_speedw=0;
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		////////////////////chassis////////////////////////////////////////////////////
-	  	set_speedx = rc_ctrl.rc.ch[1]* unit_speed;
-  		set_speedy = rc_ctrl.rc.ch[0]* unit_speed;
-//////	  	set_speedx =20;
-//////	  	set_speedy =100;
-	    Chassis_SolutionForward(set_speed,set_speedx,set_speedy,set_speedw);
-   		pid_ID[0] = PID_calc(&motor_pid,motor_chassis[0].speed_rpm,set_speed[0]);
-      pid_ID[1] = PID_calc(&motor_pid,motor_chassis[1].speed_rpm,set_speed[1]);
-	  	pid_ID[2] = PID_calc(&motor_pid,motor_chassis[2].speed_rpm,set_speed[2]);
-	  	pid_ID[3] = PID_calc(&motor_pid,motor_chassis[3].speed_rpm,set_speed[3]);
-  	
-		if (rc_ctrl.rc.s[0] == switch_right)//mei,ju
-		{
-		CAN_cmd_chassis(pid_ID);
-}
-		else
-			CAN_cmd_chassis(0);
-	 	
+//		////////////////////chassis////////////////////////////////////////////////////
+//	  	set_speedx = rc_ctrl.rc.ch[1]* unit_speed;
+//  		set_speedy = rc_ctrl.rc.ch[0]* unit_speed;
+////////	  	set_speedx =20;
+////////	  	set_speedy =100;
+//	    Chassis_SolutionForward(set_speed,set_speedx,set_speedy,set_speedw);
+//   		pid_ID[0] = PID_calc(&motor_pid,motor_chassis[0].speed_rpm,set_speed[0]);
+//      pid_ID[1] = PID_calc(&motor_pid,motor_chassis[1].speed_rpm,set_speed[1]);
+//	  	pid_ID[2] = PID_calc(&motor_pid,motor_chassis[2].speed_rpm,set_speed[2]);
+//	  	pid_ID[3] = PID_calc(&motor_pid,motor_chassis[3].speed_rpm,set_speed[3]);
+//  	
+//		if (rc_ctrl.rc.s[0] == switch_right)//mei,ju
+//		{
+//		CAN_cmd_chassis(pid_ID);
+//}
+//		else
+//			CAN_cmd_chassis(0);
+//	 	
 //////////////		/////////////////开环
 //////////////		set_speedx = 1000;
 //////////////		set_speedy = 100;
@@ -155,14 +158,37 @@ short set_speedx,set_speedy,set_speedw=0;
 //////////////	  CAN_cmd_chassis(pid_ID);
 
 
-///////////////////////////lifting  debug///////////////////////////////////////////////
-////      set_speed[4] =500;
-////	    set_speed[5] =500;
-////   		pid_ID[4] = PID_calc(&motor_pid,motor_lifting[0].speed_rpm,set_speed[4]);
-////      pid_ID[5] = PID_calc(&motor_pid,motor_lifting[1].speed_rpm,set_speed[5]);
+///////////////////////lifting  debug///////////////////////////////////////////////
+      set_speed[4] =500;
+	    set_speed[5] =500;
+   		pid_lifting[0] = PID_calc(&motor_pid,motor_lifting[0].speed_rpm,set_speed[4]);
+      pid_lifting[1] = PID_calc(&motor_pid,motor_lifting[1].speed_rpm,set_speed[5]);
+		
+		 Lifting_dual_motor_pid(&motor_pid,pid_lifting,&motor_lifting[1],&motor_lifting[2]);
+      CAN_cmd_lifting(pid_lifting);
 
-////      CAN_cmd_lifting(pid_ID);
-
+/*
+////////////////////气泵控制///////////////////////////////
+if (rc_ctrl.rc.s[1] == 3)
+	// 发送数据  
+    HAL_UART_Transmit(&huart1, (uint8_t*)txData, strlen(txData), HAL_MAX_DELAY);  
+  
+    // 接收数据  
+    if (HAL_UART_Receive(&huart1, (uint8_t*)rxData, 20, HAL_MAX_DELAY) == HAL_OK)  
+    {  
+      // 在这里处理接收到的数据  
+      HAL_UART_Transmit(&huart1, (uint8_t*)rxData, strlen(rxData), HAL_MAX_DELAY); // 回显接收到的数据  
+    } 
+		*/
+		
+		
+		
+		
+		
+		
+		
+		
+		
   }
 	
 	//pid,rc>motor>chassic,lifting??
@@ -215,41 +241,6 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-void Lifting(pids *motor_pid,uint16_t pid_ID[],motor_measure_t *motor[])
-{
-	fp32 deviation;
-	fp32 set_angle[2];
-	fp32 tar_angle[2];
-	fp32 tar_speed[2];
-	fp32 tar_current[2];
-
-#define angle_ratio 0.001*8191/660.0	
-
- 	set_angle[0] = rc_ctrl.rc.ch[2]*angle_ratio;////same
- 	set_angle[1] = rc_ctrl.rc.ch[2]*angle_ratio;
-	tar_angle[0] = motor[0]->real_angle +set_angle[0];////same
-	tar_angle[1] = motor[1]->real_angle +set_angle[1];
-	
-	
-	tar_speed[0]= PID_calc(motor_pid,motor[0]->real_angle,tar_angle[0]);////same
-	tar_speed[1]= PID_calc(motor_pid,motor[1]->real_angle,tar_angle[1]);
-	
-	tar_current[0] = PID_calc(motor_pid,motor[0]->speed_rpm,tar_speed[0]);
-  tar_current[1] = PID_calc(motor_pid,motor[1]->speed_rpm,tar_speed[1]);////deffirent
-	deviation = 0.5f*(tar_speed[0] - tar_speed[1]);
-	
-	pid_ID[4] = PID_calc(motor_pid,motor[0]->real_current,tar_current[0]);//
-  pid_ID[5] = PID_calc(motor_pid,motor[1]->real_current,tar_current[1])-deviation;
-}
-/*
-    float speed_diff = motor1->speed - motor2->speed;
-
-    float sync_adjustment = 0.5f * speed_diff; // ????????,????????????
-
-    motor1->pid_output = pid_controller(setpoint_speed, motor1->speed, params);
-    motor2->pid_output = pid_controller(setpoint_speed, motor2->speed, params) - sync_adjustment; // ??????????
-*/
-
 
 /* USER CODE END 4 */
 
