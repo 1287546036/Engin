@@ -121,7 +121,7 @@ short set_speedx,set_speedy,set_speedw=0;
   HAL_UART_Receive_DMA(&huart3,dbus_resive,18);
   __HAL_UART_ENABLE_IT(&huart3, UART_IT_IDLE);/////////////////////////////////////////////////////////////////////////
   can1_start();
-	pidINIT(&motor_pid,PID_POSITION,3,0.1,0,10000,1000);
+	pidINIT(&motor_pid,PID_POSITION,2,0.1,0,8000,100);
  
   /* USER CODE END 2 */
 
@@ -150,47 +150,48 @@ short set_speedx,set_speedy,set_speedw=0;
 //		else
 //			CAN_cmd_chassis(0);
 //	 	
-//////////////		/////////////////开环
-//////////////		set_speedx = 1000;
-//////////////		set_speedy = 100;
-//////////////		pid_ID[0] =PID_calc(&motor_pid,motor_chassis[0].speed_rpm,set_speedy);
-//////////////	//		pid_ID[0] =	PID_calc(&motor_pid,0,set_speedy);
-//////////////	  CAN_cmd_chassis(pid_ID);
+////		/////////////////开环
+////		set_speedx = 1000;
+////		set_speedy = -800;
+////		
+////	pid_ID[1] =PID_calc(&motor_pid,motor_chassis[1].speed_rpm,set_speedy);
+////	//		pid_ID[0] =	PID_calc(&motor_pid,0,set_speedy);
+////	  CAN_cmd_chassis(pid_ID);
 
 
 ///////////////////////lifting  debug///////////////////////////////////////////////
-      set_speed[4] =500;
-	    set_speed[5] =500;
-   		pid_lifting[0] = PID_calc(&motor_pid,motor_lifting[0].speed_rpm,set_speed[4]);
-      pid_lifting[1] = PID_calc(&motor_pid,motor_lifting[1].speed_rpm,set_speed[5]);
-		
-		 Lifting_dual_motor_pid(&motor_pid,pid_lifting,&motor_lifting[1],&motor_lifting[2]);
-      CAN_cmd_lifting(pid_lifting);
-
-/*
-////////////////////气泵控制///////////////////////////////
-if (rc_ctrl.rc.s[1] == 3)
-	// 发送数据  
-    HAL_UART_Transmit(&huart1, (uint8_t*)txData, strlen(txData), HAL_MAX_DELAY);  
-  
-    // 接收数据  
-    if (HAL_UART_Receive(&huart1, (uint8_t*)rxData, 20, HAL_MAX_DELAY) == HAL_OK)  
-    {  
-      // 在这里处理接收到的数据  
-      HAL_UART_Transmit(&huart1, (uint8_t*)rxData, strlen(rxData), HAL_MAX_DELAY); // 回显接收到的数据  
-    } 
-		*/
-		
-		
-		
-		
-		
-		
-		
-		
-		
-  }
+//set_speed[4] =500;
+//set_speed[5] =500;
+//pid_lifting[0] = PID_calc(&motor_pid,motor_lifting[0].real_current,set_speed[4]);
+//pid_lifting[1] = PID_calc(&motor_pid,motor_lifting[1].real_current,set_speed[5]);
 	
+   Lifting_dual_motor_pid(&motor_pid,pid_lifting,&motor_lifting[1],&motor_lifting[2]);
+   CAN_cmd_lifting(pid_lifting);
+
+/////*
+//////////////////////////气泵控制///////////////////////////////
+//////if (rc_ctrl.rc.s[1] == 3)
+//////	// 发送数据  
+//////    HAL_UART_Transmit(&huart1, (uint8_t*)txData, strlen(txData), HAL_MAX_DELAY);  
+//////  
+//////    // 接收数据  
+//////    if (HAL_UART_Receive(&huart1, (uint8_t*)rxData, 20, HAL_MAX_DELAY) == HAL_OK)  
+//////    {  
+//////      // 在这里处理接收到的数据  
+//////      HAL_UART_Transmit(&huart1, (uint8_t*)rxData, strlen(rxData), HAL_MAX_DELAY); // 回显接收到的数据  
+//////    } 
+//////		*/
+//////		
+//////		
+//////		
+//////		
+//////		
+//////		
+//////		
+//////		
+//////		
+  }
+//////	
 	//pid,rc>motor>chassic,lifting??
   /* USER CODE END 3 */
 }
