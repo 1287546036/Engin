@@ -46,32 +46,9 @@ extern "C" {
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
-typedef enum
-{
-  CAN_CHASSIS_ALL_ID = 0x200,
-  CAN_AUXILIARY_ALL_ID = 0x1FF,
-  motor1 = 0x201,
-  motor2 = 0x202,
-  motor3 = 0x203,
-  motor4 = 0x204,
-//	motor1 = 0x205,
-//  motor2 = 0x206,
-//  motor3 = 0x207,
-//  motor4 = 0x208,/////6020
-	motor5 = 0x205,
-  motor6 = 0x206,
-  motor7 = 0x207,
-  motor8 = 0x208,
-}can_msg_id;
- 
-typedef struct 
-{
-    uint16_t angle_value;
-    int16_t speed_rpm;
-    int16_t real_current;
-    uint8_t temperate;
-    int16_t real_angle;
-}motor_measure_t;
+
+
+
 typedef struct
 {
     struct
@@ -85,7 +62,9 @@ typedef struct
         
         unsigned short sw;
     }rc;
-}DBUS;
+}DBUS;//?????????????????????????????????????????
+
+
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/

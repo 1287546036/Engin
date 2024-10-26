@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "cmsis_os.h"
 #include "can.h"
 #include "dma.h"
 #include "usart.h"
@@ -29,25 +30,21 @@
 #include "motor.h"
 #include "struct_typedef.h"
 #include "remote_control.h"
-#include "lifting.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 #define unit_speed 10000/660.0 
-#define switch_right 2
 DBUS remoter;
 uint8_t dbus_resive[18];
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-extern motor_measure_t motor_chassis[4];
-extern motor_measure_t motor_lifting[4];
-pids motor_pid;
-int16_t pid_ID[4];
-int16_t pid_lifting[4];
-fp32 set_speed[8];
+
+
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -72,6 +69,7 @@ void Lifting_dual_motor_pid(pids *motor_dual_pid,int16_t pid_dual_out[],motor_me
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -90,7 +88,6 @@ int main(void)
 
   /* USER CODE BEGIN 1 */
 
-short set_speedx,set_speedy,set_speedw=0;
 
   /* USER CODE END 1 */
 
@@ -116,14 +113,27 @@ short set_speedx,set_speedy,set_speedw=0;
   MX_CAN1_Init();
   MX_USART3_UART_Init();
   MX_USART1_UART_Init();
+  MX_CAN2_Init();
+  MX_USART6_UART_Init();
   /* USER CODE BEGIN 2 */
 	remote_control_init();
   HAL_UART_Receive_DMA(&huart3,dbus_resive,18);
   __HAL_UART_ENABLE_IT(&huart3, UART_IT_IDLE);/////////////////////////////////////////////////////////////////////////
-  can1_start();
-	pidINIT(&motor_pid,PID_POSITION,2,0.1,0,8000,100);
+  can_start();
+
  
   /* USER CODE END 2 */
+
+  /* Init scheduler */
+  osKernelInitialize();
+
+  /* Call init function for freertos objects (in cmsis_os2.c) */
+  MX_FREERTOS_Init();
+
+  /* Start scheduler */
+  osKernelStart();
+
+  /* We should never get here as control is now taken by the scheduler */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -132,67 +142,22 @@ short set_speedx,set_speedy,set_speedw=0;
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-//		////////////////////chassis////////////////////////////////////////////////////
-//	  	set_speedx = rc_ctrl.rc.ch[1]* unit_speed;
-//  		set_speedy = rc_ctrl.rc.ch[0]* unit_speed;
-////////	  	set_speedx =20;
-////////	  	set_speedy =100;
-//	    Chassis_SolutionForward(set_speed,set_speedx,set_speedy,set_speedw);
-//   		pid_ID[0] = PID_calc(&motor_pid,motor_chassis[0].speed_rpm,set_speed[0]);
-//      pid_ID[1] = PID_calc(&motor_pid,motor_chassis[1].speed_rpm,set_speed[1]);
-//	  	pid_ID[2] = PID_calc(&motor_pid,motor_chassis[2].speed_rpm,set_speed[2]);
-//	  	pid_ID[3] = PID_calc(&motor_pid,motor_chassis[3].speed_rpm,set_speed[3]);
-//  	
-//		if (rc_ctrl.rc.s[0] == switch_right)//mei,ju
-//		{
-//		CAN_cmd_chassis(pid_ID);
-//}
-//		else
-//			CAN_cmd_chassis(0);
-//	 	
-////		/////////////////开环
-////		set_speedx = 1000;
-////		set_speedy = -800;
-////		
-////	pid_ID[1] =PID_calc(&motor_pid,motor_chassis[1].speed_rpm,set_speedy);
-////	//		pid_ID[0] =	PID_calc(&motor_pid,0,set_speedy);
-////	  CAN_cmd_chassis(pid_ID);
-
-
-///////////////////////lifting  debug///////////////////////////////////////////////
-//set_speed[4] =500;
-//set_speed[5] =500;
-//pid_lifting[0] = PID_calc(&motor_pid,motor_lifting[0].real_current,set_speed[4]);
-//pid_lifting[1] = PID_calc(&motor_pid,motor_lifting[1].real_current,set_speed[5]);
-	
-   Lifting_dual_motor_pid(&motor_pid,pid_lifting,&motor_lifting[1],&motor_lifting[2]);
-   CAN_cmd_lifting(pid_lifting);
 
 /////*
-//////////////////////////气泵控制///////////////////////////////
+//////////////////////////姘旀车鎺у埗///////////////////////////////
 //////if (rc_ctrl.rc.s[1] == 3)
-//////	// 发送数据  
+//////	// 鍙戦?佹暟鎹?  
 //////    HAL_UART_Transmit(&huart1, (uint8_t*)txData, strlen(txData), HAL_MAX_DELAY);  
 //////  
-//////    // 接收数据  
+//////    // 鎺ユ敹鏁版嵁  
 //////    if (HAL_UART_Receive(&huart1, (uint8_t*)rxData, 20, HAL_MAX_DELAY) == HAL_OK)  
 //////    {  
-//////      // 在这里处理接收到的数据  
-//////      HAL_UART_Transmit(&huart1, (uint8_t*)rxData, strlen(rxData), HAL_MAX_DELAY); // 回显接收到的数据  
+//////      // 鍦ㄨ繖閲屽鐞嗘帴鏀跺埌鐨勬暟鎹?  
+//////      HAL_UART_Transmit(&huart1, (uint8_t*)rxData, strlen(rxData), HAL_MAX_DELAY); // 鍥炴樉鎺ユ敹鍒扮殑鏁版嵁  
 //////    } 
 //////		*/
-//////		
-//////		
-//////		
-//////		
-//////		
-//////		
-//////		
-//////		
-//////		
+
   }
-//////	
-	//pid,rc>motor>chassic,lifting??
   /* USER CODE END 3 */
 }
 
