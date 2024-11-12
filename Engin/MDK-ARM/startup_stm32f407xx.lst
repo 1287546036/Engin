@@ -849,11 +849,12 @@ interwork --depend=engin\startup_stm32f407xx.d -oengin\startup_stm32f407xx.o -I
 ARM Macro Assembler    Page 14 
 
 
-../Core/Inc -I.\RTE\_Engin -IF:\Keil_v5\ARM\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\In
-clude -IF:\Keil_v5\ARM\Packs\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\
-STM32F4xx\Include --predefine="__UVISION_VERSION SETA 537" --predefine="_RTE_ S
-ETA 1" --predefine="STM32F407xx SETA 1" --predefine="_RTE_ SETA 1" --list=start
-up_stm32f407xx.lst startup_stm32f407xx.s
+.\RTE\_Engin -IF:\Keil_v5\ARM\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include -IF:\Kei
+l_v5\ARM\Packs\ARM\CMSIS\5.9.0\CMSIS\DSP\Include -IF:\Keil_v5\ARM\Packs\ARM\CMS
+IS\5.9.0\CMSIS\DSP\PrivateInclude -IF:\Keil_v5\ARM\Packs\Keil\STM32F4xx_DFP\2.1
+7.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include --predefine="__UVISION_VERSION SE
+TA 537" --predefine="_RTE_ SETA 1" --predefine="STM32F407xx SETA 1" --predefine
+="_RTE_ SETA 1" --list=startup_stm32f407xx.lst startup_stm32f407xx.s
 
 
 

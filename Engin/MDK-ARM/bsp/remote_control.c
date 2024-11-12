@@ -1,7 +1,7 @@
 /**
   ****************************(C) COPYRIGHT 2019 DJI****************************
   * @file       remote_control.c/h
-  * @brief      遥控器处理，遥控器是通过类似SBUS的协议传输，利用DMA传输方式节约CPU
+  * @brief      遥控器处理以及模式判断，遥控器是通过类似SBUS的协议传输，利用DMA传输方式节约CPU
   *             资源，利用串口空闲中断来拉起处理函数，同时提供一些掉线重启DMA，串口
   *             的方式保证热插拔的稳定性。
   * @note       该任务是通过串口中断启动，不是freeRTOS任务
@@ -16,18 +16,6 @@
   @endverbatim
   ****************************(C) COPYRIGHT 2019 DJI****************************
   */
-  
-  /*
-  右开关
-     1.失能所有
-	 2.底盘使能,移动,其他锁定
-	 3.锁死底盘(有力停止),开始其他功能
-  左开关
-     1.抬升前伸锁死,机械臂锁死
-     2.抬升前伸移动,机械臂锁死,原底盘右遥杆切换抬升前伸
-	 3.除机械臂全部锁死,切换自定义控制器(包括气泵开关控制)
-  */
-
 #include "remote_control.h"
 
 #include "main.h"
@@ -35,6 +23,7 @@
 
 extern UART_HandleTypeDef huart3;
 extern DMA_HandleTypeDef hdma_usart3_rx;
+
 
 /**
   * @brief          remote control protocol resolution
@@ -50,10 +39,23 @@ extern DMA_HandleTypeDef hdma_usart3_rx;
   */
 static void sbus_to_rc(volatile const uint8_t *sbus_buf, RC_ctrl_t *rc_ctrl);
 
+	
+/**
+  * @brief          控制模式判断
+  * @param[in]      rc_ctrl: 遥控器数据指针
+  * @param[out]     control_mode:模式输出
+  * @retval         none
+  */
+ void control_mode_jud(RC_ctrl_t *rc_ctrl,control_mode_t *control_mode);
+
 //remote control data 
 //遥控器控制变量
 RC_ctrl_t rc_ctrl;
 
+
+
+
+control_mode_t control_mode;
 //receive data, 18 bytes one frame, but set 36 bytes 
 //接收原始数据，为18个字节，给了36个字节长度，防止DMA传输越界
 static uint8_t sbus_rx_buf[2][SBUS_RX_BUF_NUM];
@@ -157,6 +159,8 @@ void USART3_IRQHandler(void)
             {
                 //处理遥控器数据
                 sbus_to_rc(sbus_rx_buf[1], &rc_ctrl);
+				        //进行模式判断
+                control_mode_jud(&rc_ctrl,&control_mode);		
             }
         }
     }
@@ -204,3 +208,61 @@ static void sbus_to_rc(volatile const uint8_t *sbus_buf, RC_ctrl_t *rc_ctrl)
     rc_ctrl->rc.ch[3] -= RC_CH_VALUE_OFFSET;
     rc_ctrl->rc.ch[4] -= RC_CH_VALUE_OFFSET;
 }
+
+
+/**
+  * @brief          Control mode judgment
+  * @param[in]      rc_ctrl: remote control data struct point
+  * @param[out]     control_mode:model output
+  * @retval         none
+  */
+/**
+  * @brief          控制模式判断
+  * @param[in]      rc_ctrl: 遥控器数据指针
+  * @param[out]     control_mode:模式输出
+  * @retval         none
+  */
+static void control_mode_jud(RC_ctrl_t *rc_ctrl,control_mode_t *control_mode)
+{
+	    if (rc_ctrl == NULL)
+    {
+        return;
+    }
+		typedef enum
+	 {
+		up=1,
+		down=2,
+		mid=3
+	 }rc_switch;
+int switch_right = rc_ctrl->rc.s[1];
+int switch_left  = rc_ctrl->rc.s[0];
+
+	if(switch_right ==up)
+	{control_mode->mode = all_disability;
+//		control_mode->right_ch = NULL;
+//	  control_mode->left_ch = NULL;
+		}
+		else if(switch_right==mid)
+      control_mode->mode = chassis_enable;
+  else if(switch_right==down)
+  {
+    if(switch_left==up)
+        control_mode->mode = lifting_enable;
+    else if(switch_left==mid)
+        control_mode->mode = mecharm_enable;
+    else if(switch_left==down)
+        control_mode->mode = arm_air_enable;
+  }
+}
+/*
+  右开关
+   1.失能所有
+	 2.底盘使能,移动,其他锁定
+	 3.锁死底盘(有力停止),开始其他功能
+  左开关
+   1.抬升前伸移动,机械臂锁死,原底盘右遥杆切换抬升前伸
+	 2.除机械臂全部锁死,切换自定义控制器
+	 3.气泵打开,除机械臂全部锁死,切换自定义控制器
+	 
+	 左摇杆一直控制云台,右在抬升前伸时切换
+  */

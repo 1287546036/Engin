@@ -1,0 +1,10 @@
+engin\kalman_filter.o: bmi088\kalman_filter.c
+engin\kalman_filter.o: bmi088\kalman_filter.h
+engin\kalman_filter.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
+engin\kalman_filter.o: ../Drivers/CMSIS/Include/core_cm4.h
+engin\kalman_filter.o: F:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+engin\kalman_filter.o: ../Drivers/CMSIS/Include/cmsis_version.h
+engin\kalman_filter.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
+engin\kalman_filter.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
+engin\kalman_filter.o: ../Drivers/CMSIS/Include/mpu_armv7.h
+engin\kalman_filter.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h

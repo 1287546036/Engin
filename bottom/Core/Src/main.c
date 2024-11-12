@@ -33,6 +33,10 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define MAX_RX_BUFFER_SIZE 10 // 定义最大接收缓冲区大小，根据实际需要调整
+
+uint8_t rxBuffer[MAX_RX_BUFFER_SIZE];  // 定义接收数据的数组
+uint32_t rxBufferIdx = 0;  // 定义接收数据的索引
 
 /* USER CODE END PD */
 
@@ -89,17 +93,22 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-
+HAL_UART_Receive_IT(&huart2,&rxBuffer[rxBufferIdx],1);
+  __HAL_UART_ENABLE_IT(&huart2, UART_IT_IDLE);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+//   HAL_GPIO_WritePin(GPIOA,GPIO_PIN_8,GPIO_PIN_SET);
+//	  HAL_Delay(500);
+//		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_8,GPIO_PIN_RESET);
+//	  HAL_Delay(500);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		
+	
   }
   /* USER CODE END 3 */
 }
@@ -144,7 +153,20 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void HAL_UART_RxHalfCpltCallback(UART_HandleTypeDef *huart)
+{
+  if (huart == &huart2)  // 假设是串口2的接收中断
+  {
+    rxBuffer[rxBufferIdx++] = huart->Instance->DR; } // 将接收到的数据存入数组，并更新索引
+  if(rxBuffer[0]==1)
+  {
+	  HAL_GPIO_WritePin(GPIOA,GPIO_PIN_8,GPIO_PIN_SET);
+HAL_Delay(1000);	  
+  }
+else
+	 HAL_GPIO_WritePin(GPIOA,GPIO_PIN_8,GPIO_PIN_RESET);
+HAL_Delay(1000);
+}
 /* USER CODE END 4 */
 
 /**

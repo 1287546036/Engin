@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "rm_motor.h": "c",
+        "controller.h": "c",
+        "bsp_can.h": "c",
+        "dm_motor.h": "c",
+        "user_lib.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
+}

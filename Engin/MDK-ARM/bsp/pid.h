@@ -28,7 +28,7 @@ typedef struct pidData {
 } pids;
 
  
-fp32 PID_Calc(pids *pid,fp32 ref,fp32 set);
+//fp32 PID_Calc(pids *pid,fp32 ref,fp32 set);
 void PID_init(pids *pid,uint8_t mode,const fp32 PID[3],fp32 max_out,fp32 max_iout);
  
 #pragma pack()

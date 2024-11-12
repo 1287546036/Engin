@@ -245,9 +245,10 @@ void CAN_cmd_gimbal(int16_t motor[])
 motor_measure_t motor_chassis[4]; 
 uint8_t rx_data[8]; 
 
+motor_measure_t motor_gimbal[4]; 
 
 
-void HAL_CAN1_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
+void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
     
     CAN_RxHeaderTypeDef rx_header;
@@ -259,9 +260,9 @@ void HAL_CAN1_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
         case motor3:
         case motor4:
         {
-            static uint8_t i = 0;
-            i = rx_header.StdId - motor1;
-            get_motor_measure(&motor_chassis[i],rx_data);
+            static uint8_t n = 0;
+            n = rx_header.StdId - motor1;
+            get_motor_measure(&motor_chassis[n],rx_data);
             break;
         }
         default:
@@ -269,6 +270,59 @@ void HAL_CAN1_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
             break;
         }
     }
+		
+		
+		///////////////////////can2 fifo0
+
+
+    HAL_CAN_GetRxMessage(&hcan2, CAN_RX_FIFO0, &rx_header, rx_data);
+  	switch(rx_header.StdId)
+    {
+        case motor1:
+        case motor2:
+        case motor3:
+        {
+            static uint8_t i = 0;
+            i = rx_header.StdId - motor1;
+            get_motor_measure(&motor_gimbal[i],rx_data);
+            break;
+        }
+        default:
+        {
+            break;
+        }
+    }
+		
+		
+		 
+		/*	if(hcan->Instance==CAN2)
+	{
+	  switch (rx_header.StdId) 
+    {       
+		 //下面是英雄底盘的关键，获取底盘三个方向的期望速度 
+			case CAN_GIMBAL_CONNECT_CHASSIS :
+      {
+				get_vx_vy_wz_set(&processed_send_data,rx_data);
+				
+			 //唤醒底盘任务,
+        if (xTaskGetSchedulerState() != taskSCHEDULER_NOT_STARTED)
+        {
+         static BaseType_t xHigherPriorityTaskWoken;
+         vTaskNotifyGiveFromISR( Chassis_Task_Local_Handler, &xHigherPriorityTaskWoken);
+         portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+					i++;
+        }			 
+        break;
+      }
+     //上面是英雄底盘的关键，获取底盘三个方向的期望速度
+			 
+     default:
+     {
+        break;
+     }
+    }
+	}*/
+
 }
 
 
@@ -276,7 +330,7 @@ void HAL_CAN1_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 motor_measure_t motor_lifting[4]; 
 uint8_t rx_lifting_data[8]; 
 
-void HAL_CAN1_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan)
+void HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
     CAN_RxHeaderTypeDef rx1_header;
     HAL_CAN_GetRxMessage(&hcan1, CAN_RX_FIFO1, &rx1_header, rx_lifting_data);
@@ -299,32 +353,7 @@ void HAL_CAN1_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan)
     }
 }
 
-/////////////////////can2 fifo0
-motor_measure_t motor_gimbal[4]; 
-uint8_t rx_data[8]; 
 
-void HAL_CAN2_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
-{
-    
-    CAN_RxHeaderTypeDef rx_header;
-    HAL_CAN_GetRxMessage(&hcan2, CAN_RX_FIFO0, &rx_header, rx_data);
-  	switch(rx_header.StdId)
-    {
-        case motor1:
-        case motor2:
-        case motor3:
-        {
-            static uint8_t i = 0;
-            i = rx_header.StdId - motor1;
-            get_motor_measure(&motor_gimbal[i],rx_data);
-            break;
-        }
-        default:
-        {
-            break;
-        }
-    }
-}
 
 
 
@@ -397,3 +426,18 @@ void can_start(void)
     HAL_CAN_ActivateNotification(&hcan2,CAN_IT_RX_FIFO0_MSG_PENDING|CAN_IT_RX_FIFO1_MSG_PENDING);
 }
 
+
+
+///*                           亮灯显示接收状态                             */
+//void LED_RX_Status_display()
+//{
+//	//每个电机分开写if,怎么判断值齐不齐?//不需要判断,都有就不会进if
+//	//缺那几个id的就连续闪几下,隔几秒再闪几下
+//	//不同部分颜色分开,分先后
+//	int i;
+//	for(i=0;i++;i<=3)
+//	{
+//	if(motor_chassis[i] == NULL)
+//		HAL_GPIO_WritePin(GPIOA,LED_B_GPIO_Port,GPIO_PIN_SET);
+//	}
+//}

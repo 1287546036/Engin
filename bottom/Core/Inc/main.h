@@ -57,8 +57,6 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define venting_Pin GPIO_PIN_15
-#define venting_GPIO_Port GPIOB
 #define suction_Pin GPIO_PIN_8
 #define suction_GPIO_Port GPIOA
 

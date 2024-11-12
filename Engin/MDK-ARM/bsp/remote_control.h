@@ -21,6 +21,23 @@
 #include "struct_typedef.h"
 #include "bsp_rc.h"
 
+#define rc_deadline_limit(input, output, dealine)        \
+    {                                                    \
+        if ((input) > (dealine) || (input) < -(dealine)) \
+        {                                                \
+            (output) = (input);                          \
+        }                                                \
+        else                                             \
+        {                                                \
+            (output) = 0;                                \
+        }                                                \
+    }
+
+
+
+
+
+
 #define SBUS_RX_BUF_NUM 36u
 
 #define RC_FRAME_LENGTH 18u
@@ -82,6 +99,17 @@ typedef struct
         } key;
 
 } RC_ctrl_t;
+typedef struct{
+uint8_t mode; 
+int16_t right_ch[2];//后完善
+int16_t left_ch[2];
+}control_mode_t;
+
+#define all_disability 0
+#define chassis_enable 1
+#define lifting_enable 2
+#define mecharm_enable 3
+#define arm_air_enable 4
 
 /* ----------------------- Internal Data ----------------------------------- */
 
@@ -108,4 +136,27 @@ extern void remote_control_init(void);
   */
 extern const RC_ctrl_t *get_remote_control_point(void);
 extern RC_ctrl_t rc_ctrl;
+extern control_mode_t control_mode;
+//	typedef enum
+//	{
+//	   up=1,
+//	   down=2,
+//	   mid=3
+//	}rc_switch;
+//int8_t switch_right  = rc_ctrl.rc.s[1];
+//int8_t  switch_left  = rc_ctrl.rc.s[0];
+
+//#if(*rc_ctrl.rc.s[1] ==up)
+//  #define control_mode = all_disability;
+//#elif(switch_right==mid)
+//  #define control_mode=chassis_enable;
+//#elif(switch_right==down&&switch_left==up)
+//  #define control_mode=lifting_enable;
+//#elif(switch_right==down&&switch_left==mid)
+//  #define control_mode=mecharm_enable;
+//#elif(switch_right==down&&switch_left==down)
+//  #define control_mode=arm_air_enable;
+//#endif
+
+
 #endif
