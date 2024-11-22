@@ -59,9 +59,6 @@ uint8_t rx_cnt=0;//接收数据长度
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-extern UART_HandleTypeDef huart7;
-extern UART_HandleTypeDef huart8;
-extern UART_HandleTypeDef huart3;
 extern UART_HandleTypeDef huart6;
 extern TIM_HandleTypeDef htim6;
 
@@ -208,20 +205,6 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
-  * @brief This function handles USART3 global interrupt.
-  */
-void USART3_IRQHandler(void)
-{
-  /* USER CODE BEGIN USART3_IRQn 0 */
-
-  /* USER CODE END USART3_IRQn 0 */
-  HAL_UART_IRQHandler(&huart3);
-  /* USER CODE BEGIN USART3_IRQn 1 */
-
-  /* USER CODE END USART3_IRQn 1 */
-}
-
-/**
   * @brief This function handles TIM6 global interrupt, DAC1 and DAC2 underrun error interrupts.
   */
 void TIM6_DAC_IRQHandler(void)
@@ -244,57 +227,11 @@ void USART6_IRQHandler(void)
 
 
 
-//	uint8_t temp;
-//	if(USART_GetITStatuS(USART1,USART_IT_RXNE)!= RESET)//接收到一个字节，进入一次接收中断
-//	{
-//	rx_buff[rx_cnt++]=USART_ReceiveData(USART6);//将接收的数据存入rx buff中
-//	if(rx_cnt>=100)rx_cnt=0;
-//	//每包数据不能超过接收bufi的总长度
-//	USART_ClearITPendingBit(USART6,USART_IT_RXNE);//清除接收中断标志
-//	}
-//	if(USART_GetITStatuS(USART6,USART_IT_IDLE)!= RESET)//接收完数据后进入空闲中断
-//	{
-//	//USART ClearITPendingBit(DEBUG_ USARTX,USART IT IDLE);//这条语句是无效的
-//	temp=USART6->SR; //先读SR,再读DR才能完成idle中断的清要，否则会一直进入中断。
-//	temp =USART6->DR;
-
-//	rx_done = 1;
-//	}
-
-
   /* USER CODE END USART6_IRQn 0 */
   HAL_UART_IRQHandler(&huart6);
   /* USER CODE BEGIN USART6_IRQn 1 */
 
   /* USER CODE END USART6_IRQn 1 */
-}
-
-/**
-  * @brief This function handles UART7 global interrupt.
-  */
-void UART7_IRQHandler(void)
-{
-  /* USER CODE BEGIN UART7_IRQn 0 */
-
-  /* USER CODE END UART7_IRQn 0 */
-  HAL_UART_IRQHandler(&huart7);
-  /* USER CODE BEGIN UART7_IRQn 1 */
-
-  /* USER CODE END UART7_IRQn 1 */
-}
-
-/**
-  * @brief This function handles UART8 global interrupt.
-  */
-void UART8_IRQHandler(void)
-{
-  /* USER CODE BEGIN UART8_IRQn 0 */
-
-  /* USER CODE END UART8_IRQn 0 */
-  HAL_UART_IRQHandler(&huart8);
-  /* USER CODE BEGIN UART8_IRQn 1 */
-
-  /* USER CODE END UART8_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */

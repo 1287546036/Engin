@@ -1,20 +1,20 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2024 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * @file           : main.c
+ * @brief          : Main program body
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2024 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -31,31 +31,39 @@
 uint8_t encoder_resive;
 typedef struct
 {
-	uint8_t id;
-	uint32_t get_data;
-	float angle;
-}encoder_back_t;
+  uint8_t id;
+  uint32_t get_data;
+  float angle;
+} encoder_back_t;
 
 encoder_back_t encoder_A_back;
 encoder_back_t encoder_B_back;
 encoder_back_t encoder_C_back;
 encoder_back_t encoder_D_back;
-//typedef _packed struct 
-//{ 
-//uint8_t data[x]; 
-//}custom_robot_data_t;
+
 uint32_t angle_count;
 
+typedef struct
+{
+  uint8_t data[30];
+} custom_robot_data_t;
+
+custom_robot_data_t custom_robot_data;
+
+uint8_t text[] = "123456";
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 
-#define MAX_RX_BUFFER_SIZE 10 // 定义最大接收缓冲区大小，根据实际需要调整
+#define MAX_RX_BUFFER_SIZE 18 // 定义最大接收缓冲区大小，根据实际需要调整
 
-uint8_t rxBuffer[MAX_RX_BUFFER_SIZE];  // 定义接收数据的数组
-uint32_t rxBufferIdx = 0;  // 定义接收数据的索引
+uint8_t rxBuffer[MAX_RX_BUFFER_SIZE]; // 定义接收数据的数组
+uint32_t rxBufferIdx = 0;             // 定义接收数据的索引
 
+#define max_size 10 // 定义最大接收缓冲区大小，根据实际需要调整
+
+uint8_t rxBuffer_deposit[max_size]; // 定义接收数据的数组
 
 /* USER CODE END PD */
 
@@ -111,28 +119,110 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_UART7_Init();
-  MX_UART8_Init();
-  MX_USART3_UART_Init();
   MX_USART6_UART_Init();
   /* USER CODE BEGIN 2 */
-    __HAL_UART_ENABLE_IT(&huart6, UART_IT_IDLE);//中断使能DMA
-	HAL_UART_Receive_IT(&huart6, &rxBuffer[rxBufferIdx], MAX_RX_BUFFER_SIZE); 
-	
+  //__HAL_UART_ENABLE_IT(&huart6, UART_IT_IDLE); // 中断使能DMA
+  HAL_UART_Receive_IT(&huart6, &rxBuffer[rxBufferIdx], MAX_RX_BUFFER_SIZE);
+
+  //	__HAL_UART_ENABLE_IT(&huart7, UART_IT_IDLE);//中断使能DMA
+
+  //	HAL_UART_Transmit_IT(&huart7,text, sizeof(text));
+  //    HAL_UART_Transmit(&huart7,text, sizeof(text),0xffff);//
+
+  //	HAL_UART_Transmit_IT(&huart7,custom_robot_data.data, sizeof(custom_robot_data.data));
+  //    HAL_UART_Transmit(&huart7,custom_robot_data.data, sizeof(custom_robot_data.data),0xffff);//
+  //
+  //    __HAL_UART_ENABLE_IT(&huart6, UART_IT_IDLE);//中断使能DMA
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+    int i = 0;
   while (1)
   {
 
-	  
-//	  
-//	  if(1==rx_done)//检测数据是否接收完成
-//{
-//	idle_detect=0;//清零标志位
-//	//此处添加相应的数据处理代码吧
+    //HAL_UART_Receive_IT(&huart6, &rxBuffer[rxBufferIdx], MAX_RX_BUFFER_SIZE); // 重新启动接收
 
-//}
+    HAL_Delay(1);
+
+    //	HAL_UART_Transmit(&huart7,custom_robot_data.data, sizeof(custom_robot_data.data),0xffff);//
+
+    //	  HAL_UART_Transmit(&huart7,text, sizeof(text),500);//
+
+    if (i++ > 33)
+    {
+      i = 0;
+      for (i = 0; i < 10; i++)
+      {
+
+        if (rxBuffer[i] == 0x01 && rxBuffer[i + 1] == 0x03 && rxBuffer[i + 2] == 0x04 && rxBuffer[i + 3] == 0x00)
+        {
+          encoder_A_back.id = rxBuffer[i];
+          encoder_A_back.get_data = rxBuffer[i + 4] << 16 |
+                                    ((rxBuffer[i + 5] << 8) | (rxBuffer[i + 6]));
+          angle_count = encoder_A_back.get_data;
+          encoder_A_back.angle = (float)angle_count / 262144 * 360;
+        }
+        if (rxBuffer[i] == 0x02 && rxBuffer[i + 1] == 0x03 && rxBuffer[i + 2] == 0x04 && rxBuffer[i + 3] == 0x00)
+        {
+          encoder_B_back.id = rxBuffer[i];
+          encoder_B_back.get_data = rxBuffer[i + 4] << 16 |
+                                    ((rxBuffer[i + 5] << 8) | (rxBuffer[i + 6]));
+          angle_count = encoder_B_back.get_data;
+          encoder_B_back.angle = (float)angle_count / 262144 * 360;
+        }
+        if (rxBuffer[i] == 0x03 && rxBuffer[i + 1] == 0x03 && rxBuffer[i + 2] == 0x04 && rxBuffer[i + 3] == 0x00)
+        {
+          encoder_C_back.id = rxBuffer[i];
+          encoder_C_back.get_data = rxBuffer[i + 4] << 16 |
+                                    ((rxBuffer[i + 5] << 8) | (rxBuffer[i + 6]));
+          angle_count = encoder_C_back.get_data;
+          encoder_C_back.angle = (float)angle_count / 262144 * 360;
+        }
+        if (rxBuffer[i] == 0x04 && rxBuffer[i + 1] == 0x03 && rxBuffer[i + 2] == 0x04 && rxBuffer[i + 3] == 0x00)
+        {
+          encoder_D_back.id = rxBuffer[i];
+          encoder_D_back.get_data = rxBuffer[i + 4] << 16 |
+                                    ((rxBuffer[i + 5] << 8) | (rxBuffer[i + 6]));
+          angle_count = encoder_D_back.get_data;
+          encoder_D_back.angle = (float)angle_count / 262144 * 360;
+        }
+      }
+      custom_robot_data.data[0] = 0xff;
+      custom_robot_data.data[1] = 0x00;
+      custom_robot_data.data[2] = 0xee;
+
+      custom_robot_data.data[3] = 0xaa;
+      custom_robot_data.data[4] = encoder_A_back.angle / 100;
+      custom_robot_data.data[5] = encoder_A_back.angle - custom_robot_data.data[4] * 100;
+      custom_robot_data.data[6] = (encoder_A_back.angle - custom_robot_data.data[5] - custom_robot_data.data[4] * 100) * 100;
+
+      custom_robot_data.data[7] = 0xbb;
+      custom_robot_data.data[8] = encoder_B_back.angle / 100;
+      custom_robot_data.data[9] = encoder_B_back.angle - custom_robot_data.data[8] * 100;
+      custom_robot_data.data[10] = (encoder_B_back.angle - custom_robot_data.data[9] - custom_robot_data.data[8] * 100) * 100;
+
+      custom_robot_data.data[11] = 0xcc;
+      custom_robot_data.data[12] = encoder_C_back.angle / 100;
+      custom_robot_data.data[13] = encoder_C_back.angle - custom_robot_data.data[12] * 100;
+      custom_robot_data.data[14] = (encoder_C_back.angle - custom_robot_data.data[13] - custom_robot_data.data[12] * 100) * 100;
+
+      custom_robot_data.data[15] = 0xdd;
+      custom_robot_data.data[16] = encoder_D_back.angle / 100;
+      custom_robot_data.data[17] = encoder_D_back.angle - custom_robot_data.data[16] * 100;
+      custom_robot_data.data[18] = (encoder_D_back.angle - custom_robot_data.data[17] - custom_robot_data.data[16] * 100) * 100;
+
+      custom_robot_data.data[19] = 0xab;
+      custom_robot_data.data[20] = 0xff;
+      custom_robot_data.data[21] = 0xcd;
+
+      // 数据处理基本没有问题,但接收的角度偶然会跳变,幅度随机,持续跳向一个随机值,可能是硬件问题,等待算法优化
+
+      HAL_UART_Transmit(&huart7, custom_robot_data.data, sizeof(custom_robot_data.data), 33);
+	  HAL_UART_Receive(&huart6, rxBuffer, 9, 0xffff); // 重新启动接收
+
+    }
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -187,60 +277,83 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 /*
+
+//有问题,改波特率//已改为9600,观察情况
+
+
 //接收四个编码器,并处理为角度
 */
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-  if (huart == &huart6)  // 假设是串口6的接收中断
+  if (huart == &huart6) // 假设是串口6的接收中断
   {
-    rxBuffer[rxBufferIdx++] = huart->Instance->DR;  // 将接收到的数据存入数组，并更新索引
+    rxBuffer[rxBufferIdx++] = huart->Instance->DR; // 将接收到的数据存入数组，并更新索引
 
     if (rxBufferIdx >= MAX_RX_BUFFER_SIZE)
     {
-      rxBufferIdx = 0;  // 如果超过了数组大小，可以选择重置索引或者其他处理方式
+      rxBufferIdx = 0; // 如果超过了数组大小，可以选择重置索引或者其他处理方式
     }
-	
-	if(rxBuffer[0]==0x01&&rxBuffer[1]==0x03&&rxBuffer[2]==0x04)
-{
-	encoder_A_back.id = rxBuffer[0];
-	encoder_A_back.get_data= rxBuffer[4]  << 16  |
-							(( rxBuffer[5] << 8 )|( rxBuffer[6] ));
-	angle_count=encoder_A_back.get_data;
-	encoder_A_back.angle =(float)angle_count/262144*360;
-}
-	if(rxBuffer[0]==0x02&&rxBuffer[1]==0x03&&rxBuffer[2]==0x04)
-{
-	encoder_B_back.id = rxBuffer[0];
-	encoder_B_back.get_data= rxBuffer[4]  << 16  |
-							(( rxBuffer[5] << 8 )|( rxBuffer[6] ));
-	angle_count=encoder_B_back.get_data;
-	encoder_B_back.angle =(float)angle_count/262144*360;
-}
-	if(rxBuffer[0]==0x03&&rxBuffer[1]==0x03&&rxBuffer[2]==0x04)
-{
-	encoder_C_back.id = rxBuffer[0];
-	encoder_C_back.get_data= rxBuffer[4]  << 16  |
-							(( rxBuffer[5] << 8 )|( rxBuffer[6] ));
-	angle_count=encoder_C_back.get_data;
-	encoder_C_back.angle =(float)angle_count/262144*360;
-}
-	if(rxBuffer[0]==0x04&&rxBuffer[1]==0x03&&rxBuffer[2]==0x04)
-{
-	encoder_D_back.id = rxBuffer[0];
-	encoder_D_back.get_data= rxBuffer[4]  << 16  |
-							(( rxBuffer[5] << 8 )|( rxBuffer[6] ));
-	angle_count=encoder_D_back.get_data;
-	encoder_D_back.angle =(float)angle_count/262144*360;
-}
-    HAL_UART_Receive_IT(&huart6, &rxBuffer[rxBufferIdx], MAX_RX_BUFFER_SIZE);  // 重新启动接收
+
+
   }
+
 }
 
+// void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
+//{
+//	 HAL_UART_Receive_IT(&huart6, &rxBuffer[rxBufferIdx], MAX_RX_BUFFER_SIZE);
 
+//}
 
-/*
-//合并数据,发送
-*/
+//void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
+//{
+//  if (huart->ErrorCode & HAL_UART_ERROR_ORE)
+//  {
+//    __HAL_UART_CLEAR_OREFLAG(huart);
+
+//    __HAL_UART_ENABLE_IT(&huart6, UART_IT_RXNE);
+//  }
+//}
+
+/*#include <stdio.h>
+
+// 定义一个宏来表示我们想要保留的小数位数
+#define PRECISION 3
+
+// 定义一个缩放因子，根据我们想要保留的小数位数来确定
+#define SCALE (1 << PRECISION * 4) // 这里我们使用了位移操作，因为10的幂在二进制中不容易表示
+// 注意：由于直接使用10的幂可能导致整数溢出，我们这里使用了2的幂作为替代。
+// 这种方法在大多数情况下是可行的，但仅限于浮点数在转换后的值不会超出int的范围。
+// 对于更精确和安全的转换，应该使用更大的整数类型（如long long）和适当的缩放因子（如1000对于3位小数）。
+
+// 将浮点数转换为整型
+int floatToInt(float f) {
+    return (int)(f * SCALE);
+}
+
+// 将整型转换回浮点数
+float intToFloat(int i) {
+    return (float)i / SCALE;
+}
+
+int main() {
+    float originalFloat = 123.456f;
+    int intValue;
+    float restoredFloat;
+
+    // 转换浮点数到整型
+    intValue = floatToInt(originalFloat);
+    printf("整型值: %d\n", intValue);
+
+    // 还原整型到浮点数
+    restoredFloat = intToFloat(intValue);
+    printf("还原后的浮点数: %.5f\n", restoredFloat);
+
+    // 验证是否丢失数据（由于浮点数的精度问题，这里可能不会完全相等）
+    printf("是否丢失数据（允许微小误差）: %s\n", fabs(originalFloat - restoredFloat) < 1e-5 ? "否" : "是");
+
+    return 0;
+}*/
 
 /* USER CODE END 4 */
 
