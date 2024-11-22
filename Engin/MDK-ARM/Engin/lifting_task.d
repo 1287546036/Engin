@@ -1,5 +1,5 @@
-engin\lifting_task.o: app\Lifting_Task.c
-engin\lifting_task.o: app\Lifting_Task.h
+engin\lifting_task.o: task\Lifting_Task.c
+engin\lifting_task.o: task\Lifting_Task.h
 engin\lifting_task.o: ../Core/Inc/can.h
 engin\lifting_task.o: ../Core/Inc/main.h
 engin\lifting_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
@@ -36,6 +36,8 @@ engin\lifting_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 engin\lifting_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 engin\lifting_task.o: ./bsp/pid.h
 engin\lifting_task.o: ./bsp/struct_typedef.h
-engin\lifting_task.o: ./bsp/remote_control.h
+engin\lifting_task.o: ./bsp/pid_data.h
+engin\lifting_task.o: ./app/remote_control.h
 engin\lifting_task.o: ./bsp/bsp_rc.h
-engin\lifting_task.o: ./bsp/motor.h
+engin\lifting_task.o: ./app/motor.h
+engin\lifting_task.o: ./bsp/bsp_can.h

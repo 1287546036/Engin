@@ -82,7 +82,7 @@
           </BeforeMake>
           <AfterMake>
             <RunUserProg1>0</RunUserProg1>
-            <RunUserProg2>0</RunUserProg2>
+            <RunUserProg2>1</RunUserProg2>
             <UserProg1Name></UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
@@ -139,7 +139,7 @@
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2V8M.DLL</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -341,7 +341,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F407xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;./bsp;./app;../Drivers/CMSIS/DSP/Include;.\Referee</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;./bsp;./app;../Drivers/CMSIS/DSP/Include;./damiao;./damiao/DM;./damiao/bsp;./task</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -416,24 +416,9 @@
               <FilePath>../Core/Src/dma.c</FilePath>
             </File>
             <File>
-              <FileName>usart.c</FileName>
+              <FileName>tim.c</FileName>
               <FileType>1</FileType>
-              <FilePath>../Core/Src/usart.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_it.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Core/Src/stm32f4xx_it.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_hal_msp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Core/Src/stm32f4xx_hal_msp.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_hal_timebase_tim.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Core/Src/stm32f4xx_hal_timebase_tim.c</FilePath>
+              <FilePath>../Core/Src/tim.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>2</UseCPPCompiler>
@@ -485,6 +470,21 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
+            </File>
+            <File>
+              <FileName>usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Core/Src/usart.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_it.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Core/Src/stm32f4xx_it.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_hal_msp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Core/Src/stm32f4xx_hal_msp.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -597,24 +597,54 @@
               <FilePath>.\bsp\bsp_rc.c</FilePath>
             </File>
             <File>
-              <FileName>motor.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\bsp\motor.c</FilePath>
-            </File>
-            <File>
               <FileName>pid.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\bsp\pid.c</FilePath>
             </File>
             <File>
-              <FileName>remote_control.c</FileName>
+              <FileName>bsp_buzzer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\bsp\remote_control.c</FilePath>
+              <FilePath>.\bsp\bsp_buzzer.c</FilePath>
             </File>
             <File>
-              <FileName>pid_data.h</FileName>
+              <FileName>bsp_can.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\bsp\bsp_can.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_can.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\bsp\pid_data.h</FilePath>
+              <FilePath>.\bsp\bsp_can.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_dwt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\bsp\bsp_dwt.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_tim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\bsp\bsp_tim.c</FilePath>
+            </File>
+            <File>
+              <FileName>controller.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\bsp\controller.c</FilePath>
+            </File>
+            <File>
+              <FileName>struct_typedef.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\bsp\struct_typedef.h</FilePath>
+            </File>
+            <File>
+              <FileName>user_lib.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\bsp\user_lib.c</FilePath>
+            </File>
+            <File>
+              <FileName>user_lib.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\bsp\user_lib.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -622,74 +652,104 @@
           <GroupName>App</GroupName>
           <Files>
             <File>
-              <FileName>Chassis_Task.c</FileName>
+              <FileName>motor.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\app\Chassis_Task.c</FilePath>
+              <FilePath>.\app\motor.c</FilePath>
             </File>
             <File>
-              <FileName>Lifting_Task.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\app\Lifting_Task.c</FilePath>
+              <FileName>motor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\app\motor.h</FilePath>
             </File>
             <File>
-              <FileName>Gimbal_Task.c</FileName>
+              <FileName>remote_control.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\app\Gimbal_Task.c</FilePath>
+              <FilePath>.\app\remote_control.c</FilePath>
+            </File>
+            <File>
+              <FileName>remote_control.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\app\remote_control.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>Referee</GroupName>
+          <GroupName>damiao</GroupName>
           <Files>
             <File>
-              <FileName>CRC8_CRC16.c</FileName>
+              <FileName>DM_Motor.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Referee\CRC8_CRC16.c</FilePath>
+              <FilePath>.\damiao\DM_Motor.c</FilePath>
             </File>
             <File>
-              <FileName>CRC8_CRC16.h</FileName>
+              <FileName>DM_Motor.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\Referee\CRC8_CRC16.h</FilePath>
+              <FilePath>.\damiao\DM_Motor.h</FilePath>
             </File>
             <File>
-              <FileName>fifo.c</FileName>
+              <FileName>DM_Motor_Ctrl.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Referee\fifo.c</FilePath>
+              <FilePath>.\damiao\DM_Motor_Ctrl.c</FilePath>
             </File>
             <File>
-              <FileName>fifo.h</FileName>
+              <FileName>DM_Motor_Ctrl.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\Referee\fifo.h</FilePath>
+              <FilePath>.\damiao\DM_Motor_Ctrl.h</FilePath>
             </File>
             <File>
-              <FileName>protocol.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Referee\protocol.h</FilePath>
-            </File>
-            <File>
-              <FileName>referee.c</FileName>
+              <FileName>RM_Motor.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Referee\referee.c</FilePath>
+              <FilePath>.\damiao\RM_Motor.c</FilePath>
             </File>
             <File>
-              <FileName>referee.h</FileName>
+              <FileName>RM_Motor.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\Referee\referee.h</FilePath>
+              <FilePath>.\damiao\RM_Motor.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>task</GroupName>
+          <Files>
+            <File>
+              <FileName>Chassis_Task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\task\Chassis_Task.c</FilePath>
             </File>
             <File>
-              <FileName>refereeData_v1.4.h</FileName>
+              <FileName>Chassis_Task.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\Referee\refereeData_v1.4.h</FilePath>
+              <FilePath>.\task\Chassis_Task.h</FilePath>
             </File>
             <File>
-              <FileName>refereeData_v1.5.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Referee\refereeData_v1.5.h</FilePath>
+              <FileName>Gimbal_Task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\task\Gimbal_Task.c</FilePath>
             </File>
             <File>
-              <FileName>refereeData_v1.6.h</FileName>
+              <FileName>Gimbal_Task.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\Referee\refereeData_v1.6.h</FilePath>
+              <FilePath>.\task\Gimbal_Task.h</FilePath>
+            </File>
+            <File>
+              <FileName>Lifting_Task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\task\Lifting_Task.c</FilePath>
+            </File>
+            <File>
+              <FileName>Lifting_Task.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\task\Lifting_Task.h</FilePath>
+            </File>
+            <File>
+              <FileName>MechanicalArm_Task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\task\MechanicalArm_Task.c</FilePath>
+            </File>
+            <File>
+              <FileName>MechanicalArm_Task.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\task\MechanicalArm_Task.h</FilePath>
             </File>
           </Files>
         </Group>

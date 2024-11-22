@@ -62,7 +62,10 @@ typedef struct
         
         unsigned short sw;
     }rc;
-}DBUS;//?????????????????????????????????????????
+}DBUS;
+
+
+#define MAX_RX_BUFFER_SIZE 60 // 定义最大接收缓冲区大小，根据实际需要调整
 
 
 /* USER CODE END EM */
@@ -75,12 +78,6 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define LED_R_Pin GPIO_PIN_12
-#define LED_R_GPIO_Port GPIOH
-#define LED_G_Pin GPIO_PIN_11
-#define LED_G_GPIO_Port GPIOH
-#define LED_B_Pin GPIO_PIN_10
-#define LED_B_GPIO_Port GPIOH
 
 /* USER CODE BEGIN Private defines */
 

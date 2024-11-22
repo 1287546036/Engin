@@ -35,3 +35,4 @@ engin\pid.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 engin\pid.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 engin\pid.o: ../Core/Inc/can.h
 engin\pid.o: bsp\struct_typedef.h
+engin\pid.o: bsp\pid_data.h

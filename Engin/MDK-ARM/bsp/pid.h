@@ -1,6 +1,7 @@
 #include "main.h"
 #include "can.h"
 #include "struct_typedef.h"
+#include "pid_data.h"
 #ifndef PID_H
 #define PID_H
 
@@ -39,5 +40,5 @@ extern void PID_clear(pids *pid);
 void pidINIT(pids *pid, uint8_t mode, fp32 KP, fp32 KI, fp32 KD, fp32 maxOut,
              fp32 maxIout);
 
-//extern pids motor1;
+
 #endif

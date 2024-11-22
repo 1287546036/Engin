@@ -22,8 +22,8 @@ Section Cross References
     startup_stm32f407xx.o(RESET) refers to stm32f4xx_it.o(i.CAN1_RX0_IRQHandler) for CAN1_RX0_IRQHandler
     startup_stm32f407xx.o(RESET) refers to stm32f4xx_it.o(i.CAN1_RX1_IRQHandler) for CAN1_RX1_IRQHandler
     startup_stm32f407xx.o(RESET) refers to stm32f4xx_it.o(i.USART1_IRQHandler) for USART1_IRQHandler
-    startup_stm32f407xx.o(RESET) refers to remote_control.o(i.USART3_IRQHandler) for USART3_IRQHandler
-    startup_stm32f407xx.o(RESET) refers to stm32f4xx_it.o(i.TIM6_DAC_IRQHandler) for TIM6_DAC_IRQHandler
+    startup_stm32f407xx.o(RESET) refers to stm32f4xx_it.o(i.USART3_IRQHandler) for USART3_IRQHandler
+    startup_stm32f407xx.o(RESET) refers to remote_control_1.o(i.USART3_IRQHandler) for USART3_IRQHandler
     startup_stm32f407xx.o(RESET) refers to stm32f4xx_it.o(i.CAN2_RX0_IRQHandler) for CAN2_RX0_IRQHandler
     startup_stm32f407xx.o(RESET) refers to stm32f4xx_it.o(i.CAN2_RX1_IRQHandler) for CAN2_RX1_IRQHandler
     startup_stm32f407xx.o(RESET) refers to stm32f4xx_it.o(i.USART6_IRQHandler) for USART6_IRQHandler
@@ -32,13 +32,16 @@ Section Cross References
     startup_stm32f407xx.o(.text) refers to __main.o(!!!main) for __main
     startup_stm32f407xx.o(.text) refers to startup_stm32f407xx.o(HEAP) for Heap_Mem
     startup_stm32f407xx.o(.text) refers to startup_stm32f407xx.o(STACK) for Stack_Mem
-    main.o(i.HAL_TIM_PeriodElapsedCallback) refers to stm32f4xx_hal.o(i.HAL_IncTick) for HAL_IncTick
+    main.o(i.HAL_UART_RxCpltCallback) refers to usart.o(.bss) for huart6
+    main.o(i.HAL_UART_RxCpltCallback) refers to main.o(.bss) for .bss
+    main.o(i.HAL_UART_RxCpltCallback) refers to main.o(.data) for .data
     main.o(i.SystemClock_Config) refers to rt_memclr_w.o(.text) for __aeabi_memclr4
     main.o(i.SystemClock_Config) refers to stm32f4xx_hal_rcc.o(i.HAL_RCC_OscConfig) for HAL_RCC_OscConfig
     main.o(i.SystemClock_Config) refers to stm32f4xx_hal_rcc.o(i.HAL_RCC_ClockConfig) for HAL_RCC_ClockConfig
-    main.o(i.airpump_transmit) refers to remote_control.o(.bss) for rc_ctrl
-    main.o(i.airpump_transmit) refers to main.o(.data) for .data
     main.o(i.main) refers to stm32f4xx_hal.o(i.HAL_Init) for HAL_Init
+    main.o(i.main) refers to mechanicalarm_task.o(i.mechanicalarm_init) for mechanicalarm_init
+    main.o(i.main) refers to remote_control_1.o(i.remote_control_init) for remote_control_init
+    main.o(i.main) refers to bsp_can.o(i.can_start) for can_start
     main.o(i.main) refers to main.o(i.SystemClock_Config) for SystemClock_Config
     main.o(i.main) refers to gpio.o(i.MX_GPIO_Init) for MX_GPIO_Init
     main.o(i.main) refers to dma.o(i.MX_DMA_Init) for MX_DMA_Init
@@ -47,17 +50,15 @@ Section Cross References
     main.o(i.main) refers to usart.o(i.MX_USART1_UART_Init) for MX_USART1_UART_Init
     main.o(i.main) refers to can.o(i.MX_CAN2_Init) for MX_CAN2_Init
     main.o(i.main) refers to usart.o(i.MX_USART6_UART_Init) for MX_USART6_UART_Init
-    main.o(i.main) refers to remote_control.o(i.remote_control_init) for remote_control_init
-    main.o(i.main) refers to stm32f4xx_hal_uart.o(i.HAL_UART_Receive_DMA) for HAL_UART_Receive_DMA
-    main.o(i.main) refers to motor.o(i.can_start) for can_start
-    main.o(i.main) refers to stm32f4xx_hal_uart.o(i.HAL_UART_Transmit_IT) for HAL_UART_Transmit_IT
-    main.o(i.main) refers to lifting_task.o(i.lifitng_task) for lifitng_task
-    main.o(i.main) refers to main.o(.data) for .data
+    main.o(i.main) refers to tim.o(i.MX_TIM6_Init) for MX_TIM6_Init
+    main.o(i.main) refers to tim.o(i.MX_TIM4_Init) for MX_TIM4_Init
+    main.o(i.main) refers to tim.o(i.MX_TIM5_Init) for MX_TIM5_Init
+    main.o(i.main) refers to stm32f4xx_hal_uart.o(i.HAL_UART_Receive_IT) for HAL_UART_Receive_IT
+    main.o(i.main) refers to stm32f4xx_hal_uart.o(i.HAL_UART_Receive) for HAL_UART_Receive
+    main.o(i.main) refers to mechanicalarm_task.o(i.encoder_to_damiao) for encoder_to_damiao
+    main.o(i.main) refers to mechanicalarm_task.o(i.mechanicalarm_task) for mechanicalarm_task
     main.o(i.main) refers to main.o(.bss) for .bss
-    main.o(i.main) refers to usart.o(.bss) for huart3
-    gpio.o(i.MX_GPIO_Init) refers to rt_memclr_w.o(.text) for __aeabi_memclr4
-    gpio.o(i.MX_GPIO_Init) refers to stm32f4xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
-    gpio.o(i.MX_GPIO_Init) refers to stm32f4xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init
+    main.o(i.main) refers to usart.o(.bss) for huart6
     can.o(i.HAL_CAN_MspDeInit) refers to stm32f4xx_hal_gpio.o(i.HAL_GPIO_DeInit) for HAL_GPIO_DeInit
     can.o(i.HAL_CAN_MspDeInit) refers to stm32f4xx_hal_cortex.o(i.HAL_NVIC_DisableIRQ) for HAL_NVIC_DisableIRQ
     can.o(i.HAL_CAN_MspDeInit) refers to can.o(.data) for .data
@@ -74,6 +75,30 @@ Section Cross References
     can.o(i.MX_CAN2_Init) refers to can.o(.bss) for .bss
     dma.o(i.MX_DMA_Init) refers to stm32f4xx_hal_cortex.o(i.HAL_NVIC_SetPriority) for HAL_NVIC_SetPriority
     dma.o(i.MX_DMA_Init) refers to stm32f4xx_hal_cortex.o(i.HAL_NVIC_EnableIRQ) for HAL_NVIC_EnableIRQ
+    tim.o(i.HAL_TIM_MspPostInit) refers to rt_memclr_w.o(.text) for __aeabi_memclr4
+    tim.o(i.HAL_TIM_MspPostInit) refers to stm32f4xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init
+    tim.o(i.MX_TIM4_Init) refers to rt_memclr_w.o(.text) for __aeabi_memclr4
+    tim.o(i.MX_TIM4_Init) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_Base_Init) for HAL_TIM_Base_Init
+    tim.o(i.MX_TIM4_Init) refers to main.o(i.Error_Handler) for Error_Handler
+    tim.o(i.MX_TIM4_Init) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_ConfigClockSource) for HAL_TIM_ConfigClockSource
+    tim.o(i.MX_TIM4_Init) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_PWM_Init) for HAL_TIM_PWM_Init
+    tim.o(i.MX_TIM4_Init) refers to stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_MasterConfigSynchronization) for HAL_TIMEx_MasterConfigSynchronization
+    tim.o(i.MX_TIM4_Init) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_PWM_ConfigChannel) for HAL_TIM_PWM_ConfigChannel
+    tim.o(i.MX_TIM4_Init) refers to tim.o(i.HAL_TIM_MspPostInit) for HAL_TIM_MspPostInit
+    tim.o(i.MX_TIM4_Init) refers to tim.o(.bss) for .bss
+    tim.o(i.MX_TIM5_Init) refers to rt_memclr_w.o(.text) for __aeabi_memclr4
+    tim.o(i.MX_TIM5_Init) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_Base_Init) for HAL_TIM_Base_Init
+    tim.o(i.MX_TIM5_Init) refers to main.o(i.Error_Handler) for Error_Handler
+    tim.o(i.MX_TIM5_Init) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_ConfigClockSource) for HAL_TIM_ConfigClockSource
+    tim.o(i.MX_TIM5_Init) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_PWM_Init) for HAL_TIM_PWM_Init
+    tim.o(i.MX_TIM5_Init) refers to stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_MasterConfigSynchronization) for HAL_TIMEx_MasterConfigSynchronization
+    tim.o(i.MX_TIM5_Init) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_PWM_ConfigChannel) for HAL_TIM_PWM_ConfigChannel
+    tim.o(i.MX_TIM5_Init) refers to tim.o(i.HAL_TIM_MspPostInit) for HAL_TIM_MspPostInit
+    tim.o(i.MX_TIM5_Init) refers to tim.o(.bss) for .bss
+    tim.o(i.MX_TIM6_Init) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_Base_Init) for HAL_TIM_Base_Init
+    tim.o(i.MX_TIM6_Init) refers to main.o(i.Error_Handler) for Error_Handler
+    tim.o(i.MX_TIM6_Init) refers to stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_MasterConfigSynchronization) for HAL_TIMEx_MasterConfigSynchronization
+    tim.o(i.MX_TIM6_Init) refers to tim.o(.bss) for .bss
     usart.o(i.HAL_UART_MspDeInit) refers to stm32f4xx_hal_gpio.o(i.HAL_GPIO_DeInit) for HAL_GPIO_DeInit
     usart.o(i.HAL_UART_MspDeInit) refers to stm32f4xx_hal_dma.o(i.HAL_DMA_DeInit) for HAL_DMA_DeInit
     usart.o(i.HAL_UART_MspDeInit) refers to stm32f4xx_hal_cortex.o(i.HAL_NVIC_DisableIRQ) for HAL_NVIC_DisableIRQ
@@ -103,24 +128,13 @@ Section Cross References
     stm32f4xx_it.o(i.CAN2_RX1_IRQHandler) refers to can.o(.bss) for hcan2
     stm32f4xx_it.o(i.DMA1_Stream1_IRQHandler) refers to stm32f4xx_hal_dma.o(i.HAL_DMA_IRQHandler) for HAL_DMA_IRQHandler
     stm32f4xx_it.o(i.DMA1_Stream1_IRQHandler) refers to usart.o(.bss) for hdma_usart3_rx
-    stm32f4xx_it.o(i.TIM6_DAC_IRQHandler) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_IRQHandler) for HAL_TIM_IRQHandler
-    stm32f4xx_it.o(i.TIM6_DAC_IRQHandler) refers to stm32f4xx_hal_timebase_tim.o(.bss) for htim6
+    stm32f4xx_it.o(i.SysTick_Handler) refers to stm32f4xx_hal.o(i.HAL_IncTick) for HAL_IncTick
     stm32f4xx_it.o(i.USART1_IRQHandler) refers to stm32f4xx_hal_uart.o(i.HAL_UART_IRQHandler) for HAL_UART_IRQHandler
     stm32f4xx_it.o(i.USART1_IRQHandler) refers to usart.o(.bss) for huart1
     stm32f4xx_it.o(i.USART3_IRQHandler) refers to stm32f4xx_hal_uart.o(i.HAL_UART_IRQHandler) for HAL_UART_IRQHandler
     stm32f4xx_it.o(i.USART3_IRQHandler) refers to usart.o(.bss) for huart3
     stm32f4xx_it.o(i.USART6_IRQHandler) refers to stm32f4xx_hal_uart.o(i.HAL_UART_IRQHandler) for HAL_UART_IRQHandler
     stm32f4xx_it.o(i.USART6_IRQHandler) refers to usart.o(.bss) for huart6
-    stm32f4xx_hal_timebase_tim.o(i.HAL_InitTick) refers to stm32f4xx_hal_rcc.o(i.HAL_RCC_GetClockConfig) for HAL_RCC_GetClockConfig
-    stm32f4xx_hal_timebase_tim.o(i.HAL_InitTick) refers to stm32f4xx_hal_rcc.o(i.HAL_RCC_GetPCLK1Freq) for HAL_RCC_GetPCLK1Freq
-    stm32f4xx_hal_timebase_tim.o(i.HAL_InitTick) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_Base_Init) for HAL_TIM_Base_Init
-    stm32f4xx_hal_timebase_tim.o(i.HAL_InitTick) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_Base_Start_IT) for HAL_TIM_Base_Start_IT
-    stm32f4xx_hal_timebase_tim.o(i.HAL_InitTick) refers to stm32f4xx_hal_cortex.o(i.HAL_NVIC_EnableIRQ) for HAL_NVIC_EnableIRQ
-    stm32f4xx_hal_timebase_tim.o(i.HAL_InitTick) refers to stm32f4xx_hal_cortex.o(i.HAL_NVIC_SetPriority) for HAL_NVIC_SetPriority
-    stm32f4xx_hal_timebase_tim.o(i.HAL_InitTick) refers to stm32f4xx_hal_timebase_tim.o(.bss) for .bss
-    stm32f4xx_hal_timebase_tim.o(i.HAL_InitTick) refers to stm32f4xx_hal.o(.data) for uwTickPrio
-    stm32f4xx_hal_timebase_tim.o(i.HAL_ResumeTick) refers to stm32f4xx_hal_timebase_tim.o(.bss) for .bss
-    stm32f4xx_hal_timebase_tim.o(i.HAL_SuspendTick) refers to stm32f4xx_hal_timebase_tim.o(.bss) for .bss
     stm32f4xx_hal_can.o(i.HAL_CAN_DeInit) refers to stm32f4xx_hal_can.o(i.HAL_CAN_Stop) for HAL_CAN_Stop
     stm32f4xx_hal_can.o(i.HAL_CAN_DeInit) refers to can.o(i.HAL_CAN_MspDeInit) for HAL_CAN_MspDeInit
     stm32f4xx_hal_can.o(i.HAL_CAN_IRQHandler) refers to stm32f4xx_hal_can.o(i.HAL_CAN_TxMailbox0CompleteCallback) for HAL_CAN_TxMailbox0CompleteCallback
@@ -130,19 +144,19 @@ Section Cross References
     stm32f4xx_hal_can.o(i.HAL_CAN_IRQHandler) refers to stm32f4xx_hal_can.o(i.HAL_CAN_TxMailbox2CompleteCallback) for HAL_CAN_TxMailbox2CompleteCallback
     stm32f4xx_hal_can.o(i.HAL_CAN_IRQHandler) refers to stm32f4xx_hal_can.o(i.HAL_CAN_TxMailbox2AbortCallback) for HAL_CAN_TxMailbox2AbortCallback
     stm32f4xx_hal_can.o(i.HAL_CAN_IRQHandler) refers to stm32f4xx_hal_can.o(i.HAL_CAN_RxFifo0FullCallback) for HAL_CAN_RxFifo0FullCallback
-    stm32f4xx_hal_can.o(i.HAL_CAN_IRQHandler) refers to motor.o(i.HAL_CAN_RxFifo0MsgPendingCallback) for HAL_CAN_RxFifo0MsgPendingCallback
+    stm32f4xx_hal_can.o(i.HAL_CAN_IRQHandler) refers to motor_1.o(i.HAL_CAN_RxFifo0MsgPendingCallback) for HAL_CAN_RxFifo0MsgPendingCallback
     stm32f4xx_hal_can.o(i.HAL_CAN_IRQHandler) refers to stm32f4xx_hal_can.o(i.HAL_CAN_RxFifo1FullCallback) for HAL_CAN_RxFifo1FullCallback
-    stm32f4xx_hal_can.o(i.HAL_CAN_IRQHandler) refers to motor.o(i.HAL_CAN_RxFifo1MsgPendingCallback) for HAL_CAN_RxFifo1MsgPendingCallback
+    stm32f4xx_hal_can.o(i.HAL_CAN_IRQHandler) refers to motor_1.o(i.HAL_CAN_RxFifo1MsgPendingCallback) for HAL_CAN_RxFifo1MsgPendingCallback
     stm32f4xx_hal_can.o(i.HAL_CAN_IRQHandler) refers to stm32f4xx_hal_can.o(i.HAL_CAN_SleepCallback) for HAL_CAN_SleepCallback
     stm32f4xx_hal_can.o(i.HAL_CAN_IRQHandler) refers to stm32f4xx_hal_can.o(i.HAL_CAN_WakeUpFromRxMsgCallback) for HAL_CAN_WakeUpFromRxMsgCallback
-    stm32f4xx_hal_can.o(i.HAL_CAN_IRQHandler) refers to stm32f4xx_hal_can.o(i.HAL_CAN_ErrorCallback) for HAL_CAN_ErrorCallback
+    stm32f4xx_hal_can.o(i.HAL_CAN_IRQHandler) refers to bsp_can.o(i.HAL_CAN_ErrorCallback) for HAL_CAN_ErrorCallback
     stm32f4xx_hal_can.o(i.HAL_CAN_Init) refers to can.o(i.HAL_CAN_MspInit) for HAL_CAN_MspInit
     stm32f4xx_hal_can.o(i.HAL_CAN_Init) refers to stm32f4xx_hal.o(i.HAL_GetTick) for HAL_GetTick
     stm32f4xx_hal_can.o(i.HAL_CAN_Start) refers to stm32f4xx_hal.o(i.HAL_GetTick) for HAL_GetTick
     stm32f4xx_hal_can.o(i.HAL_CAN_Stop) refers to stm32f4xx_hal.o(i.HAL_GetTick) for HAL_GetTick
     stm32f4xx_hal_rcc.o(i.HAL_RCC_ClockConfig) refers to stm32f4xx_hal.o(i.HAL_GetTick) for HAL_GetTick
     stm32f4xx_hal_rcc.o(i.HAL_RCC_ClockConfig) refers to stm32f4xx_hal_rcc.o(i.HAL_RCC_GetSysClockFreq) for HAL_RCC_GetSysClockFreq
-    stm32f4xx_hal_rcc.o(i.HAL_RCC_ClockConfig) refers to stm32f4xx_hal_timebase_tim.o(i.HAL_InitTick) for HAL_InitTick
+    stm32f4xx_hal_rcc.o(i.HAL_RCC_ClockConfig) refers to stm32f4xx_hal.o(i.HAL_InitTick) for HAL_InitTick
     stm32f4xx_hal_rcc.o(i.HAL_RCC_ClockConfig) refers to system_stm32f4xx.o(.constdata) for AHBPrescTable
     stm32f4xx_hal_rcc.o(i.HAL_RCC_ClockConfig) refers to system_stm32f4xx.o(.data) for SystemCoreClock
     stm32f4xx_hal_rcc.o(i.HAL_RCC_ClockConfig) refers to stm32f4xx_hal.o(.data) for uwTickPrio
@@ -159,7 +173,7 @@ Section Cross References
     stm32f4xx_hal_rcc_ex.o(i.HAL_RCCEx_EnablePLLI2S) refers to stm32f4xx_hal.o(i.HAL_GetTick) for HAL_GetTick
     stm32f4xx_hal_rcc_ex.o(i.HAL_RCCEx_PeriphCLKConfig) refers to stm32f4xx_hal.o(i.HAL_GetTick) for HAL_GetTick
     stm32f4xx_hal_rcc_ex.o(i.HAL_RCC_DeInit) refers to stm32f4xx_hal.o(i.HAL_GetTick) for HAL_GetTick
-    stm32f4xx_hal_rcc_ex.o(i.HAL_RCC_DeInit) refers to stm32f4xx_hal_timebase_tim.o(i.HAL_InitTick) for HAL_InitTick
+    stm32f4xx_hal_rcc_ex.o(i.HAL_RCC_DeInit) refers to stm32f4xx_hal.o(i.HAL_InitTick) for HAL_InitTick
     stm32f4xx_hal_rcc_ex.o(i.HAL_RCC_DeInit) refers to system_stm32f4xx.o(.data) for SystemCoreClock
     stm32f4xx_hal_rcc_ex.o(i.HAL_RCC_DeInit) refers to stm32f4xx_hal.o(.data) for uwTickPrio
     stm32f4xx_hal_flash.o(i.FLASH_SetErrorCode) refers to stm32f4xx_hal_flash.o(.bss) for .bss
@@ -224,16 +238,16 @@ Section Cross References
     stm32f4xx_hal.o(i.HAL_GetTickPrio) refers to stm32f4xx_hal.o(.data) for .data
     stm32f4xx_hal.o(i.HAL_IncTick) refers to stm32f4xx_hal.o(.data) for .data
     stm32f4xx_hal.o(i.HAL_Init) refers to stm32f4xx_hal_cortex.o(i.HAL_NVIC_SetPriorityGrouping) for HAL_NVIC_SetPriorityGrouping
-    stm32f4xx_hal.o(i.HAL_Init) refers to stm32f4xx_hal_timebase_tim.o(i.HAL_InitTick) for HAL_InitTick
+    stm32f4xx_hal.o(i.HAL_Init) refers to stm32f4xx_hal.o(i.HAL_InitTick) for HAL_InitTick
     stm32f4xx_hal.o(i.HAL_Init) refers to stm32f4xx_hal_msp.o(i.HAL_MspInit) for HAL_MspInit
     stm32f4xx_hal.o(i.HAL_InitTick) refers to stm32f4xx_hal_cortex.o(i.HAL_SYSTICK_Config) for HAL_SYSTICK_Config
     stm32f4xx_hal.o(i.HAL_InitTick) refers to stm32f4xx_hal_cortex.o(i.HAL_NVIC_SetPriority) for HAL_NVIC_SetPriority
     stm32f4xx_hal.o(i.HAL_InitTick) refers to stm32f4xx_hal.o(.data) for .data
     stm32f4xx_hal.o(i.HAL_InitTick) refers to system_stm32f4xx.o(.data) for SystemCoreClock
-    stm32f4xx_hal.o(i.HAL_SetTickFreq) refers to stm32f4xx_hal_timebase_tim.o(i.HAL_InitTick) for HAL_InitTick
+    stm32f4xx_hal.o(i.HAL_SetTickFreq) refers to stm32f4xx_hal.o(i.HAL_InitTick) for HAL_InitTick
     stm32f4xx_hal.o(i.HAL_SetTickFreq) refers to stm32f4xx_hal.o(.data) for .data
-    stm32f4xx_hal_tim.o(i.HAL_TIM_Base_DeInit) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_Base_MspDeInit) for HAL_TIM_Base_MspDeInit
-    stm32f4xx_hal_tim.o(i.HAL_TIM_Base_Init) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_Base_MspInit) for HAL_TIM_Base_MspInit
+    stm32f4xx_hal_tim.o(i.HAL_TIM_Base_DeInit) refers to tim.o(i.HAL_TIM_Base_MspDeInit) for HAL_TIM_Base_MspDeInit
+    stm32f4xx_hal_tim.o(i.HAL_TIM_Base_Init) refers to tim.o(i.HAL_TIM_Base_MspInit) for HAL_TIM_Base_MspInit
     stm32f4xx_hal_tim.o(i.HAL_TIM_Base_Init) refers to stm32f4xx_hal_tim.o(i.TIM_Base_SetConfig) for TIM_Base_SetConfig
     stm32f4xx_hal_tim.o(i.HAL_TIM_Base_Start_DMA) refers to stm32f4xx_hal_dma.o(i.HAL_DMA_Start_IT) for HAL_DMA_Start_IT
     stm32f4xx_hal_tim.o(i.HAL_TIM_Base_Start_DMA) refers to stm32f4xx_hal_tim.o(i.TIM_DMAPeriodElapsedCplt) for TIM_DMAPeriodElapsedCplt
@@ -302,7 +316,7 @@ Section Cross References
     stm32f4xx_hal_tim.o(i.HAL_TIM_IRQHandler) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_IC_CaptureCallback) for HAL_TIM_IC_CaptureCallback
     stm32f4xx_hal_tim.o(i.HAL_TIM_IRQHandler) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_OC_DelayElapsedCallback) for HAL_TIM_OC_DelayElapsedCallback
     stm32f4xx_hal_tim.o(i.HAL_TIM_IRQHandler) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_PWM_PulseFinishedCallback) for HAL_TIM_PWM_PulseFinishedCallback
-    stm32f4xx_hal_tim.o(i.HAL_TIM_IRQHandler) refers to main.o(i.HAL_TIM_PeriodElapsedCallback) for HAL_TIM_PeriodElapsedCallback
+    stm32f4xx_hal_tim.o(i.HAL_TIM_IRQHandler) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_PeriodElapsedCallback) for HAL_TIM_PeriodElapsedCallback
     stm32f4xx_hal_tim.o(i.HAL_TIM_IRQHandler) refers to stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_BreakCallback) for HAL_TIMEx_BreakCallback
     stm32f4xx_hal_tim.o(i.HAL_TIM_IRQHandler) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_TriggerCallback) for HAL_TIM_TriggerCallback
     stm32f4xx_hal_tim.o(i.HAL_TIM_IRQHandler) refers to stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_CommutCallback) for HAL_TIMEx_CommutCallback
@@ -360,7 +374,7 @@ Section Cross References
     stm32f4xx_hal_tim.o(i.TIM_DMADelayPulseCplt) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_PWM_PulseFinishedCallback) for HAL_TIM_PWM_PulseFinishedCallback
     stm32f4xx_hal_tim.o(i.TIM_DMADelayPulseHalfCplt) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_PWM_PulseFinishedHalfCpltCallback) for HAL_TIM_PWM_PulseFinishedHalfCpltCallback
     stm32f4xx_hal_tim.o(i.TIM_DMAError) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_ErrorCallback) for HAL_TIM_ErrorCallback
-    stm32f4xx_hal_tim.o(i.TIM_DMAPeriodElapsedCplt) refers to main.o(i.HAL_TIM_PeriodElapsedCallback) for HAL_TIM_PeriodElapsedCallback
+    stm32f4xx_hal_tim.o(i.TIM_DMAPeriodElapsedCplt) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_PeriodElapsedCallback) for HAL_TIM_PeriodElapsedCallback
     stm32f4xx_hal_tim.o(i.TIM_DMAPeriodElapsedHalfCplt) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_PeriodElapsedHalfCpltCallback) for HAL_TIM_PeriodElapsedHalfCpltCallback
     stm32f4xx_hal_tim.o(i.TIM_DMATriggerCplt) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_TriggerCallback) for HAL_TIM_TriggerCallback
     stm32f4xx_hal_tim.o(i.TIM_DMATriggerHalfCplt) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_TriggerHalfCpltCallback) for HAL_TIM_TriggerHalfCpltCallback
@@ -473,7 +487,7 @@ Section Cross References
     stm32f4xx_hal_uart.o(i.UART_DMAError) refers to stm32f4xx_hal_uart.o(i.UART_EndTxTransfer) for UART_EndTxTransfer
     stm32f4xx_hal_uart.o(i.UART_DMAError) refers to stm32f4xx_hal_uart.o(i.UART_EndRxTransfer) for UART_EndRxTransfer
     stm32f4xx_hal_uart.o(i.UART_DMAError) refers to stm32f4xx_hal_uart.o(i.HAL_UART_ErrorCallback) for HAL_UART_ErrorCallback
-    stm32f4xx_hal_uart.o(i.UART_DMAReceiveCplt) refers to stm32f4xx_hal_uart.o(i.HAL_UART_RxCpltCallback) for HAL_UART_RxCpltCallback
+    stm32f4xx_hal_uart.o(i.UART_DMAReceiveCplt) refers to main.o(i.HAL_UART_RxCpltCallback) for HAL_UART_RxCpltCallback
     stm32f4xx_hal_uart.o(i.UART_DMAReceiveCplt) refers to stm32f4xx_hal_uart.o(i.HAL_UARTEx_RxEventCallback) for HAL_UARTEx_RxEventCallback
     stm32f4xx_hal_uart.o(i.UART_DMARxAbortCallback) refers to stm32f4xx_hal_uart.o(i.HAL_UART_AbortCpltCallback) for HAL_UART_AbortCpltCallback
     stm32f4xx_hal_uart.o(i.UART_DMARxHalfCplt) refers to stm32f4xx_hal_uart.o(i.HAL_UART_RxHalfCpltCallback) for HAL_UART_RxHalfCpltCallback
@@ -483,7 +497,7 @@ Section Cross References
     stm32f4xx_hal_uart.o(i.UART_DMATxAbortCallback) refers to stm32f4xx_hal_uart.o(i.HAL_UART_AbortCpltCallback) for HAL_UART_AbortCpltCallback
     stm32f4xx_hal_uart.o(i.UART_DMATxHalfCplt) refers to stm32f4xx_hal_uart.o(i.HAL_UART_TxHalfCpltCallback) for HAL_UART_TxHalfCpltCallback
     stm32f4xx_hal_uart.o(i.UART_DMATxOnlyAbortCallback) refers to stm32f4xx_hal_uart.o(i.HAL_UART_AbortTransmitCpltCallback) for HAL_UART_AbortTransmitCpltCallback
-    stm32f4xx_hal_uart.o(i.UART_Receive_IT) refers to stm32f4xx_hal_uart.o(i.HAL_UART_RxCpltCallback) for HAL_UART_RxCpltCallback
+    stm32f4xx_hal_uart.o(i.UART_Receive_IT) refers to main.o(i.HAL_UART_RxCpltCallback) for HAL_UART_RxCpltCallback
     stm32f4xx_hal_uart.o(i.UART_Receive_IT) refers to stm32f4xx_hal_uart.o(i.HAL_UARTEx_RxEventCallback) for HAL_UARTEx_RxEventCallback
     stm32f4xx_hal_uart.o(i.UART_SetConfig) refers to stm32f4xx_hal_rcc.o(i.HAL_RCC_GetPCLK2Freq) for HAL_RCC_GetPCLK2Freq
     stm32f4xx_hal_uart.o(i.UART_SetConfig) refers to stm32f4xx_hal_rcc.o(i.HAL_RCC_GetPCLK1Freq) for HAL_RCC_GetPCLK1Freq
@@ -497,44 +511,145 @@ Section Cross References
     system_stm32f4xx.o(i.SystemCoreClockUpdate) refers to system_stm32f4xx.o(.data) for .data
     system_stm32f4xx.o(i.SystemCoreClockUpdate) refers to system_stm32f4xx.o(.constdata) for .constdata
     bsp_rc.o(i.RC_init) refers to usart.o(.bss) for huart3
-    motor.o(i.CAN_cmd_chassis) refers to stm32f4xx_hal_can.o(i.HAL_CAN_AddTxMessage) for HAL_CAN_AddTxMessage
-    motor.o(i.CAN_cmd_chassis) refers to stm32f4xx_hal.o(i.HAL_Delay) for HAL_Delay
-    motor.o(i.CAN_cmd_chassis) refers to motor.o(.bss) for .bss
-    motor.o(i.CAN_cmd_chassis) refers to motor.o(.data) for .data
-    motor.o(i.CAN_cmd_chassis) refers to can.o(.bss) for hcan1
-    motor.o(i.CAN_cmd_gimbal) refers to stm32f4xx_hal_can.o(i.HAL_CAN_AddTxMessage) for HAL_CAN_AddTxMessage
-    motor.o(i.CAN_cmd_gimbal) refers to stm32f4xx_hal.o(i.HAL_Delay) for HAL_Delay
-    motor.o(i.CAN_cmd_gimbal) refers to motor.o(.bss) for .bss
-    motor.o(i.CAN_cmd_gimbal) refers to motor.o(.data) for .data
-    motor.o(i.CAN_cmd_gimbal) refers to can.o(.bss) for hcan1
-    motor.o(i.CAN_cmd_lifting) refers to stm32f4xx_hal_can.o(i.HAL_CAN_AddTxMessage) for HAL_CAN_AddTxMessage
-    motor.o(i.CAN_cmd_lifting) refers to stm32f4xx_hal.o(i.HAL_Delay) for HAL_Delay
-    motor.o(i.CAN_cmd_lifting) refers to motor.o(.bss) for .bss
-    motor.o(i.CAN_cmd_lifting) refers to motor.o(.data) for .data
-    motor.o(i.CAN_cmd_lifting) refers to can.o(.bss) for hcan1
-    motor.o(i.HAL_CAN_RxFifo0MsgPendingCallback) refers to stm32f4xx_hal_can.o(i.HAL_CAN_GetRxMessage) for HAL_CAN_GetRxMessage
-    motor.o(i.HAL_CAN_RxFifo0MsgPendingCallback) refers to motor.o(.data) for .data
-    motor.o(i.HAL_CAN_RxFifo0MsgPendingCallback) refers to can.o(.bss) for hcan1
-    motor.o(i.HAL_CAN_RxFifo0MsgPendingCallback) refers to motor.o(.bss) for .bss
-    motor.o(i.HAL_CAN_RxFifo1MsgPendingCallback) refers to stm32f4xx_hal_can.o(i.HAL_CAN_GetRxMessage) for HAL_CAN_GetRxMessage
-    motor.o(i.HAL_CAN_RxFifo1MsgPendingCallback) refers to motor.o(.data) for .data
-    motor.o(i.HAL_CAN_RxFifo1MsgPendingCallback) refers to can.o(.bss) for hcan1
-    motor.o(i.HAL_CAN_RxFifo1MsgPendingCallback) refers to motor.o(.bss) for .bss
-    motor.o(i.can_filter_init) refers to stm32f4xx_hal_can.o(i.HAL_CAN_ConfigFilter) for HAL_CAN_ConfigFilter
-    motor.o(i.can_filter_init) refers to can.o(.bss) for hcan1
-    motor.o(i.can_start) refers to motor.o(i.can_filter_init) for can_filter_init
-    motor.o(i.can_start) refers to stm32f4xx_hal_can.o(i.HAL_CAN_Start) for HAL_CAN_Start
-    motor.o(i.can_start) refers to stm32f4xx_hal_can.o(i.HAL_CAN_ActivateNotification) for HAL_CAN_ActivateNotification
-    motor.o(i.can_start) refers to can.o(.bss) for hcan1
     pid.o(i.pidINIT) refers to pid.o(i.PID_init) for PID_init
     pid.o(i.pidINIT) refers to pid.o(i.PID_clear) for PID_clear
-    remote_control.o(i.USART3_IRQHandler) refers to remote_control.o(i.sbus_to_rc) for sbus_to_rc
-    remote_control.o(i.USART3_IRQHandler) refers to usart.o(.bss) for huart3
-    remote_control.o(i.USART3_IRQHandler) refers to remote_control.o(.data) for .data
-    remote_control.o(i.USART3_IRQHandler) refers to remote_control.o(.bss) for .bss
-    remote_control.o(i.get_remote_control_point) refers to remote_control.o(.bss) for .bss
-    remote_control.o(i.remote_control_init) refers to bsp_rc.o(i.RC_init) for RC_init
-    remote_control.o(i.remote_control_init) refers to remote_control.o(.bss) for .bss
+    bsp_buzzer.o(i.Buzzer) refers to bsp_tim.o(i.BuzzerStart) for BuzzerStart
+    bsp_buzzer.o(i.Buzzer) refers to stm32f4xx_hal.o(i.HAL_Delay) for HAL_Delay
+    bsp_buzzer.o(i.Buzzer) refers to bsp_tim.o(i.BuzzerStop) for BuzzerStop
+    bsp_can.o(i.HAL_CAN_ErrorCallback) refers to stm32f4xx_hal_can.o(i.HAL_CAN_ActivateNotification) for HAL_CAN_ActivateNotification
+    bsp_can.o(i.HAL_CAN_ErrorCallback) refers to can.o(.bss) for hcan1
+    bsp_can.o(i.can_filter_init) refers to stm32f4xx_hal_can.o(i.HAL_CAN_ConfigFilter) for HAL_CAN_ConfigFilter
+    bsp_can.o(i.can_filter_init) refers to can.o(.bss) for hcan1
+    bsp_can.o(i.can_start) refers to bsp_can.o(i.can_filter_init) for can_filter_init
+    bsp_can.o(i.can_start) refers to stm32f4xx_hal_can.o(i.HAL_CAN_Start) for HAL_CAN_Start
+    bsp_can.o(i.can_start) refers to stm32f4xx_hal_can.o(i.HAL_CAN_ActivateNotification) for HAL_CAN_ActivateNotification
+    bsp_can.o(i.can_start) refers to can.o(.bss) for hcan1
+    bsp_can.o(i.canx_receive) refers to stm32f4xx_hal_can.o(i.HAL_CAN_GetRxMessage) for HAL_CAN_GetRxMessage
+    bsp_can.o(i.canx_send_data) refers to stm32f4xx_hal_can.o(i.HAL_CAN_AddTxMessage) for HAL_CAN_AddTxMessage
+    bsp_dwt.o(i.DWT_CNT_Update) refers to bsp_dwt.o(.data) for .data
+    bsp_dwt.o(i.DWT_Delay) refers to bsp_dwt.o(.data) for .data
+    bsp_dwt.o(i.DWT_GetDeltaT) refers to bsp_dwt.o(i.DWT_CNT_Update) for DWT_CNT_Update
+    bsp_dwt.o(i.DWT_GetDeltaT) refers to bsp_dwt.o(.data) for .data
+    bsp_dwt.o(i.DWT_GetDeltaT64) refers to dflt_clz.o(x$fpl$dfltu) for __aeabi_ui2d
+    bsp_dwt.o(i.DWT_GetDeltaT64) refers to ddiv.o(x$fpl$ddiv) for __aeabi_ddiv
+    bsp_dwt.o(i.DWT_GetDeltaT64) refers to bsp_dwt.o(i.DWT_CNT_Update) for DWT_CNT_Update
+    bsp_dwt.o(i.DWT_GetDeltaT64) refers to bsp_dwt.o(.data) for .data
+    bsp_dwt.o(i.DWT_GetTimeline_ms) refers to bsp_dwt.o(i.DWT_SysTimeUpdate) for DWT_SysTimeUpdate
+    bsp_dwt.o(i.DWT_GetTimeline_ms) refers to bsp_dwt.o(.data) for .data
+    bsp_dwt.o(i.DWT_GetTimeline_s) refers to bsp_dwt.o(i.DWT_SysTimeUpdate) for DWT_SysTimeUpdate
+    bsp_dwt.o(i.DWT_GetTimeline_s) refers to bsp_dwt.o(.data) for .data
+    bsp_dwt.o(i.DWT_GetTimeline_us) refers to bsp_dwt.o(i.DWT_SysTimeUpdate) for DWT_SysTimeUpdate
+    bsp_dwt.o(i.DWT_GetTimeline_us) refers to bsp_dwt.o(.data) for .data
+    bsp_dwt.o(i.DWT_Init) refers to bsp_dwt.o(.data) for .data
+    bsp_dwt.o(i.DWT_SysTimeUpdate) refers to bsp_dwt.o(i.DWT_CNT_Update) for DWT_CNT_Update
+    bsp_dwt.o(i.DWT_SysTimeUpdate) refers to lludivv7m.o(.text) for __aeabi_uldivmod
+    bsp_dwt.o(i.DWT_SysTimeUpdate) refers to bsp_dwt.o(.data) for .data
+    bsp_tim.o(i.BuzzerStart) refers to tim.o(.bss) for htim4
+    bsp_tim.o(i.BuzzerStop) refers to tim.o(.bss) for htim4
+    bsp_tim.o(i.Delay_us) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_Base_Start) for HAL_TIM_Base_Start
+    bsp_tim.o(i.Delay_us) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_Base_Stop) for HAL_TIM_Base_Stop
+    bsp_tim.o(i.Delay_us) refers to tim.o(.bss) for htim6
+    bsp_tim.o(i.LED_Blue) refers to tim.o(.bss) for htim5
+    bsp_tim.o(i.LED_Green) refers to tim.o(.bss) for htim5
+    bsp_tim.o(i.LED_Red) refers to tim.o(.bss) for htim5
+    bsp_tim.o(i.LED_White) refers to tim.o(.bss) for htim5
+    controller.o(i.Feedforward_Calculate) refers to bsp_dwt.o(i.DWT_GetDeltaT) for DWT_GetDeltaT
+    controller.o(i.Feedforward_Calculate) refers to user_lib.o(i.OLS_Derivative) for OLS_Derivative
+    controller.o(i.Feedforward_Calculate) refers to user_lib.o(i.float_constrain) for float_constrain
+    controller.o(i.Feedforward_Init) refers to user_lib.o(i.OLS_Init) for OLS_Init
+    controller.o(i.Fuzzy_Rule_Init) refers to controller.o(.data) for .data
+    controller.o(i.LDOB_Calculate) refers to bsp_dwt.o(i.DWT_GetDeltaT) for DWT_GetDeltaT
+    controller.o(i.LDOB_Calculate) refers to user_lib.o(i.OLS_Derivative) for OLS_Derivative
+    controller.o(i.LDOB_Calculate) refers to user_lib.o(i.float_constrain) for float_constrain
+    controller.o(i.LDOB_Init) refers to user_lib.o(i.OLS_Init) for OLS_Init
+    controller.o(i.PID_Calculate) refers to bsp_dwt.o(i.DWT_GetDeltaT) for DWT_GetDeltaT
+    controller.o(i.PID_Calculate) refers to user_lib.o(i.OLS_Derivative) for OLS_Derivative
+    controller.o(i.PID_Calculate) refers to controller.o(i.f_Changing_Integration_Rate) for f_Changing_Integration_Rate
+    controller.o(i.PID_Calculate) refers to controller.o(i.f_Derivative_On_Measurement) for f_Derivative_On_Measurement
+    controller.o(i.PID_Calculate) refers to controller.o(i.f_Integral_Limit) for f_Integral_Limit
+    controller.o(i.PID_Init) refers to user_lib.o(i.OLS_Init) for OLS_Init
+    controller.o(i.TD_Calculate) refers to bsp_dwt.o(i.DWT_GetDeltaT) for DWT_GetDeltaT
+    controller.o(i.TD_Calculate) refers to f2d.o(x$fpl$f2d) for __aeabi_f2d
+    controller.o(i.TD_Calculate) refers to sqrt.o(i.__hardfp_sqrt) for __hardfp_sqrt
+    controller.o(i.TD_Calculate) refers to d2f.o(x$fpl$d2f) for __aeabi_d2f
+    controller.o(i.TD_Calculate) refers to user_lib.o(i.sign) for sign
+    controller.o(i.TD_Calculate) refers to controller.o(.data) for .data
+    controller.o(i.f_Derivative_On_Measurement) refers to user_lib.o(i.OLS_Derivative) for OLS_Derivative
+    user_lib.o(i.OLS_Derivative) refers to rt_memclr.o(.text) for __aeabi_memclr
+    user_lib.o(i.OLS_Derivative) refers to user_lib.o(.data) for .data
+    user_lib.o(i.OLS_Init) refers to h1_alloc.o(.text) for malloc
+    user_lib.o(i.OLS_Init) refers to rt_memclr_w.o(.text) for __aeabi_memclr4
+    user_lib.o(i.OLS_Init) refers to rt_memclr.o(.text) for __aeabi_memclr
+    user_lib.o(i.OLS_Smooth) refers to rt_memclr.o(.text) for __aeabi_memclr
+    user_lib.o(i.OLS_Smooth) refers to user_lib.o(.data) for .data
+    user_lib.o(i.OLS_Update) refers to rt_memclr.o(.text) for __aeabi_memclr
+    user_lib.o(i.OLS_Update) refers to user_lib.o(.data) for .data
+    user_lib.o(i.theta_format) refers to user_lib.o(i.loop_float_constrain) for loop_float_constrain
+    motor_1.o(i.CAN_cmd_chassis) refers to stm32f4xx_hal_can.o(i.HAL_CAN_AddTxMessage) for HAL_CAN_AddTxMessage
+    motor_1.o(i.CAN_cmd_chassis) refers to stm32f4xx_hal.o(i.HAL_Delay) for HAL_Delay
+    motor_1.o(i.CAN_cmd_chassis) refers to motor_1.o(.bss) for .bss
+    motor_1.o(i.CAN_cmd_chassis) refers to motor_1.o(.data) for .data
+    motor_1.o(i.CAN_cmd_chassis) refers to can.o(.bss) for hcan1
+    motor_1.o(i.CAN_cmd_gimbal) refers to stm32f4xx_hal_can.o(i.HAL_CAN_AddTxMessage) for HAL_CAN_AddTxMessage
+    motor_1.o(i.CAN_cmd_gimbal) refers to stm32f4xx_hal.o(i.HAL_Delay) for HAL_Delay
+    motor_1.o(i.CAN_cmd_gimbal) refers to motor_1.o(.bss) for .bss
+    motor_1.o(i.CAN_cmd_gimbal) refers to motor_1.o(.data) for .data
+    motor_1.o(i.CAN_cmd_gimbal) refers to can.o(.bss) for hcan1
+    motor_1.o(i.CAN_cmd_lifting) refers to stm32f4xx_hal_can.o(i.HAL_CAN_AddTxMessage) for HAL_CAN_AddTxMessage
+    motor_1.o(i.CAN_cmd_lifting) refers to stm32f4xx_hal.o(i.HAL_Delay) for HAL_Delay
+    motor_1.o(i.CAN_cmd_lifting) refers to motor_1.o(.bss) for .bss
+    motor_1.o(i.CAN_cmd_lifting) refers to motor_1.o(.data) for .data
+    motor_1.o(i.CAN_cmd_lifting) refers to can.o(.bss) for hcan1
+    motor_1.o(i.HAL_CAN_RxFifo0MsgPendingCallback) refers to stm32f4xx_hal_can.o(i.HAL_CAN_GetRxMessage) for HAL_CAN_GetRxMessage
+    motor_1.o(i.HAL_CAN_RxFifo0MsgPendingCallback) refers to motor_1.o(.data) for .data
+    motor_1.o(i.HAL_CAN_RxFifo0MsgPendingCallback) refers to can.o(.bss) for hcan1
+    motor_1.o(i.HAL_CAN_RxFifo0MsgPendingCallback) refers to motor_1.o(.bss) for .bss
+    motor_1.o(i.HAL_CAN_RxFifo1MsgPendingCallback) refers to stm32f4xx_hal_can.o(i.HAL_CAN_GetRxMessage) for HAL_CAN_GetRxMessage
+    motor_1.o(i.HAL_CAN_RxFifo1MsgPendingCallback) refers to motor_1.o(.data) for .data
+    motor_1.o(i.HAL_CAN_RxFifo1MsgPendingCallback) refers to can.o(.bss) for hcan1
+    motor_1.o(i.HAL_CAN_RxFifo1MsgPendingCallback) refers to motor_1.o(.bss) for .bss
+    remote_control_1.o(i.USART3_IRQHandler) refers to remote_control_1.o(i.sbus_to_rc) for sbus_to_rc
+    remote_control_1.o(i.USART3_IRQHandler) refers to usart.o(.bss) for huart3
+    remote_control_1.o(i.USART3_IRQHandler) refers to remote_control_1.o(.data) for .data
+    remote_control_1.o(i.USART3_IRQHandler) refers to remote_control_1.o(.bss) for .bss
+    remote_control_1.o(i.get_remote_control_point) refers to remote_control_1.o(.bss) for .bss
+    remote_control_1.o(i.remote_control_init) refers to bsp_rc.o(i.RC_init) for RC_init
+    remote_control_1.o(i.remote_control_init) refers to remote_control_1.o(.bss) for .bss
+    dm_motor.o(i.DM_MIT_Ctrl) refers to user_lib.o(i.float_to_uint) for float_to_uint
+    dm_motor.o(i.DM_MIT_Ctrl) refers to bsp_can.o(i.canx_send_data) for canx_send_data
+    dm_motor.o(i.DM_MIT_Ctrl) refers to bsp_tim.o(i.Delay_us) for Delay_us
+    dm_motor.o(i.DM_Motor_Ctrl_Send) refers to dm_motor.o(i.DM_Psi_Ctrl) for DM_Psi_Ctrl
+    dm_motor.o(i.DM_Motor_Ctrl_Send) refers to dm_motor.o(i.DM_MIT_Ctrl) for DM_MIT_Ctrl
+    dm_motor.o(i.DM_Motor_Ctrl_Send) refers to dm_motor.o(i.DM_Pos_Ctrl) for DM_Pos_Ctrl
+    dm_motor.o(i.DM_Motor_Ctrl_Send) refers to dm_motor.o(i.DM_Spd_Ctrl) for DM_Spd_Ctrl
+    dm_motor.o(i.DM_Motor_Enable) refers to dm_motor.o(i.DM_enable_motor_mode) for DM_enable_motor_mode
+    dm_motor.o(i.DM_Pos_Ctrl) refers to bsp_can.o(i.canx_send_data) for canx_send_data
+    dm_motor.o(i.DM_Psi_Ctrl) refers to bsp_can.o(i.canx_send_data) for canx_send_data
+    dm_motor.o(i.DM_Spd_Ctrl) refers to bsp_can.o(i.canx_send_data) for canx_send_data
+    dm_motor.o(i.DM_disable_motor_mode) refers to bsp_can.o(i.canx_send_data) for canx_send_data
+    dm_motor.o(i.DM_enable_motor_mode) refers to bsp_can.o(i.canx_send_data) for canx_send_data
+    dm_motor.o(i.DM_enable_motor_mode) refers to bsp_tim.o(i.Delay_us) for Delay_us
+    dm_motor.o(i.Get_DM_MotorInfo) refers to user_lib.o(i.uint_to_float) for uint_to_float
+    dm_motor.o(i.Get_DM_MotorInfo) refers to dm_motor_ctrl.o(.bss) for Motor1
+    dm_motor.o(i.clear_err) refers to bsp_can.o(i.canx_send_data) for canx_send_data
+    dm_motor.o(i.read_motor_ctrl_fbdata) refers to bsp_can.o(i.canx_send_data) for canx_send_data
+    dm_motor.o(i.read_motor_ctrl_fbdata) refers to can.o(.bss) for hcan1
+    dm_motor.o(i.read_motor_data) refers to bsp_can.o(i.canx_send_data) for canx_send_data
+    dm_motor.o(i.read_motor_data) refers to can.o(.bss) for hcan1
+    dm_motor.o(i.save_motor_data) refers to bsp_can.o(i.canx_send_data) for canx_send_data
+    dm_motor.o(i.save_motor_data) refers to can.o(.bss) for hcan1
+    dm_motor.o(i.save_pos_zero) refers to bsp_can.o(i.canx_send_data) for canx_send_data
+    dm_motor.o(i.write_motor_data) refers to bsp_can.o(i.canx_send_data) for canx_send_data
+    dm_motor.o(i.write_motor_data) refers to can.o(.bss) for hcan1
+    dm_motor_ctrl.o(i.can1_rx_callback) refers to bsp_can.o(i.canx_receive) for canx_receive
+    dm_motor_ctrl.o(i.can1_rx_callback) refers to dm_motor.o(i.Get_DM_MotorInfo) for Get_DM_MotorInfo
+    dm_motor_ctrl.o(i.can1_rx_callback) refers to dm_motor_ctrl.o(i.receive_motor_data) for receive_motor_data
+    dm_motor_ctrl.o(i.can1_rx_callback) refers to can.o(.bss) for hcan1
+    dm_motor_ctrl.o(i.can1_rx_callback) refers to dm_motor_ctrl.o(.bss) for .bss
+    dm_motor_ctrl.o(i.dm_motor_init) refers to dm_motor_ctrl.o(.bss) for .bss
+    dm_motor_ctrl.o(i.read_all_motor_data) refers to dm_motor.o(i.read_motor_data) for read_motor_data
+    rm_motor.o(i.Set_RM_MotorCurrent) refers to stm32f4xx_hal_can.o(i.HAL_CAN_AddTxMessage) for HAL_CAN_AddTxMessage
+    rm_motor.o(i.Set_RM_MotorCurrent) refers to stm32f4xx_hal_can.o(i.HAL_CAN_Start) for HAL_CAN_Start
     chassis_task.o(i.Chassis_SolutionForward) refers to chassis_task.o(.data) for .data
     chassis_task.o(i.chassis_mode_execute) refers to dflt_clz.o(x$fpl$dflt) for __aeabi_i2d
     chassis_task.o(i.chassis_mode_execute) refers to ddiv.o(x$fpl$ddiv) for __aeabi_ddiv
@@ -542,24 +657,34 @@ Section Cross References
     chassis_task.o(i.chassis_mode_execute) refers to dleqf.o(x$fpl$dleqf) for __aeabi_cdcmple
     chassis_task.o(i.chassis_mode_execute) refers to dfix.o(x$fpl$dfix) for __aeabi_d2iz
     chassis_task.o(i.chassis_mode_execute) refers to dmul.o(x$fpl$dmul) for __aeabi_dmul
-    chassis_task.o(i.chassis_mode_execute) refers to remote_control.o(.bss) for rc_ctrl
+    chassis_task.o(i.chassis_mode_execute) refers to remote_control_1.o(.bss) for rc_ctrl
     chassis_task.o(i.chassis_pid) refers to pid.o(i.pidINIT) for pidINIT
     chassis_task.o(i.chassis_pid) refers to pid.o(i.PID_calc) for PID_calc
     chassis_task.o(i.chassis_pid) refers to chassis_task.o(.bss) for .bss
-    chassis_task.o(i.chassis_pid) refers to motor.o(.bss) for motor_chassis
+    chassis_task.o(i.chassis_pid) refers to motor_1.o(.bss) for motor_chassis
     chassis_task.o(i.chassis_task) refers to chassis_task.o(i.chassis_mode_execute) for chassis_mode_execute
     chassis_task.o(i.chassis_task) refers to chassis_task.o(i.Chassis_SolutionForward) for Chassis_SolutionForward
     chassis_task.o(i.chassis_task) refers to chassis_task.o(i.chassis_pid) for chassis_pid
-    chassis_task.o(i.chassis_task) refers to motor.o(i.CAN_cmd_chassis) for CAN_cmd_chassis
+    chassis_task.o(i.chassis_task) refers to motor_1.o(i.CAN_cmd_chassis) for CAN_cmd_chassis
     chassis_task.o(i.chassis_task) refers to chassis_task.o(.bss) for .bss
     chassis_task.o(i.chassis_task) refers to chassis_task.o(.data) for .data
+    gimbal_task.o(i.gimbal_task) refers to pid.o(i.pidINIT) for pidINIT
+    gimbal_task.o(i.gimbal_task) refers to dflt_clz.o(x$fpl$dflt) for __aeabi_i2d
+    gimbal_task.o(i.gimbal_task) refers to dmul.o(x$fpl$dmul) for __aeabi_dmul
+    gimbal_task.o(i.gimbal_task) refers to d2f.o(x$fpl$d2f) for __aeabi_d2f
+    gimbal_task.o(i.gimbal_task) refers to pid.o(i.PID_calc) for PID_calc
+    gimbal_task.o(i.gimbal_task) refers to motor_1.o(i.CAN_cmd_chassis) for CAN_cmd_chassis
+    gimbal_task.o(i.gimbal_task) refers to gimbal_task.o(.bss) for .bss
+    gimbal_task.o(i.gimbal_task) refers to remote_control_1.o(.bss) for rc_ctrl
+    gimbal_task.o(i.gimbal_task) refers to motor_1.o(.bss) for motor_gimbal
+    gimbal_task.o(i.gimbal_task) refers to gimbal_task.o(.data) for .data
     lifting_task.o(i.Lifting_dual_motor_pid) refers to lifting_task.o(i.pid_angle_calc) for pid_angle_calc
     lifting_task.o(i.Lifting_dual_motor_pid) refers to lifting_task.o(i.pid_speed_calc) for pid_speed_calc
     lifting_task.o(i.lifitng_task) refers to lifting_task.o(i.lifting_mode_execute) for lifting_mode_execute
     lifting_task.o(i.lifitng_task) refers to lifting_task.o(i.Lifting_dual_motor_pid) for Lifting_dual_motor_pid
-    lifting_task.o(i.lifitng_task) refers to motor.o(i.CAN_cmd_lifting) for CAN_cmd_lifting
+    lifting_task.o(i.lifitng_task) refers to motor_1.o(i.CAN_cmd_lifting) for CAN_cmd_lifting
     lifting_task.o(i.lifitng_task) refers to lifting_task.o(.data) for .data
-    lifting_task.o(i.lifitng_task) refers to motor.o(.bss) for motor_lifting
+    lifting_task.o(i.lifitng_task) refers to motor_1.o(.bss) for motor_lifting
     lifting_task.o(i.lifitng_task) refers to lifting_task.o(.bss) for .bss
     lifting_task.o(i.pid_angle_calc) refers to pid.o(i.pidINIT) for pidINIT
     lifting_task.o(i.pid_angle_calc) refers to pid.o(i.PID_calc) for PID_calc
@@ -569,65 +694,15 @@ Section Cross References
     lifting_task.o(i.pid_deviation_speed_calc) refers to pid.o(i.PID_calc) for PID_calc
     lifting_task.o(i.pid_speed_calc) refers to pid.o(i.pidINIT) for pidINIT
     lifting_task.o(i.pid_speed_calc) refers to pid.o(i.PID_calc) for PID_calc
-    gimbal_task.o(i.gimbal_task) refers to pid.o(i.pidINIT) for pidINIT
-    gimbal_task.o(i.gimbal_task) refers to dflt_clz.o(x$fpl$dflt) for __aeabi_i2d
-    gimbal_task.o(i.gimbal_task) refers to dmul.o(x$fpl$dmul) for __aeabi_dmul
-    gimbal_task.o(i.gimbal_task) refers to d2f.o(x$fpl$d2f) for __aeabi_d2f
-    gimbal_task.o(i.gimbal_task) refers to pid.o(i.PID_calc) for PID_calc
-    gimbal_task.o(i.gimbal_task) refers to motor.o(i.CAN_cmd_chassis) for CAN_cmd_chassis
-    gimbal_task.o(i.gimbal_task) refers to gimbal_task.o(.bss) for .bss
-    gimbal_task.o(i.gimbal_task) refers to remote_control.o(.bss) for rc_ctrl
-    gimbal_task.o(i.gimbal_task) refers to motor.o(.bss) for motor_gimbal
-    gimbal_task.o(i.gimbal_task) refers to gimbal_task.o(.data) for .data
-    crc8_crc16.o(i.append_CRC16_check_sum) refers to crc8_crc16.o(i.get_CRC16_check_sum) for get_CRC16_check_sum
-    crc8_crc16.o(i.append_CRC16_check_sum) refers to crc8_crc16.o(.data) for .data
-    crc8_crc16.o(i.append_CRC8_check_sum) refers to crc8_crc16.o(i.get_CRC8_check_sum) for get_CRC8_check_sum
-    crc8_crc16.o(i.get_CRC16_check_sum) refers to crc8_crc16.o(.constdata) for .constdata
-    crc8_crc16.o(i.get_CRC8_check_sum) refers to crc8_crc16.o(.constdata) for .constdata
-    crc8_crc16.o(i.verify_CRC16_check_sum) refers to crc8_crc16.o(i.get_CRC16_check_sum) for get_CRC16_check_sum
-    crc8_crc16.o(i.verify_CRC16_check_sum) refers to crc8_crc16.o(.data) for .data
-    crc8_crc16.o(i.verify_CRC8_check_sum) refers to crc8_crc16.o(i.get_CRC8_check_sum) for get_CRC8_check_sum
-    fifo.o(i.fifo_create) refers to h1_alloc.o(.text) for malloc
-    fifo.o(i.fifo_create) refers to fifo.o(i.fifo_init) for fifo_init
-    fifo.o(i.fifo_create) refers to h1_free.o(.text) for free
-    fifo.o(i.fifo_destory) refers to h1_free.o(.text) for free
-    fifo.o(i.fifo_get) refers to rt_memcpy_v6.o(.text) for __aeabi_memcpy
-    fifo.o(i.fifo_get_noprotect) refers to rt_memcpy_v6.o(.text) for __aeabi_memcpy
-    fifo.o(i.fifo_pre_read) refers to rt_memcpy_v6.o(.text) for __aeabi_memcpy
-    fifo.o(i.fifo_put) refers to rt_memcpy_v6.o(.text) for __aeabi_memcpy
-    fifo.o(i.fifo_put_noprotect) refers to rt_memcpy_v6.o(.text) for __aeabi_memcpy
-    fifo.o(i.fifo_s_create) refers to h1_alloc.o(.text) for malloc
-    fifo.o(i.fifo_s_create) refers to fifo.o(i.fifo_s_init) for fifo_s_init
-    fifo.o(i.fifo_s_create) refers to h1_free.o(.text) for free
-    fifo.o(i.fifo_s_destroy) refers to h1_free.o(.text) for free
-    fifo.o(i.fifo_s_gets) refers to rt_memcpy_v6.o(.text) for __aeabi_memcpy
-    fifo.o(i.fifo_s_gets_noprotect) refers to rt_memcpy_v6.o(.text) for __aeabi_memcpy
-    fifo.o(i.fifo_s_prereads) refers to rt_memcpy_v6.o(.text) for __aeabi_memcpy
-    fifo.o(i.fifo_s_puts) refers to rt_memcpy_v6.o(.text) for __aeabi_memcpy
-    fifo.o(i.fifo_s_puts_noprotect) refers to rt_memcpy_v6.o(.text) for __aeabi_memcpy
-    referee.o(i.init_referee_struct_data) refers to rt_memclr_w.o(.text) for __aeabi_memclr4
-    referee.o(i.init_referee_struct_data) refers to rt_memclr.o(.text) for __aeabi_memclr
-    referee.o(i.init_referee_struct_data) refers to referee.o(.data) for .data
-    referee.o(i.init_referee_struct_data) refers to referee.o(.bss) for .bss
-    referee.o(i.refereeINIT) refers to referee.o(i.init_referee_struct_data) for init_referee_struct_data
-    referee.o(i.refereeINIT) refers to fifo.o(i.fifo_s_init) for fifo_s_init
-    referee.o(i.refereeINIT) refers to referee.o(i.referee_usart_init) for referee_usart_init
-    referee.o(i.refereeINIT) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_Base_Start_IT) for HAL_TIM_Base_Start_IT
-    referee.o(i.refereeINIT) refers to referee.o(.bss) for .bss
-    referee.o(i.refereeINIT) refers to usart.o(.bss) for huart6
-    referee.o(i.refereeReceiveHandler) refers to fifo.o(i.fifo_s_puts) for fifo_s_puts
-    referee.o(i.refereeReceiveHandler) refers to usart.o(.bss) for huart6
-    referee.o(i.refereeReceiveHandler) refers to referee.o(.data) for .data
-    referee.o(i.refereeReceiveHandler) refers to referee.o(.bss) for .bss
-    referee.o(i.referee_data_solve) refers to rt_memcpy_v6.o(.text) for __aeabi_memcpy
-    referee.o(i.referee_data_solve) refers to referee.o(.data) for .data
-    referee.o(i.referee_data_solve) refers to referee.o(.bss) for .bss
-    referee.o(i.referee_unpack_fifo_data) refers to fifo.o(i.fifo_s_get) for fifo_s_get
-    referee.o(i.referee_unpack_fifo_data) refers to crc8_crc16.o(i.verify_CRC8_check_sum) for verify_CRC8_check_sum
-    referee.o(i.referee_unpack_fifo_data) refers to crc8_crc16.o(i.verify_CRC16_check_sum) for verify_CRC16_check_sum
-    referee.o(i.referee_unpack_fifo_data) refers to referee.o(i.referee_data_solve) for referee_data_solve
-    referee.o(i.referee_unpack_fifo_data) refers to fifo.o(i.fifo_s_used) for fifo_s_used
-    referee.o(i.referee_unpack_fifo_data) refers to referee.o(.bss) for .bss
+    mechanicalarm_task.o(i.mechanicalarm_init) refers to dm_motor.o(i.read_motor_ctrl_fbdata) for read_motor_ctrl_fbdata
+    mechanicalarm_task.o(i.mechanicalarm_init) refers to dm_motor.o(i.DM_Motor_Enable) for DM_Motor_Enable
+    mechanicalarm_task.o(i.mechanicalarm_init) refers to dm_motor_ctrl.o(i.dm_motor_init) for dm_motor_init
+    mechanicalarm_task.o(i.mechanicalarm_init) refers to dm_motor_ctrl.o(.bss) for Motor1
+    mechanicalarm_task.o(i.mechanicalarm_init) refers to can.o(.bss) for hcan1
+    mechanicalarm_task.o(i.mechanicalarm_task) refers to dm_motor.o(i.DM_Motor_Enable) for DM_Motor_Enable
+    mechanicalarm_task.o(i.mechanicalarm_task) refers to dm_motor.o(i.DM_Motor_Ctrl_Send) for DM_Motor_Ctrl_Send
+    mechanicalarm_task.o(i.mechanicalarm_task) refers to dm_motor_ctrl.o(.bss) for Motor1
+    mechanicalarm_task.o(i.mechanicalarm_task) refers to can.o(.bss) for hcan1
     basicmathfunctions.o(i.arm_abs_f64) refers to fabs.o(i.__hardfp_fabs) for __hardfp_fabs
     basicmathfunctions.o(i.arm_add_f64) refers to daddsub_clz.o(x$fpl$dadd) for __aeabi_dadd
     basicmathfunctions.o(i.arm_dot_prod_f64) refers to dmul.o(x$fpl$dmul) for __aeabi_dmul
@@ -1372,17 +1447,12 @@ Section Cross References
     malloc.o(.text) refers (Special) to init_alloc.o(.text) for _init_alloc
     malloc.o(.text) refers to rt_heap_descriptor_intlibspace.o(.text) for __rt_heap_descriptor
     malloc.o(.text) refers to heapstubs.o(.text) for __Heap_Alloc
-    free.o(.text) refers (Special) to hguard.o(.text) for __heap$guard
-    free.o(.text) refers to rt_heap_descriptor_intlibspace.o(.text) for __rt_heap_descriptor
-    free.o(.text) refers to heapstubs.o(.text) for __Heap_Free
     h1_alloc.o(.text) refers (Special) to h1_init.o(.text) for __Heap_Initialize
     h1_alloc.o(.text) refers to rt_heap_descriptor_intlibspace.o(.text) for __rt_heap_descriptor
     h1_alloc.o(.text) refers to init_alloc.o(.text) for __Heap_Full
-    h1_free.o(.text) refers to rt_heap_descriptor_intlibspace.o(.text) for __rt_heap_descriptor
     h1_alloc_mt.o(.text) refers (Special) to h1_init.o(.text) for __Heap_Initialize
     h1_alloc_mt.o(.text) refers to init_alloc.o(.text) for __Heap_Full
     h1_alloc_mt.o(.text) refers to rt_heap_descriptor_intlibspace.o(.text) for __rt_heap_descriptor
-    h1_free_mt.o(.text) refers to rt_heap_descriptor_intlibspace.o(.text) for __rt_heap_descriptor
     heap2.o(i._FDIterate) refers to heap2.o(.conststring) for .conststring
     heap2.o(i.___Heap_ProvideMemory$realtime) refers to fdtree.o(i._FDTree_Delete) for _FDTree_Delete
     heap2.o(i.___Heap_ProvideMemory$realtime) refers to fdtree.o(i._FDTree_Insert) for _FDTree_Insert
@@ -1435,7 +1505,6 @@ Section Cross References
     heap2mt.o(i._realloc$realtime$concurrent) refers to fdtree.o(i._FDTree_Delete) for _FDTree_Delete
     heap2mt.o(i._realloc$realtime$concurrent) refers to rt_memcpy_w.o(.text) for __aeabi_memcpy4
     llsdiv.o(.text) refers to lludivv7m.o(.text) for __aeabi_uldivmod
-    rt_memcpy_v6.o(.text) refers to rt_memcpy_w.o(.text) for __aeabi_memcpy4
     rt_memclr.o(.text) refers to rt_memclr_w.o(.text) for _memset_w
     __main.o(!!!main) refers to __rtentry.o(.ARM.Collect$$rtentry$$00000000) for __rt_entry
     basic.o(x$fpl$basic) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
@@ -1475,6 +1544,9 @@ Section Cross References
     dmul.o(x$fpl$dmul) refers to dnaninf.o(x$fpl$dnaninf) for __fpl_dnaninf
     drleqf.o(x$fpl$drleqf) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
     drleqf.o(x$fpl$drleqf) refers to dleqf.o(x$fpl$dleqf) for __fpl_dcmple_InfNaN
+    f2d.o(x$fpl$f2d) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    f2d.o(x$fpl$f2d) refers to fnaninf.o(x$fpl$fnaninf) for __fpl_fnaninf
+    f2d.o(x$fpl$f2d) refers to dretinf.o(x$fpl$dretinf) for __fpl_dretinf
     ffixll.o(x$fpl$llsfromf) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
     ffixll.o(x$fpl$llsfromf) refers to fnaninf.o(x$fpl$fnaninf) for __fpl_fnaninf
     ffixll.o(x$fpl$llsfromfr) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
@@ -1692,7 +1764,12 @@ Section Cross References
     init_alloc.o(.text) refers to defsig_rtmem_outer.o(.text) for __rt_SIGRTMEM
     init_alloc.o(.text) refers to rt_heap_descriptor_intlibspace.o(.text) for __rt_heap_descriptor
     init_alloc.o(.text) refers to h1_init.o(.text) for __Heap_Initialize
+    free.o(.text) refers (Special) to hguard.o(.text) for __heap$guard
+    free.o(.text) refers to rt_heap_descriptor_intlibspace.o(.text) for __rt_heap_descriptor
+    free.o(.text) refers to heapstubs.o(.text) for __Heap_Free
+    h1_free.o(.text) refers to rt_heap_descriptor_intlibspace.o(.text) for __rt_heap_descriptor
     h1_init_mt.o(.text) refers to mutex_dummy.o(.text) for _mutex_initialize
+    h1_free_mt.o(.text) refers to rt_heap_descriptor_intlibspace.o(.text) for __rt_heap_descriptor
     _rserrno.o(.text) refers to rt_errno_addr_intlibspace.o(.text) for __aeabi_errno_addr
     _get_argv.o(.text) refers (Special) to hrguard.o(.text) for __heap_region$guard
     _get_argv.o(.text) refers to h1_alloc.o(.text) for malloc
@@ -1828,1317 +1905,3 @@ Section Cross References
     libshutdown.o(.ARM.Collect$$libshutdown$$00000000) refers (Special) to libshutdown2.o(.ARM.Collect$$libshutdown$$00000004) for __rt_lib_shutdown_stdio_1
     libshutdown.o(.ARM.Collect$$libshutdown$$00000000) refers (Special) to libshutdown2.o(.ARM.Collect$$libshutdown$$0000000C) for __rt_lib_shutdown_user_alloc_1
 
-
-==============================================================================
-
-Removing Unused input sections from the image.
-
-    Removing main.o(.rev16_text), (4 bytes).
-    Removing main.o(.revsh_text), (4 bytes).
-    Removing main.o(.rrx_text), (6 bytes).
-    Removing main.o(i.airpump_transmit), (28 bytes).
-    Removing main.o(.bss), (12 bytes).
-    Removing main.o(.bss), (69 bytes).
-    Removing main.o(.data), (8 bytes).
-    Removing main.o(.data), (8 bytes).
-    Removing gpio.o(.rev16_text), (4 bytes).
-    Removing gpio.o(.revsh_text), (4 bytes).
-    Removing gpio.o(.rrx_text), (6 bytes).
-    Removing can.o(.rev16_text), (4 bytes).
-    Removing can.o(.revsh_text), (4 bytes).
-    Removing can.o(.rrx_text), (6 bytes).
-    Removing can.o(i.HAL_CAN_MspDeInit), (124 bytes).
-    Removing dma.o(.rev16_text), (4 bytes).
-    Removing dma.o(.revsh_text), (4 bytes).
-    Removing dma.o(.rrx_text), (6 bytes).
-    Removing usart.o(.rev16_text), (4 bytes).
-    Removing usart.o(.revsh_text), (4 bytes).
-    Removing usart.o(.rrx_text), (6 bytes).
-    Removing usart.o(i.HAL_UART_MspDeInit), (152 bytes).
-    Removing stm32f4xx_it.o(.rev16_text), (4 bytes).
-    Removing stm32f4xx_it.o(.revsh_text), (4 bytes).
-    Removing stm32f4xx_it.o(.rrx_text), (6 bytes).
-    Removing stm32f4xx_it.o(i.USART3_IRQHandler), (12 bytes).
-    Removing stm32f4xx_hal_msp.o(.rev16_text), (4 bytes).
-    Removing stm32f4xx_hal_msp.o(.revsh_text), (4 bytes).
-    Removing stm32f4xx_hal_msp.o(.rrx_text), (6 bytes).
-    Removing stm32f4xx_hal_timebase_tim.o(.rev16_text), (4 bytes).
-    Removing stm32f4xx_hal_timebase_tim.o(.revsh_text), (4 bytes).
-    Removing stm32f4xx_hal_timebase_tim.o(.rrx_text), (6 bytes).
-    Removing stm32f4xx_hal_timebase_tim.o(i.HAL_ResumeTick), (20 bytes).
-    Removing stm32f4xx_hal_timebase_tim.o(i.HAL_SuspendTick), (20 bytes).
-    Removing stm32f4xx_hal_can.o(.rev16_text), (4 bytes).
-    Removing stm32f4xx_hal_can.o(.revsh_text), (4 bytes).
-    Removing stm32f4xx_hal_can.o(.rrx_text), (6 bytes).
-    Removing stm32f4xx_hal_can.o(i.HAL_CAN_AbortTxRequest), (70 bytes).
-    Removing stm32f4xx_hal_can.o(i.HAL_CAN_DeInit), (40 bytes).
-    Removing stm32f4xx_hal_can.o(i.HAL_CAN_DeactivateNotification), (36 bytes).
-    Removing stm32f4xx_hal_can.o(i.HAL_CAN_GetError), (4 bytes).
-    Removing stm32f4xx_hal_can.o(i.HAL_CAN_GetRxFifoFillLevel), (34 bytes).
-    Removing stm32f4xx_hal_can.o(i.HAL_CAN_GetState), (36 bytes).
-    Removing stm32f4xx_hal_can.o(i.HAL_CAN_GetTxMailboxesFreeLevel), (44 bytes).
-    Removing stm32f4xx_hal_can.o(i.HAL_CAN_GetTxTimestamp), (40 bytes).
-    Removing stm32f4xx_hal_can.o(i.HAL_CAN_IsSleepActive), (28 bytes).
-    Removing stm32f4xx_hal_can.o(i.HAL_CAN_IsTxMessagePending), (30 bytes).
-    Removing stm32f4xx_hal_can.o(i.HAL_CAN_MspDeInit), (2 bytes).
-    Removing stm32f4xx_hal_can.o(i.HAL_CAN_MspInit), (2 bytes).
-    Removing stm32f4xx_hal_can.o(i.HAL_CAN_RequestSleep), (38 bytes).
-    Removing stm32f4xx_hal_can.o(i.HAL_CAN_ResetError), (34 bytes).
-    Removing stm32f4xx_hal_can.o(i.HAL_CAN_RxFifo0MsgPendingCallback), (2 bytes).
-    Removing stm32f4xx_hal_can.o(i.HAL_CAN_RxFifo1MsgPendingCallback), (2 bytes).
-    Removing stm32f4xx_hal_can.o(i.HAL_CAN_Stop), (96 bytes).
-    Removing stm32f4xx_hal_can.o(i.HAL_CAN_WakeUp), (76 bytes).
-    Removing stm32f4xx_hal_rcc.o(.rev16_text), (4 bytes).
-    Removing stm32f4xx_hal_rcc.o(.revsh_text), (4 bytes).
-    Removing stm32f4xx_hal_rcc.o(.rrx_text), (6 bytes).
-    Removing stm32f4xx_hal_rcc.o(i.HAL_RCC_CSSCallback), (2 bytes).
-    Removing stm32f4xx_hal_rcc.o(i.HAL_RCC_DeInit), (4 bytes).
-    Removing stm32f4xx_hal_rcc.o(i.HAL_RCC_DisableCSS), (12 bytes).
-    Removing stm32f4xx_hal_rcc.o(i.HAL_RCC_EnableCSS), (12 bytes).
-    Removing stm32f4xx_hal_rcc.o(i.HAL_RCC_GetHCLKFreq), (12 bytes).
-    Removing stm32f4xx_hal_rcc.o(i.HAL_RCC_GetOscConfig), (180 bytes).
-    Removing stm32f4xx_hal_rcc.o(i.HAL_RCC_MCOConfig), (140 bytes).
-    Removing stm32f4xx_hal_rcc.o(i.HAL_RCC_NMI_IRQHandler), (28 bytes).
-    Removing stm32f4xx_hal_rcc_ex.o(.rev16_text), (4 bytes).
-    Removing stm32f4xx_hal_rcc_ex.o(.revsh_text), (4 bytes).
-    Removing stm32f4xx_hal_rcc_ex.o(.rrx_text), (6 bytes).
-    Removing stm32f4xx_hal_rcc_ex.o(i.HAL_RCCEx_DisablePLLI2S), (52 bytes).
-    Removing stm32f4xx_hal_rcc_ex.o(i.HAL_RCCEx_EnablePLLI2S), (104 bytes).
-    Removing stm32f4xx_hal_rcc_ex.o(i.HAL_RCCEx_GetPeriphCLKConfig), (52 bytes).
-    Removing stm32f4xx_hal_rcc_ex.o(i.HAL_RCCEx_GetPeriphCLKFreq), (96 bytes).
-    Removing stm32f4xx_hal_rcc_ex.o(i.HAL_RCCEx_PeriphCLKConfig), (316 bytes).
-    Removing stm32f4xx_hal_rcc_ex.o(i.HAL_RCC_DeInit), (308 bytes).
-    Removing stm32f4xx_hal_flash.o(.rev16_text), (4 bytes).
-    Removing stm32f4xx_hal_flash.o(.revsh_text), (4 bytes).
-    Removing stm32f4xx_hal_flash.o(.rrx_text), (6 bytes).
-    Removing stm32f4xx_hal_flash.o(i.FLASH_Program_Byte), (32 bytes).
-    Removing stm32f4xx_hal_flash.o(i.FLASH_Program_DoubleWord), (44 bytes).
-    Removing stm32f4xx_hal_flash.o(i.FLASH_Program_HalfWord), (36 bytes).
-    Removing stm32f4xx_hal_flash.o(i.FLASH_Program_Word), (36 bytes).
-    Removing stm32f4xx_hal_flash.o(i.FLASH_SetErrorCode), (104 bytes).
-    Removing stm32f4xx_hal_flash.o(i.FLASH_WaitForLastOperation), (80 bytes).
-    Removing stm32f4xx_hal_flash.o(i.HAL_FLASH_EndOfOperationCallback), (2 bytes).
-    Removing stm32f4xx_hal_flash.o(i.HAL_FLASH_GetError), (12 bytes).
-    Removing stm32f4xx_hal_flash.o(i.HAL_FLASH_IRQHandler), (200 bytes).
-    Removing stm32f4xx_hal_flash.o(i.HAL_FLASH_Lock), (20 bytes).
-    Removing stm32f4xx_hal_flash.o(i.HAL_FLASH_OB_Launch), (24 bytes).
-    Removing stm32f4xx_hal_flash.o(i.HAL_FLASH_OB_Lock), (20 bytes).
-    Removing stm32f4xx_hal_flash.o(i.HAL_FLASH_OB_Unlock), (40 bytes).
-    Removing stm32f4xx_hal_flash.o(i.HAL_FLASH_OperationErrorCallback), (2 bytes).
-    Removing stm32f4xx_hal_flash.o(i.HAL_FLASH_Program), (124 bytes).
-    Removing stm32f4xx_hal_flash.o(i.HAL_FLASH_Program_IT), (92 bytes).
-    Removing stm32f4xx_hal_flash.o(i.HAL_FLASH_Unlock), (44 bytes).
-    Removing stm32f4xx_hal_flash.o(.bss), (32 bytes).
-    Removing stm32f4xx_hal_flash_ex.o(.rev16_text), (4 bytes).
-    Removing stm32f4xx_hal_flash_ex.o(.revsh_text), (4 bytes).
-    Removing stm32f4xx_hal_flash_ex.o(.rrx_text), (6 bytes).
-    Removing stm32f4xx_hal_flash_ex.o(i.FLASH_Erase_Sector), (80 bytes).
-    Removing stm32f4xx_hal_flash_ex.o(i.FLASH_FlushCaches), (84 bytes).
-    Removing stm32f4xx_hal_flash_ex.o(i.FLASH_MassErase), (40 bytes).
-    Removing stm32f4xx_hal_flash_ex.o(i.HAL_FLASHEx_Erase), (152 bytes).
-    Removing stm32f4xx_hal_flash_ex.o(i.HAL_FLASHEx_Erase_IT), (92 bytes).
-    Removing stm32f4xx_hal_flash_ex.o(i.HAL_FLASHEx_OBGetConfig), (64 bytes).
-    Removing stm32f4xx_hal_flash_ex.o(i.HAL_FLASHEx_OBProgram), (204 bytes).
-    Removing stm32f4xx_hal_flash_ramfunc.o(.rev16_text), (4 bytes).
-    Removing stm32f4xx_hal_flash_ramfunc.o(.revsh_text), (4 bytes).
-    Removing stm32f4xx_hal_flash_ramfunc.o(.rrx_text), (6 bytes).
-    Removing stm32f4xx_hal_gpio.o(.rev16_text), (4 bytes).
-    Removing stm32f4xx_hal_gpio.o(.revsh_text), (4 bytes).
-    Removing stm32f4xx_hal_gpio.o(.rrx_text), (6 bytes).
-    Removing stm32f4xx_hal_gpio.o(i.HAL_GPIO_DeInit), (360 bytes).
-    Removing stm32f4xx_hal_gpio.o(i.HAL_GPIO_EXTI_Callback), (2 bytes).
-    Removing stm32f4xx_hal_gpio.o(i.HAL_GPIO_EXTI_IRQHandler), (24 bytes).
-    Removing stm32f4xx_hal_gpio.o(i.HAL_GPIO_LockPin), (34 bytes).
-    Removing stm32f4xx_hal_gpio.o(i.HAL_GPIO_ReadPin), (10 bytes).
-    Removing stm32f4xx_hal_gpio.o(i.HAL_GPIO_TogglePin), (16 bytes).
-    Removing stm32f4xx_hal_dma_ex.o(.rev16_text), (4 bytes).
-    Removing stm32f4xx_hal_dma_ex.o(.revsh_text), (4 bytes).
-    Removing stm32f4xx_hal_dma_ex.o(.rrx_text), (6 bytes).
-    Removing stm32f4xx_hal_dma_ex.o(i.DMA_MultiBufferSetConfig), (30 bytes).
-    Removing stm32f4xx_hal_dma_ex.o(i.HAL_DMAEx_ChangeMemory), (14 bytes).
-    Removing stm32f4xx_hal_dma_ex.o(i.HAL_DMAEx_MultiBufferStart), (100 bytes).
-    Removing stm32f4xx_hal_dma_ex.o(i.HAL_DMAEx_MultiBufferStart_IT), (2432 bytes).
-    Removing stm32f4xx_hal_dma.o(.rev16_text), (4 bytes).
-    Removing stm32f4xx_hal_dma.o(.revsh_text), (4 bytes).
-    Removing stm32f4xx_hal_dma.o(.rrx_text), (6 bytes).
-    Removing stm32f4xx_hal_dma.o(i.HAL_DMA_DeInit), (98 bytes).
-    Removing stm32f4xx_hal_dma.o(i.HAL_DMA_GetError), (4 bytes).
-    Removing stm32f4xx_hal_dma.o(i.HAL_DMA_GetState), (6 bytes).
-    Removing stm32f4xx_hal_dma.o(i.HAL_DMA_PollForTransfer), (288 bytes).
-    Removing stm32f4xx_hal_dma.o(i.HAL_DMA_RegisterCallback), (82 bytes).
-    Removing stm32f4xx_hal_dma.o(i.HAL_DMA_Start), (70 bytes).
-    Removing stm32f4xx_hal_dma.o(i.HAL_DMA_UnRegisterCallback), (96 bytes).
-    Removing stm32f4xx_hal_pwr.o(.rev16_text), (4 bytes).
-    Removing stm32f4xx_hal_pwr.o(.revsh_text), (4 bytes).
-    Removing stm32f4xx_hal_pwr.o(.rrx_text), (6 bytes).
-    Removing stm32f4xx_hal_pwr.o(i.HAL_PWR_ConfigPVD), (124 bytes).
-    Removing stm32f4xx_hal_pwr.o(i.HAL_PWR_DeInit), (24 bytes).
-    Removing stm32f4xx_hal_pwr.o(i.HAL_PWR_DisableBkUpAccess), (24 bytes).
-    Removing stm32f4xx_hal_pwr.o(i.HAL_PWR_DisablePVD), (12 bytes).
-    Removing stm32f4xx_hal_pwr.o(i.HAL_PWR_DisableSEVOnPend), (16 bytes).
-    Removing stm32f4xx_hal_pwr.o(i.HAL_PWR_DisableSleepOnExit), (16 bytes).
-    Removing stm32f4xx_hal_pwr.o(i.HAL_PWR_DisableWakeUpPin), (16 bytes).
-    Removing stm32f4xx_hal_pwr.o(i.HAL_PWR_EnableBkUpAccess), (24 bytes).
-    Removing stm32f4xx_hal_pwr.o(i.HAL_PWR_EnablePVD), (12 bytes).
-    Removing stm32f4xx_hal_pwr.o(i.HAL_PWR_EnableSEVOnPend), (16 bytes).
-    Removing stm32f4xx_hal_pwr.o(i.HAL_PWR_EnableSleepOnExit), (16 bytes).
-    Removing stm32f4xx_hal_pwr.o(i.HAL_PWR_EnableWakeUpPin), (16 bytes).
-    Removing stm32f4xx_hal_pwr.o(i.HAL_PWR_EnterSLEEPMode), (36 bytes).
-    Removing stm32f4xx_hal_pwr.o(i.HAL_PWR_EnterSTANDBYMode), (32 bytes).
-    Removing stm32f4xx_hal_pwr.o(i.HAL_PWR_EnterSTOPMode), (60 bytes).
-    Removing stm32f4xx_hal_pwr.o(i.HAL_PWR_PVDCallback), (2 bytes).
-    Removing stm32f4xx_hal_pwr.o(i.HAL_PWR_PVD_IRQHandler), (28 bytes).
-    Removing stm32f4xx_hal_pwr_ex.o(.rev16_text), (4 bytes).
-    Removing stm32f4xx_hal_pwr_ex.o(.revsh_text), (4 bytes).
-    Removing stm32f4xx_hal_pwr_ex.o(.rrx_text), (6 bytes).
-    Removing stm32f4xx_hal_pwr_ex.o(i.HAL_PWREx_ControlVoltageScaling), (88 bytes).
-    Removing stm32f4xx_hal_pwr_ex.o(i.HAL_PWREx_DisableBkUpReg), (60 bytes).
-    Removing stm32f4xx_hal_pwr_ex.o(i.HAL_PWREx_DisableFlashPowerDown), (12 bytes).
-    Removing stm32f4xx_hal_pwr_ex.o(i.HAL_PWREx_EnableBkUpReg), (60 bytes).
-    Removing stm32f4xx_hal_pwr_ex.o(i.HAL_PWREx_EnableFlashPowerDown), (12 bytes).
-    Removing stm32f4xx_hal_pwr_ex.o(i.HAL_PWREx_GetVoltageRange), (16 bytes).
-    Removing stm32f4xx_hal_cortex.o(.rev16_text), (4 bytes).
-    Removing stm32f4xx_hal_cortex.o(.revsh_text), (4 bytes).
-    Removing stm32f4xx_hal_cortex.o(.rrx_text), (6 bytes).
-    Removing stm32f4xx_hal_cortex.o(i.HAL_CORTEX_ClearEvent), (6 bytes).
-    Removing stm32f4xx_hal_cortex.o(i.HAL_MPU_ConfigRegion), (84 bytes).
-    Removing stm32f4xx_hal_cortex.o(i.HAL_MPU_Disable), (28 bytes).
-    Removing stm32f4xx_hal_cortex.o(i.HAL_MPU_DisableRegion), (24 bytes).
-    Removing stm32f4xx_hal_cortex.o(i.HAL_MPU_Enable), (36 bytes).
-    Removing stm32f4xx_hal_cortex.o(i.HAL_MPU_EnableRegion), (24 bytes).
-    Removing stm32f4xx_hal_cortex.o(i.HAL_NVIC_ClearPendingIRQ), (26 bytes).
-    Removing stm32f4xx_hal_cortex.o(i.HAL_NVIC_DisableIRQ), (34 bytes).
-    Removing stm32f4xx_hal_cortex.o(i.HAL_NVIC_GetActive), (36 bytes).
-    Removing stm32f4xx_hal_cortex.o(i.HAL_NVIC_GetPendingIRQ), (36 bytes).
-    Removing stm32f4xx_hal_cortex.o(i.HAL_NVIC_GetPriority), (82 bytes).
-    Removing stm32f4xx_hal_cortex.o(i.HAL_NVIC_GetPriorityGrouping), (16 bytes).
-    Removing stm32f4xx_hal_cortex.o(i.HAL_NVIC_SetPendingIRQ), (26 bytes).
-    Removing stm32f4xx_hal_cortex.o(i.HAL_NVIC_SystemReset), (36 bytes).
-    Removing stm32f4xx_hal_cortex.o(i.HAL_SYSTICK_CLKSourceConfig), (24 bytes).
-    Removing stm32f4xx_hal_cortex.o(i.HAL_SYSTICK_Callback), (2 bytes).
-    Removing stm32f4xx_hal_cortex.o(i.HAL_SYSTICK_Config), (40 bytes).
-    Removing stm32f4xx_hal_cortex.o(i.HAL_SYSTICK_IRQHandler), (8 bytes).
-    Removing stm32f4xx_hal.o(.rev16_text), (4 bytes).
-    Removing stm32f4xx_hal.o(.revsh_text), (4 bytes).
-    Removing stm32f4xx_hal.o(.rrx_text), (6 bytes).
-    Removing stm32f4xx_hal.o(i.HAL_DBGMCU_DisableDBGSleepMode), (16 bytes).
-    Removing stm32f4xx_hal.o(i.HAL_DBGMCU_DisableDBGStandbyMode), (16 bytes).
-    Removing stm32f4xx_hal.o(i.HAL_DBGMCU_DisableDBGStopMode), (16 bytes).
-    Removing stm32f4xx_hal.o(i.HAL_DBGMCU_EnableDBGSleepMode), (16 bytes).
-    Removing stm32f4xx_hal.o(i.HAL_DBGMCU_EnableDBGStandbyMode), (16 bytes).
-    Removing stm32f4xx_hal.o(i.HAL_DBGMCU_EnableDBGStopMode), (16 bytes).
-    Removing stm32f4xx_hal.o(i.HAL_DeInit), (72 bytes).
-    Removing stm32f4xx_hal.o(i.HAL_DisableCompensationCell), (12 bytes).
-    Removing stm32f4xx_hal.o(i.HAL_EnableCompensationCell), (12 bytes).
-    Removing stm32f4xx_hal.o(i.HAL_GetDEVID), (16 bytes).
-    Removing stm32f4xx_hal.o(i.HAL_GetHalVersion), (8 bytes).
-    Removing stm32f4xx_hal.o(i.HAL_GetREVID), (12 bytes).
-    Removing stm32f4xx_hal.o(i.HAL_GetTickFreq), (12 bytes).
-    Removing stm32f4xx_hal.o(i.HAL_GetTickPrio), (12 bytes).
-    Removing stm32f4xx_hal.o(i.HAL_GetUIDw0), (12 bytes).
-    Removing stm32f4xx_hal.o(i.HAL_GetUIDw1), (12 bytes).
-    Removing stm32f4xx_hal.o(i.HAL_GetUIDw2), (12 bytes).
-    Removing stm32f4xx_hal.o(i.HAL_InitTick), (64 bytes).
-    Removing stm32f4xx_hal.o(i.HAL_MspDeInit), (2 bytes).
-    Removing stm32f4xx_hal.o(i.HAL_MspInit), (2 bytes).
-    Removing stm32f4xx_hal.o(i.HAL_ResumeTick), (14 bytes).
-    Removing stm32f4xx_hal.o(i.HAL_SetTickFreq), (36 bytes).
-    Removing stm32f4xx_hal.o(i.HAL_SuspendTick), (14 bytes).
-    Removing stm32f4xx_hal_exti.o(.rev16_text), (4 bytes).
-    Removing stm32f4xx_hal_exti.o(.revsh_text), (4 bytes).
-    Removing stm32f4xx_hal_exti.o(.rrx_text), (6 bytes).
-    Removing stm32f4xx_hal_exti.o(i.HAL_EXTI_ClearConfigLine), (108 bytes).
-    Removing stm32f4xx_hal_exti.o(i.HAL_EXTI_ClearPending), (20 bytes).
-    Removing stm32f4xx_hal_exti.o(i.HAL_EXTI_GenerateSWI), (20 bytes).
-    Removing stm32f4xx_hal_exti.o(i.HAL_EXTI_GetConfigLine), (144 bytes).
-    Removing stm32f4xx_hal_exti.o(i.HAL_EXTI_GetHandle), (12 bytes).
-    Removing stm32f4xx_hal_exti.o(i.HAL_EXTI_GetPending), (24 bytes).
-    Removing stm32f4xx_hal_exti.o(i.HAL_EXTI_IRQHandler), (36 bytes).
-    Removing stm32f4xx_hal_exti.o(i.HAL_EXTI_RegisterCallback), (14 bytes).
-    Removing stm32f4xx_hal_exti.o(i.HAL_EXTI_SetConfigLine), (168 bytes).
-    Removing stm32f4xx_hal_tim.o(.rev16_text), (4 bytes).
-    Removing stm32f4xx_hal_tim.o(.revsh_text), (4 bytes).
-    Removing stm32f4xx_hal_tim.o(.rrx_text), (6 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_Base_DeInit), (92 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_Base_GetState), (6 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_Base_MspDeInit), (2 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_Base_Start), (120 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_Base_Start_DMA), (192 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_Base_Stop), (38 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_Base_Stop_DMA), (58 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_Base_Stop_IT), (48 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_ConfigClockSource), (220 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_ConfigOCrefClear), (216 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_ConfigTI1Input), (16 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_DMABurstState), (6 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiReadStart), (332 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiWriteStart), (332 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_DMABurst_ReadStart), (18 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_DMABurst_ReadStop), (106 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_DMABurst_WriteStart), (18 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_DMABurst_WriteStop), (106 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_Encoder_DeInit), (76 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_Encoder_GetState), (6 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_Encoder_Init), (164 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_Encoder_MspDeInit), (2 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_Encoder_MspInit), (2 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_Encoder_Start), (142 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_Encoder_Start_DMA), (428 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_Encoder_Start_IT), (182 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_Encoder_Stop), (102 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_Encoder_Stop_DMA), (172 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_Encoder_Stop_IT), (144 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_ErrorCallback), (2 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_GenerateEvent), (38 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_GetActiveChannel), (4 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_GetChannelState), (34 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_IC_CaptureHalfCpltCallback), (2 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_IC_ConfigChannel), (292 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_IC_DeInit), (92 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_IC_GetState), (6 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_IC_Init), (90 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_IC_MspDeInit), (2 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_IC_MspInit), (2 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_IC_Start), (228 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_IC_Start_DMA), (460 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_IC_Start_IT), (268 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_IC_Stop), (82 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_IC_Stop_DMA), (160 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_IC_Stop_IT), (146 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_OC_ConfigChannel), (82 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_OC_DeInit), (92 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_OC_GetState), (6 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_OC_Init), (90 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_OC_MspDeInit), (2 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_OC_MspInit), (2 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_OC_Start), (200 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_OC_Start_DMA), (448 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_OC_Start_IT), (244 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_OC_Stop), (124 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_OC_Stop_DMA), (204 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_OC_Stop_IT), (188 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_OnePulse_ConfigChannel), (230 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_OnePulse_DeInit), (76 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_OnePulse_GetState), (6 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_OnePulse_Init), (86 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_OnePulse_MspDeInit), (2 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_OnePulse_MspInit), (2 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_OnePulse_Start), (112 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_OnePulse_Start_IT), (132 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_OnePulse_Stop), (112 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_OnePulse_Stop_IT), (132 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_PWM_ConfigChannel), (204 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_PWM_DeInit), (92 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_PWM_GetState), (6 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_PWM_Init), (90 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_PWM_MspDeInit), (2 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_PWM_MspInit), (2 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_PWM_PulseFinishedHalfCpltCallback), (2 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_PWM_Start), (200 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_PWM_Start_DMA), (448 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_PWM_Start_IT), (244 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_PWM_Stop), (124 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_PWM_Stop_DMA), (204 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_PWM_Stop_IT), (188 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_PeriodElapsedCallback), (2 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_PeriodElapsedHalfCpltCallback), (2 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_ReadCapturedValue), (42 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_SlaveConfigSynchro), (86 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_SlaveConfigSynchro_IT), (86 bytes).
-    Removing stm32f4xx_hal_tim.o(i.HAL_TIM_TriggerHalfCpltCallback), (2 bytes).
-    Removing stm32f4xx_hal_tim.o(i.TIM_CCxChannelCmd), (26 bytes).
-    Removing stm32f4xx_hal_tim.o(i.TIM_DMACaptureCplt), (110 bytes).
-    Removing stm32f4xx_hal_tim.o(i.TIM_DMACaptureHalfCplt), (56 bytes).
-    Removing stm32f4xx_hal_tim.o(i.TIM_DMADelayPulseCplt), (94 bytes).
-    Removing stm32f4xx_hal_tim.o(i.TIM_DMADelayPulseHalfCplt), (56 bytes).
-    Removing stm32f4xx_hal_tim.o(i.TIM_DMAError), (84 bytes).
-    Removing stm32f4xx_hal_tim.o(i.TIM_DMAPeriodElapsedCplt), (22 bytes).
-    Removing stm32f4xx_hal_tim.o(i.TIM_DMAPeriodElapsedHalfCplt), (10 bytes).
-    Removing stm32f4xx_hal_tim.o(i.TIM_DMATriggerCplt), (22 bytes).
-    Removing stm32f4xx_hal_tim.o(i.TIM_DMATriggerHalfCplt), (10 bytes).
-    Removing stm32f4xx_hal_tim.o(i.TIM_ETR_SetConfig), (20 bytes).
-    Removing stm32f4xx_hal_tim.o(i.TIM_ITRx_SetConfig), (16 bytes).
-    Removing stm32f4xx_hal_tim.o(i.TIM_OC1_SetConfig), (96 bytes).
-    Removing stm32f4xx_hal_tim.o(i.TIM_OC2_SetConfig), (108 bytes).
-    Removing stm32f4xx_hal_tim.o(i.TIM_OC3_SetConfig), (104 bytes).
-    Removing stm32f4xx_hal_tim.o(i.TIM_OC4_SetConfig), (80 bytes).
-    Removing stm32f4xx_hal_tim.o(i.TIM_SlaveTimer_SetConfig), (140 bytes).
-    Removing stm32f4xx_hal_tim.o(i.TIM_TI1_ConfigInputStage), (34 bytes).
-    Removing stm32f4xx_hal_tim.o(i.TIM_TI1_SetConfig), (128 bytes).
-    Removing stm32f4xx_hal_tim.o(i.TIM_TI2_ConfigInputStage), (36 bytes).
-    Removing stm32f4xx_hal_tim.o(i.TIM_TI2_SetConfig), (54 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(.rev16_text), (4 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(.revsh_text), (4 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(.rrx_text), (6 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_CommutHalfCpltCallback), (2 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_ConfigBreakDeadTime), (84 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_ConfigCommutEvent), (112 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_ConfigCommutEvent_DMA), (144 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_ConfigCommutEvent_IT), (112 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_GetChannelNState), (34 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_DeInit), (76 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_GetState), (6 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Init), (208 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_MspDeInit), (2 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_MspInit), (2 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Start), (168 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Start_DMA), (224 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Start_IT), (180 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Stop), (58 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Stop_DMA), (70 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Stop_IT), (68 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_MasterConfigSynchronization), (144 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_OCN_Start), (192 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_OCN_Start_DMA), (392 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_OCN_Start_IT), (232 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_OCN_Stop), (104 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_OCN_Stop_DMA), (168 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_OCN_Stop_IT), (170 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_OnePulseN_Start), (100 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_OnePulseN_Start_IT), (120 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_OnePulseN_Stop), (98 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_OnePulseN_Stop_IT), (120 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_PWMN_Start), (192 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_PWMN_Start_DMA), (392 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_PWMN_Start_IT), (232 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_PWMN_Stop), (104 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_PWMN_Stop_DMA), (168 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_PWMN_Stop_IT), (170 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.HAL_TIMEx_RemapConfig), (28 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.TIMEx_DMACommutationCplt), (16 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.TIMEx_DMACommutationHalfCplt), (16 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.TIM_CCxNChannelCmd), (26 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.TIM_DMADelayPulseNCplt), (74 bytes).
-    Removing stm32f4xx_hal_tim_ex.o(i.TIM_DMAErrorCCxN), (62 bytes).
-    Removing stm32f4xx_hal_uart.o(.rev16_text), (4 bytes).
-    Removing stm32f4xx_hal_uart.o(.revsh_text), (4 bytes).
-    Removing stm32f4xx_hal_uart.o(.rrx_text), (6 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_HalfDuplex_EnableReceiver), (50 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_HalfDuplex_EnableTransmitter), (50 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_HalfDuplex_Init), (110 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_LIN_Init), (130 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_LIN_SendBreak), (60 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_MultiProcessor_EnterMuteMode), (62 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_MultiProcessor_ExitMuteMode), (62 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_MultiProcessor_Init), (144 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UARTEx_GetRxEventType), (4 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UARTEx_ReceiveToIdle), (240 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UARTEx_ReceiveToIdle_DMA), (78 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UARTEx_ReceiveToIdle_IT), (78 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UART_Abort), (210 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UART_AbortCpltCallback), (2 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UART_AbortReceive), (148 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UART_AbortReceiveCpltCallback), (2 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UART_AbortReceive_IT), (152 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UART_AbortTransmit), (98 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UART_AbortTransmitCpltCallback), (2 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UART_AbortTransmit_IT), (104 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UART_Abort_IT), (244 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UART_DMAPause), (120 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UART_DMAResume), (114 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UART_DMAStop), (112 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UART_DeInit), (54 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UART_GetError), (4 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UART_GetState), (10 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UART_MspDeInit), (2 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UART_MspInit), (2 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UART_Receive), (176 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UART_Receive_IT), (28 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UART_Transmit), (160 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UART_Transmit_DMA), (120 bytes).
-    Removing stm32f4xx_hal_uart.o(i.HAL_UART_TxHalfCpltCallback), (2 bytes).
-    Removing stm32f4xx_hal_uart.o(i.UART_DMARxAbortCallback), (44 bytes).
-    Removing stm32f4xx_hal_uart.o(i.UART_DMARxOnlyAbortCallback), (22 bytes).
-    Removing stm32f4xx_hal_uart.o(i.UART_DMATransmitCplt), (66 bytes).
-    Removing stm32f4xx_hal_uart.o(i.UART_DMATxAbortCallback), (44 bytes).
-    Removing stm32f4xx_hal_uart.o(i.UART_DMATxHalfCplt), (10 bytes).
-    Removing stm32f4xx_hal_uart.o(i.UART_DMATxOnlyAbortCallback), (20 bytes).
-    Removing stm32f4xx_hal_uart.o(i.UART_Start_Receive_IT), (54 bytes).
-    Removing stm32f4xx_hal_uart.o(i.UART_WaitOnFlagUntilTimeout), (114 bytes).
-    Removing system_stm32f4xx.o(.rev16_text), (4 bytes).
-    Removing system_stm32f4xx.o(.revsh_text), (4 bytes).
-    Removing system_stm32f4xx.o(.rrx_text), (6 bytes).
-    Removing system_stm32f4xx.o(i.SystemCoreClockUpdate), (124 bytes).
-    Removing bsp_rc.o(.rev16_text), (4 bytes).
-    Removing bsp_rc.o(.revsh_text), (4 bytes).
-    Removing bsp_rc.o(.rrx_text), (6 bytes).
-    Removing motor.o(.rev16_text), (4 bytes).
-    Removing motor.o(.revsh_text), (4 bytes).
-    Removing motor.o(.rrx_text), (6 bytes).
-    Removing motor.o(i.CAN_cmd_chassis), (96 bytes).
-    Removing motor.o(i.CAN_cmd_gimbal), (96 bytes).
-    Removing pid.o(.rev16_text), (4 bytes).
-    Removing pid.o(.revsh_text), (4 bytes).
-    Removing pid.o(.rrx_text), (6 bytes).
-    Removing remote_control.o(.rev16_text), (4 bytes).
-    Removing remote_control.o(.revsh_text), (4 bytes).
-    Removing remote_control.o(.rrx_text), (6 bytes).
-    Removing remote_control.o(i.get_remote_control_point), (8 bytes).
-    Removing chassis_task.o(.rev16_text), (4 bytes).
-    Removing chassis_task.o(.revsh_text), (4 bytes).
-    Removing chassis_task.o(.rrx_text), (6 bytes).
-    Removing chassis_task.o(i.Chassis_SolutionForward), (120 bytes).
-    Removing chassis_task.o(i.chassis_mode_execute), (396 bytes).
-    Removing chassis_task.o(i.chassis_pid), (192 bytes).
-    Removing chassis_task.o(i.chassis_task), (40 bytes).
-    Removing chassis_task.o(.bss), (93 bytes).
-    Removing chassis_task.o(.data), (16 bytes).
-    Removing lifting_task.o(.rev16_text), (4 bytes).
-    Removing lifting_task.o(.revsh_text), (4 bytes).
-    Removing lifting_task.o(.rrx_text), (6 bytes).
-    Removing lifting_task.o(i.pid_deviation_angle_calc), (80 bytes).
-    Removing lifting_task.o(i.pid_deviation_speed_calc), (80 bytes).
-    Removing lifting_task.o(.data), (4 bytes).
-    Removing gimbal_task.o(.rev16_text), (4 bytes).
-    Removing gimbal_task.o(.revsh_text), (4 bytes).
-    Removing gimbal_task.o(.rrx_text), (6 bytes).
-    Removing gimbal_task.o(i.gimbal_task), (400 bytes).
-    Removing gimbal_task.o(.bss), (69 bytes).
-    Removing gimbal_task.o(.data), (16 bytes).
-    Removing crc8_crc16.o(.rev16_text), (4 bytes).
-    Removing crc8_crc16.o(.revsh_text), (4 bytes).
-    Removing crc8_crc16.o(.rrx_text), (6 bytes).
-    Removing crc8_crc16.o(i.append_CRC16_check_sum), (40 bytes).
-    Removing crc8_crc16.o(i.append_CRC8_check_sum), (28 bytes).
-    Removing crc8_crc16.o(i.get_CRC16_check_sum), (44 bytes).
-    Removing crc8_crc16.o(i.get_CRC8_check_sum), (28 bytes).
-    Removing crc8_crc16.o(i.verify_CRC16_check_sum), (60 bytes).
-    Removing crc8_crc16.o(i.verify_CRC8_check_sum), (38 bytes).
-    Removing crc8_crc16.o(.constdata), (1 bytes).
-    Removing crc8_crc16.o(.constdata), (768 bytes).
-    Removing crc8_crc16.o(.data), (2 bytes).
-    Removing fifo.o(.rev16_text), (4 bytes).
-    Removing fifo.o(.revsh_text), (4 bytes).
-    Removing fifo.o(.rrx_text), (6 bytes).
-    Removing fifo.o(i.fifo_create), (52 bytes).
-    Removing fifo.o(i.fifo_destory), (20 bytes).
-    Removing fifo.o(i.fifo_flush), (38 bytes).
-    Removing fifo.o(i.fifo_free), (4 bytes).
-    Removing fifo.o(i.fifo_get), (76 bytes).
-    Removing fifo.o(i.fifo_get_noprotect), (62 bytes).
-    Removing fifo.o(i.fifo_init), (28 bytes).
-    Removing fifo.o(i.fifo_is_empty), (12 bytes).
-    Removing fifo.o(i.fifo_is_full), (12 bytes).
-    Removing fifo.o(i.fifo_pre_read), (50 bytes).
-    Removing fifo.o(i.fifo_put), (70 bytes).
-    Removing fifo.o(i.fifo_put_noprotect), (56 bytes).
-    Removing fifo.o(i.fifo_s_create), (46 bytes).
-    Removing fifo.o(i.fifo_s_destroy), (20 bytes).
-    Removing fifo.o(i.fifo_s_discard), (54 bytes).
-    Removing fifo.o(i.fifo_s_flush), (30 bytes).
-    Removing fifo.o(i.fifo_s_free), (4 bytes).
-    Removing fifo.o(i.fifo_s_get), (44 bytes).
-    Removing fifo.o(i.fifo_s_gets), (126 bytes).
-    Removing fifo.o(i.fifo_s_gets_noprotect), (114 bytes).
-    Removing fifo.o(i.fifo_s_init), (22 bytes).
-    Removing fifo.o(i.fifo_s_isempty), (12 bytes).
-    Removing fifo.o(i.fifo_s_isfull), (12 bytes).
-    Removing fifo.o(i.fifo_s_preread), (32 bytes).
-    Removing fifo.o(i.fifo_s_prereads), (110 bytes).
-    Removing fifo.o(i.fifo_s_put), (62 bytes).
-    Removing fifo.o(i.fifo_s_puts), (124 bytes).
-    Removing fifo.o(i.fifo_s_puts_noprotect), (112 bytes).
-    Removing fifo.o(i.fifo_s_used), (4 bytes).
-    Removing fifo.o(i.fifo_used), (4 bytes).
-    Removing referee.o(.rev16_text), (4 bytes).
-    Removing referee.o(.revsh_text), (4 bytes).
-    Removing referee.o(.rrx_text), (6 bytes).
-    Removing referee.o(i.init_referee_struct_data), (176 bytes).
-    Removing referee.o(i.refereeINIT), (76 bytes).
-    Removing referee.o(i.refereeReceiveHandler), (148 bytes).
-    Removing referee.o(i.referee_data_solve), (404 bytes).
-    Removing referee.o(i.referee_unpack_fifo_data), (260 bytes).
-    Removing referee.o(i.referee_usart_init), (180 bytes).
-    Removing referee.o(.bss), (2371 bytes).
-    Removing referee.o(.data), (66 bytes).
-    Removing basicmathfunctions.o(.rev16_text), (4 bytes).
-    Removing basicmathfunctions.o(.revsh_text), (4 bytes).
-    Removing basicmathfunctions.o(.rrx_text), (6 bytes).
-    Removing basicmathfunctions.o(i.arm_abs_f32), (24 bytes).
-    Removing basicmathfunctions.o(i.arm_abs_f64), (32 bytes).
-    Removing basicmathfunctions.o(i.arm_abs_q15), (34 bytes).
-    Removing basicmathfunctions.o(i.arm_abs_q31), (26 bytes).
-    Removing basicmathfunctions.o(i.arm_abs_q7), (34 bytes).
-    Removing basicmathfunctions.o(i.arm_add_f32), (28 bytes).
-    Removing basicmathfunctions.o(i.arm_add_f64), (54 bytes).
-    Removing basicmathfunctions.o(i.arm_add_q15), (28 bytes).
-    Removing basicmathfunctions.o(i.arm_add_q31), (22 bytes).
-    Removing basicmathfunctions.o(i.arm_add_q7), (30 bytes).
-    Removing basicmathfunctions.o(i.arm_and_u16), (26 bytes).
-    Removing basicmathfunctions.o(i.arm_and_u32), (20 bytes).
-    Removing basicmathfunctions.o(i.arm_and_u8), (26 bytes).
-    Removing basicmathfunctions.o(i.arm_clip_f32), (68 bytes).
-    Removing basicmathfunctions.o(i.arm_clip_q15), (44 bytes).
-    Removing basicmathfunctions.o(i.arm_clip_q31), (44 bytes).
-    Removing basicmathfunctions.o(i.arm_clip_q7), (36 bytes).
-    Removing basicmathfunctions.o(i.arm_dot_prod_f32), (36 bytes).
-    Removing basicmathfunctions.o(i.arm_dot_prod_f64), (88 bytes).
-    Removing basicmathfunctions.o(i.arm_dot_prod_q15), (32 bytes).
-    Removing basicmathfunctions.o(i.arm_dot_prod_q31), (42 bytes).
-    Removing basicmathfunctions.o(i.arm_dot_prod_q7), (30 bytes).
-    Removing basicmathfunctions.o(i.arm_mult_f32), (28 bytes).
-    Removing basicmathfunctions.o(i.arm_mult_f64), (54 bytes).
-    Removing basicmathfunctions.o(i.arm_mult_q15), (32 bytes).
-    Removing basicmathfunctions.o(i.arm_mult_q31), (28 bytes).
-    Removing basicmathfunctions.o(i.arm_mult_q7), (32 bytes).
-    Removing basicmathfunctions.o(i.arm_negate_f32), (24 bytes).
-    Removing basicmathfunctions.o(i.arm_negate_f64), (38 bytes).
-    Removing basicmathfunctions.o(i.arm_negate_q15), (40 bytes).
-    Removing basicmathfunctions.o(i.arm_negate_q31), (22 bytes).
-    Removing basicmathfunctions.o(i.arm_negate_q7), (28 bytes).
-    Removing basicmathfunctions.o(i.arm_not_u16), (22 bytes).
-    Removing basicmathfunctions.o(i.arm_not_u32), (16 bytes).
-    Removing basicmathfunctions.o(i.arm_not_u8), (22 bytes).
-    Removing basicmathfunctions.o(i.arm_offset_f32), (24 bytes).
-    Removing basicmathfunctions.o(i.arm_offset_f64), (58 bytes).
-    Removing basicmathfunctions.o(i.arm_offset_q15), (24 bytes).
-    Removing basicmathfunctions.o(i.arm_offset_q31), (20 bytes).
-    Removing basicmathfunctions.o(i.arm_offset_q7), (26 bytes).
-    Removing basicmathfunctions.o(i.arm_or_u16), (26 bytes).
-    Removing basicmathfunctions.o(i.arm_or_u32), (20 bytes).
-    Removing basicmathfunctions.o(i.arm_or_u8), (26 bytes).
-    Removing basicmathfunctions.o(i.arm_scale_f32), (24 bytes).
-    Removing basicmathfunctions.o(i.arm_scale_f64), (58 bytes).
-    Removing basicmathfunctions.o(i.arm_scale_q15), (38 bytes).
-    Removing basicmathfunctions.o(i.arm_scale_q31), (74 bytes).
-    Removing basicmathfunctions.o(i.arm_scale_q7), (38 bytes).
-    Removing basicmathfunctions.o(i.arm_shift_q15), (50 bytes).
-    Removing basicmathfunctions.o(i.arm_shift_q31), (74 bytes).
-    Removing basicmathfunctions.o(i.arm_shift_q7), (50 bytes).
-    Removing basicmathfunctions.o(i.arm_sub_f32), (28 bytes).
-    Removing basicmathfunctions.o(i.arm_sub_f64), (54 bytes).
-    Removing basicmathfunctions.o(i.arm_sub_q15), (28 bytes).
-    Removing basicmathfunctions.o(i.arm_sub_q31), (22 bytes).
-    Removing basicmathfunctions.o(i.arm_sub_q7), (30 bytes).
-    Removing basicmathfunctions.o(i.arm_xor_u16), (26 bytes).
-    Removing basicmathfunctions.o(i.arm_xor_u32), (20 bytes).
-    Removing basicmathfunctions.o(i.arm_xor_u8), (26 bytes).
-    Removing basicmathfunctionsf16.o(.rev16_text), (4 bytes).
-    Removing basicmathfunctionsf16.o(.revsh_text), (4 bytes).
-    Removing basicmathfunctionsf16.o(.rrx_text), (6 bytes).
-    Removing bayesfunctions.o(.rev16_text), (4 bytes).
-    Removing bayesfunctions.o(.revsh_text), (4 bytes).
-    Removing bayesfunctions.o(.rrx_text), (6 bytes).
-    Removing bayesfunctions.o(i.arm_gaussian_naive_bayes_predict_f32), (180 bytes).
-    Removing bayesfunctionsf16.o(.rev16_text), (4 bytes).
-    Removing bayesfunctionsf16.o(.revsh_text), (4 bytes).
-    Removing bayesfunctionsf16.o(.rrx_text), (6 bytes).
-    Removing commontables.o(.rev16_text), (4 bytes).
-    Removing commontables.o(.revsh_text), (4 bytes).
-    Removing commontables.o(.rrx_text), (6 bytes).
-    Removing commontables.o(.constdata), (2048 bytes).
-    Removing commontables.o(.constdata), (256 bytes).
-    Removing commontables.o(.constdata), (512 bytes).
-    Removing commontables.o(.constdata), (1024 bytes).
-    Removing commontables.o(.constdata), (2048 bytes).
-    Removing commontables.o(.constdata), (4096 bytes).
-    Removing commontables.o(.constdata), (8192 bytes).
-    Removing commontables.o(.constdata), (16384 bytes).
-    Removing commontables.o(.constdata), (32768 bytes).
-    Removing commontables.o(.constdata), (65536 bytes).
-    Removing commontables.o(.constdata), (128 bytes).
-    Removing commontables.o(.constdata), (256 bytes).
-    Removing commontables.o(.constdata), (512 bytes).
-    Removing commontables.o(.constdata), (1024 bytes).
-    Removing commontables.o(.constdata), (2048 bytes).
-    Removing commontables.o(.constdata), (4096 bytes).
-    Removing commontables.o(.constdata), (8192 bytes).
-    Removing commontables.o(.constdata), (16384 bytes).
-    Removing commontables.o(.constdata), (32768 bytes).
-    Removing commontables.o(.constdata), (96 bytes).
-    Removing commontables.o(.constdata), (192 bytes).
-    Removing commontables.o(.constdata), (384 bytes).
-    Removing commontables.o(.constdata), (768 bytes).
-    Removing commontables.o(.constdata), (1536 bytes).
-    Removing commontables.o(.constdata), (3072 bytes).
-    Removing commontables.o(.constdata), (6144 bytes).
-    Removing commontables.o(.constdata), (12288 bytes).
-    Removing commontables.o(.constdata), (24576 bytes).
-    Removing commontables.o(.constdata), (48 bytes).
-    Removing commontables.o(.constdata), (96 bytes).
-    Removing commontables.o(.constdata), (192 bytes).
-    Removing commontables.o(.constdata), (384 bytes).
-    Removing commontables.o(.constdata), (768 bytes).
-    Removing commontables.o(.constdata), (1536 bytes).
-    Removing commontables.o(.constdata), (3072 bytes).
-    Removing commontables.o(.constdata), (6144 bytes).
-    Removing commontables.o(.constdata), (12288 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (48 bytes).
-    Removing commontables.o(.constdata), (112 bytes).
-    Removing commontables.o(.constdata), (224 bytes).
-    Removing commontables.o(.constdata), (480 bytes).
-    Removing commontables.o(.constdata), (960 bytes).
-    Removing commontables.o(.constdata), (1984 bytes).
-    Removing commontables.o(.constdata), (3968 bytes).
-    Removing commontables.o(.constdata), (8064 bytes).
-    Removing commontables.o(.constdata), (40 bytes).
-    Removing commontables.o(.constdata), (96 bytes).
-    Removing commontables.o(.constdata), (112 bytes).
-    Removing commontables.o(.constdata), (416 bytes).
-    Removing commontables.o(.constdata), (880 bytes).
-    Removing commontables.o(.constdata), (896 bytes).
-    Removing commontables.o(.constdata), (3600 bytes).
-    Removing commontables.o(.constdata), (7616 bytes).
-    Removing commontables.o(.constdata), (8064 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (48 bytes).
-    Removing commontables.o(.constdata), (112 bytes).
-    Removing commontables.o(.constdata), (224 bytes).
-    Removing commontables.o(.constdata), (480 bytes).
-    Removing commontables.o(.constdata), (960 bytes).
-    Removing commontables.o(.constdata), (1984 bytes).
-    Removing commontables.o(.constdata), (3968 bytes).
-    Removing commontables.o(.constdata), (8064 bytes).
-    Removing commontables.o(.constdata), (256 bytes).
-    Removing commontables.o(.constdata), (512 bytes).
-    Removing commontables.o(.constdata), (1024 bytes).
-    Removing commontables.o(.constdata), (2048 bytes).
-    Removing commontables.o(.constdata), (4096 bytes).
-    Removing commontables.o(.constdata), (8192 bytes).
-    Removing commontables.o(.constdata), (16384 bytes).
-    Removing commontables.o(.constdata), (32768 bytes).
-    Removing commontables.o(.constdata), (128 bytes).
-    Removing commontables.o(.constdata), (256 bytes).
-    Removing commontables.o(.constdata), (512 bytes).
-    Removing commontables.o(.constdata), (1024 bytes).
-    Removing commontables.o(.constdata), (2048 bytes).
-    Removing commontables.o(.constdata), (4096 bytes).
-    Removing commontables.o(.constdata), (8192 bytes).
-    Removing commontables.o(.constdata), (16384 bytes).
-    Removing commontables.o(.constdata), (32768 bytes).
-    Removing commontables.o(.constdata), (32768 bytes).
-    Removing commontables.o(.constdata), (32768 bytes).
-    Removing commontables.o(.constdata), (32768 bytes).
-    Removing commontables.o(.constdata), (16384 bytes).
-    Removing commontables.o(.constdata), (16384 bytes).
-    Removing commontables.o(.constdata), (1024 bytes).
-    Removing commontables.o(.constdata), (512 bytes).
-    Removing commontables.o(.constdata), (4096 bytes).
-    Removing commontables.o(.constdata), (2048 bytes).
-    Removing commontables.o(.constdata), (16384 bytes).
-    Removing commontables.o(.constdata), (8192 bytes).
-    Removing commontables.o(.constdata), (65536 bytes).
-    Removing commontables.o(.constdata), (32768 bytes).
-    Removing commontables.o(.constdata), (512 bytes).
-    Removing commontables.o(.constdata), (256 bytes).
-    Removing commontables.o(.constdata), (2048 bytes).
-    Removing commontables.o(.constdata), (1024 bytes).
-    Removing commontables.o(.constdata), (8192 bytes).
-    Removing commontables.o(.constdata), (4096 bytes).
-    Removing commontables.o(.constdata), (32768 bytes).
-    Removing commontables.o(.constdata), (16384 bytes).
-    Removing commontables.o(.constdata), (1024 bytes).
-    Removing commontables.o(.constdata), (512 bytes).
-    Removing commontables.o(.constdata), (4096 bytes).
-    Removing commontables.o(.constdata), (2048 bytes).
-    Removing commontables.o(.constdata), (16384 bytes).
-    Removing commontables.o(.constdata), (8192 bytes).
-    Removing commontables.o(.constdata), (65536 bytes).
-    Removing commontables.o(.constdata), (32768 bytes).
-    Removing commontables.o(.constdata), (128 bytes).
-    Removing commontables.o(.constdata), (256 bytes).
-    Removing commontables.o(.constdata), (2052 bytes).
-    Removing commontables.o(.constdata), (2052 bytes).
-    Removing commontables.o(.constdata), (1026 bytes).
-    Removing commontables.o(.constdata), (128 bytes).
-    Removing commontables.o(.constdata), (32 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (16 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontables.o(.constdata), (24 bytes).
-    Removing commontablesf16.o(.rev16_text), (4 bytes).
-    Removing commontablesf16.o(.revsh_text), (4 bytes).
-    Removing commontablesf16.o(.rrx_text), (6 bytes).
-    Removing complexmathfunctions.o(.rev16_text), (4 bytes).
-    Removing complexmathfunctions.o(.revsh_text), (4 bytes).
-    Removing complexmathfunctions.o(.rrx_text), (6 bytes).
-    Removing complexmathfunctions.o(i.arm_cmplx_conj_f32), (36 bytes).
-    Removing complexmathfunctions.o(i.arm_cmplx_conj_q15), (34 bytes).
-    Removing complexmathfunctions.o(i.arm_cmplx_conj_q31), (26 bytes).
-    Removing complexmathfunctions.o(i.arm_cmplx_dot_prod_f32), (72 bytes).
-    Removing complexmathfunctions.o(i.arm_cmplx_dot_prod_q15), (96 bytes).
-    Removing complexmathfunctions.o(i.arm_cmplx_dot_prod_q31), (130 bytes).
-    Removing complexmathfunctions.o(i.arm_cmplx_mag_f32), (68 bytes).
-    Removing complexmathfunctions.o(i.arm_cmplx_mag_f64), (86 bytes).
-    Removing complexmathfunctions.o(i.arm_cmplx_mag_fast_q15), (46 bytes).
-    Removing complexmathfunctions.o(i.arm_cmplx_mag_q15), (52 bytes).
-    Removing complexmathfunctions.o(i.arm_cmplx_mag_q31), (46 bytes).
-    Removing complexmathfunctions.o(i.arm_cmplx_mag_squared_f32), (34 bytes).
-    Removing complexmathfunctions.o(i.arm_cmplx_mag_squared_f64), (78 bytes).
-    Removing complexmathfunctions.o(i.arm_cmplx_mag_squared_q15), (32 bytes).
-    Removing complexmathfunctions.o(i.arm_cmplx_mag_squared_q31), (32 bytes).
-    Removing complexmathfunctions.o(i.arm_cmplx_mult_cmplx_f32), (58 bytes).
-    Removing complexmathfunctions.o(i.arm_cmplx_mult_cmplx_f64), (134 bytes).
-    Removing complexmathfunctions.o(i.arm_cmplx_mult_cmplx_q15), (66 bytes).
-    Removing complexmathfunctions.o(i.arm_cmplx_mult_cmplx_q31), (70 bytes).
-    Removing complexmathfunctions.o(i.arm_cmplx_mult_real_f32), (44 bytes).
-    Removing complexmathfunctions.o(i.arm_cmplx_mult_real_q15), (48 bytes).
-    Removing complexmathfunctions.o(i.arm_cmplx_mult_real_q31), (42 bytes).
-    Removing complexmathfunctionsf16.o(.rev16_text), (4 bytes).
-    Removing complexmathfunctionsf16.o(.revsh_text), (4 bytes).
-    Removing complexmathfunctionsf16.o(.rrx_text), (6 bytes).
-    Removing controllerfunctions.o(.rev16_text), (4 bytes).
-    Removing controllerfunctions.o(.revsh_text), (4 bytes).
-    Removing controllerfunctions.o(.rrx_text), (6 bytes).
-    Removing controllerfunctions.o(i.arm_pid_init_f32), (54 bytes).
-    Removing controllerfunctions.o(i.arm_pid_init_q15), (52 bytes).
-    Removing controllerfunctions.o(i.arm_pid_init_q31), (46 bytes).
-    Removing controllerfunctions.o(i.arm_pid_reset_f32), (10 bytes).
-    Removing controllerfunctions.o(i.arm_pid_reset_q15), (8 bytes).
-    Removing controllerfunctions.o(i.arm_pid_reset_q31), (10 bytes).
-    Removing controllerfunctions.o(i.arm_sin_cos_f32), (272 bytes).
-    Removing controllerfunctions.o(i.arm_sin_cos_q31), (524 bytes).
-    Removing distancefunctions.o(.rev16_text), (4 bytes).
-    Removing distancefunctions.o(.revsh_text), (4 bytes).
-    Removing distancefunctions.o(.rrx_text), (6 bytes).
-    Removing distancefunctions.o(i.arm_boolean_distance_TF_FT), (172 bytes).
-    Removing distancefunctions.o(i.arm_boolean_distance_TT), (114 bytes).
-    Removing distancefunctions.o(i.arm_boolean_distance_TT_FF_TF_FT), (276 bytes).
-    Removing distancefunctions.o(i.arm_boolean_distance_TT_TF_FT), (224 bytes).
-    Removing distancefunctions.o(i.arm_braycurtis_distance_f32), (60 bytes).
-    Removing distancefunctions.o(i.arm_canberra_distance_f32), (76 bytes).
-    Removing distancefunctions.o(i.arm_chebyshev_distance_f32), (56 bytes).
-    Removing distancefunctions.o(i.arm_chebyshev_distance_f64), (128 bytes).
-    Removing distancefunctions.o(i.arm_cityblock_distance_f32), (40 bytes).
-    Removing distancefunctions.o(i.arm_cityblock_distance_f64), (92 bytes).
-    Removing distancefunctions.o(i.arm_correlation_distance_f32), (200 bytes).
-    Removing distancefunctions.o(i.arm_cosine_distance_f32), (88 bytes).
-    Removing distancefunctions.o(i.arm_cosine_distance_f64), (112 bytes).
-    Removing distancefunctions.o(i.arm_dice_distance), (132 bytes).
-    Removing distancefunctions.o(i.arm_euclidean_distance_f32), (56 bytes).
-    Removing distancefunctions.o(i.arm_euclidean_distance_f64), (104 bytes).
-    Removing distancefunctions.o(i.arm_hamming_distance), (74 bytes).
-    Removing distancefunctions.o(i.arm_jaccard_distance), (78 bytes).
-    Removing distancefunctions.o(i.arm_jensenshannon_distance_f32), (136 bytes).
-    Removing distancefunctions.o(i.arm_kulsinski_distance), (86 bytes).
-    Removing distancefunctions.o(i.arm_minkowski_distance_f32), (108 bytes).
-    Removing distancefunctions.o(i.arm_rogerstanimoto_distance), (88 bytes).
-    Removing distancefunctions.o(i.arm_russellrao_distance), (42 bytes).
-    Removing distancefunctions.o(i.arm_sokalmichener_distance), (96 bytes).
-    Removing distancefunctions.o(i.arm_sokalsneath_distance), (84 bytes).
-    Removing distancefunctions.o(i.arm_yule_distance), (140 bytes).
-    Removing distancefunctions.o(i.rel_entr), (28 bytes).
-    Removing distancefunctionsf16.o(.rev16_text), (4 bytes).
-    Removing distancefunctionsf16.o(.revsh_text), (4 bytes).
-    Removing distancefunctionsf16.o(.rrx_text), (6 bytes).
-    Removing fastmathfunctions.o(.rev16_text), (4 bytes).
-    Removing fastmathfunctions.o(.revsh_text), (4 bytes).
-    Removing fastmathfunctions.o(.rrx_text), (6 bytes).
-    Removing fastmathfunctions.o(i.arm_atan2_f32), (540 bytes).
-    Removing fastmathfunctions.o(i.arm_atan2_q15), (684 bytes).
-    Removing fastmathfunctions.o(i.arm_atan2_q31), (976 bytes).
-    Removing fastmathfunctions.o(i.arm_cos_f32), (132 bytes).
-    Removing fastmathfunctions.o(i.arm_cos_q15), (68 bytes).
-    Removing fastmathfunctions.o(i.arm_cos_q31), (64 bytes).
-    Removing fastmathfunctions.o(i.arm_divide_q15), (106 bytes).
-    Removing fastmathfunctions.o(i.arm_divide_q31), (118 bytes).
-    Removing fastmathfunctions.o(i.arm_sin_f32), (128 bytes).
-    Removing fastmathfunctions.o(i.arm_sin_q15), (60 bytes).
-    Removing fastmathfunctions.o(i.arm_sin_q31), (64 bytes).
-    Removing fastmathfunctions.o(i.arm_sqrt_q15), (156 bytes).
-    Removing fastmathfunctions.o(i.arm_sqrt_q31), (188 bytes).
-    Removing fastmathfunctions.o(i.arm_vexp_f32), (32 bytes).
-    Removing fastmathfunctions.o(i.arm_vexp_f64), (32 bytes).
-    Removing fastmathfunctions.o(i.arm_vlog_f32), (32 bytes).
-    Removing fastmathfunctions.o(i.arm_vlog_f64), (32 bytes).
-    Removing fastmathfunctions.o(i.arm_vlog_q15), (96 bytes).
-    Removing fastmathfunctions.o(i.arm_vlog_q31), (92 bytes).
-    Removing fastmathfunctions.o(.constdata), (112 bytes).
-    Removing fastmathfunctionsf16.o(.rev16_text), (4 bytes).
-    Removing fastmathfunctionsf16.o(.revsh_text), (4 bytes).
-    Removing fastmathfunctionsf16.o(.rrx_text), (6 bytes).
-    Removing filteringfunctions.o(.rev16_text), (4 bytes).
-    Removing filteringfunctions.o(.revsh_text), (4 bytes).
-    Removing filteringfunctions.o(.rrx_text), (6 bytes).
-    Removing filteringfunctions.o(i.arm_biquad_cas_df1_32x64_init_q31), (26 bytes).
-    Removing filteringfunctions.o(i.arm_biquad_cas_df1_32x64_q31), (328 bytes).
-    Removing filteringfunctions.o(i.arm_biquad_cascade_df1_f32), (132 bytes).
-    Removing filteringfunctions.o(i.arm_biquad_cascade_df1_fast_q15), (182 bytes).
-    Removing filteringfunctions.o(i.arm_biquad_cascade_df1_fast_q31), (148 bytes).
-    Removing filteringfunctions.o(i.arm_biquad_cascade_df1_init_f32), (22 bytes).
-    Removing filteringfunctions.o(i.arm_biquad_cascade_df1_init_q15), (26 bytes).
-    Removing filteringfunctions.o(i.arm_biquad_cascade_df1_init_q31), (26 bytes).
-    Removing filteringfunctions.o(i.arm_biquad_cascade_df1_q15), (328 bytes).
-    Removing filteringfunctions.o(i.arm_biquad_cascade_df1_q31), (176 bytes).
-    Removing filteringfunctions.o(i.arm_biquad_cascade_df2T_f32), (100 bytes).
-    Removing filteringfunctions.o(i.arm_biquad_cascade_df2T_f64), (224 bytes).
-    Removing filteringfunctions.o(i.arm_biquad_cascade_df2T_init_f32), (22 bytes).
-    Removing filteringfunctions.o(i.arm_biquad_cascade_df2T_init_f64), (22 bytes).
-    Removing filteringfunctions.o(i.arm_biquad_cascade_stereo_df2T_f32), (152 bytes).
-    Removing filteringfunctions.o(i.arm_biquad_cascade_stereo_df2T_init_f32), (22 bytes).
-    Removing filteringfunctions.o(i.arm_conv_f32), (308 bytes).
-    Removing filteringfunctions.o(i.arm_conv_fast_opt_q15), (192 bytes).
-    Removing filteringfunctions.o(i.arm_conv_fast_q15), (1070 bytes).
-    Removing filteringfunctions.o(i.arm_conv_fast_q31), (818 bytes).
-    Removing filteringfunctions.o(i.arm_conv_opt_q15), (194 bytes).
-    Removing filteringfunctions.o(i.arm_conv_opt_q7), (626 bytes).
-    Removing filteringfunctions.o(i.arm_conv_partial_f32), (440 bytes).
-    Removing filteringfunctions.o(i.arm_conv_partial_fast_opt_q15), (232 bytes).
-    Removing filteringfunctions.o(i.arm_conv_partial_fast_q15), (1282 bytes).
-    Removing filteringfunctions.o(i.arm_conv_partial_fast_q31), (424 bytes).
-    Removing filteringfunctions.o(i.arm_conv_partial_opt_q15), (244 bytes).
-    Removing filteringfunctions.o(i.arm_conv_partial_opt_q7), (660 bytes).
-    Removing filteringfunctions.o(i.arm_conv_partial_q15), (1546 bytes).
-    Removing filteringfunctions.o(i.arm_conv_partial_q31), (494 bytes).
-    Removing filteringfunctions.o(i.arm_conv_partial_q7), (432 bytes).
-    Removing filteringfunctions.o(i.arm_conv_q15), (1366 bytes).
-    Removing filteringfunctions.o(i.arm_conv_q31), (350 bytes).
-    Removing filteringfunctions.o(i.arm_conv_q7), (298 bytes).
-    Removing filteringfunctions.o(i.arm_correlate_f32), (340 bytes).
-    Removing filteringfunctions.o(i.arm_correlate_f64), (512 bytes).
-    Removing filteringfunctions.o(i.arm_correlate_fast_opt_q15), (200 bytes).
-    Removing filteringfunctions.o(i.arm_correlate_fast_q15), (994 bytes).
-    Removing filteringfunctions.o(i.arm_correlate_fast_q31), (856 bytes).
-    Removing filteringfunctions.o(i.arm_correlate_opt_q15), (210 bytes).
-    Removing filteringfunctions.o(i.arm_correlate_opt_q7), (640 bytes).
-    Removing filteringfunctions.o(i.arm_correlate_q15), (1270 bytes).
-    Removing filteringfunctions.o(i.arm_correlate_q31), (398 bytes).
-    Removing filteringfunctions.o(i.arm_correlate_q7), (324 bytes).
-    Removing filteringfunctions.o(i.arm_fir_decimate_f32), (120 bytes).
-    Removing filteringfunctions.o(i.arm_fir_decimate_fast_q15), (328 bytes).
-    Removing filteringfunctions.o(i.arm_fir_decimate_fast_q31), (114 bytes).
-    Removing filteringfunctions.o(i.arm_fir_decimate_init_f32), (50 bytes).
-    Removing filteringfunctions.o(i.arm_fir_decimate_init_q15), (50 bytes).
-    Removing filteringfunctions.o(i.arm_fir_decimate_init_q31), (50 bytes).
-    Removing filteringfunctions.o(i.arm_fir_decimate_q15), (372 bytes).
-    Removing filteringfunctions.o(i.arm_fir_decimate_q31), (130 bytes).
-    Removing filteringfunctions.o(i.arm_fir_f32), (104 bytes).
-    Removing filteringfunctions.o(i.arm_fir_f64), (176 bytes).
-    Removing filteringfunctions.o(i.arm_fir_fast_q15), (112 bytes).
-    Removing filteringfunctions.o(i.arm_fir_fast_q31), (94 bytes).
-    Removing filteringfunctions.o(i.arm_fir_init_f32), (28 bytes).
-    Removing filteringfunctions.o(i.arm_fir_init_f64), (28 bytes).
-    Removing filteringfunctions.o(i.arm_fir_init_q15), (38 bytes).
-    Removing filteringfunctions.o(i.arm_fir_init_q31), (28 bytes).
-    Removing filteringfunctions.o(i.arm_fir_init_q7), (26 bytes).
-    Removing filteringfunctions.o(i.arm_fir_interpolate_f32), (140 bytes).
-    Removing filteringfunctions.o(i.arm_fir_interpolate_init_f32), (52 bytes).
-    Removing filteringfunctions.o(i.arm_fir_interpolate_init_q15), (52 bytes).
-    Removing filteringfunctions.o(i.arm_fir_interpolate_init_q31), (52 bytes).
-    Removing filteringfunctions.o(i.arm_fir_interpolate_q15), (184 bytes).
-    Removing filteringfunctions.o(i.arm_fir_interpolate_q31), (176 bytes).
-    Removing filteringfunctions.o(i.arm_fir_lattice_f32), (102 bytes).
-    Removing filteringfunctions.o(i.arm_fir_lattice_init_f32), (22 bytes).
-    Removing filteringfunctions.o(i.arm_fir_lattice_init_q15), (22 bytes).
-    Removing filteringfunctions.o(i.arm_fir_lattice_init_q31), (22 bytes).
-    Removing filteringfunctions.o(i.arm_fir_lattice_q15), (132 bytes).
-    Removing filteringfunctions.o(i.arm_fir_lattice_q31), (106 bytes).
-    Removing filteringfunctions.o(i.arm_fir_q15), (132 bytes).
-    Removing filteringfunctions.o(i.arm_fir_q31), (116 bytes).
-    Removing filteringfunctions.o(i.arm_fir_q7), (100 bytes).
-    Removing filteringfunctions.o(i.arm_fir_sparse_f32), (444 bytes).
-    Removing filteringfunctions.o(i.arm_fir_sparse_init_f32), (38 bytes).
-    Removing filteringfunctions.o(i.arm_fir_sparse_init_q15), (38 bytes).
-    Removing filteringfunctions.o(i.arm_fir_sparse_init_q31), (38 bytes).
-    Removing filteringfunctions.o(i.arm_fir_sparse_init_q7), (38 bytes).
-    Removing filteringfunctions.o(i.arm_fir_sparse_q15), (512 bytes).
-    Removing filteringfunctions.o(i.arm_fir_sparse_q31), (496 bytes).
-    Removing filteringfunctions.o(i.arm_fir_sparse_q7), (498 bytes).
-    Removing filteringfunctions.o(i.arm_iir_lattice_f32), (132 bytes).
-    Removing filteringfunctions.o(i.arm_iir_lattice_init_f32), (28 bytes).
-    Removing filteringfunctions.o(i.arm_iir_lattice_init_q15), (28 bytes).
-    Removing filteringfunctions.o(i.arm_iir_lattice_init_q31), (28 bytes).
-    Removing filteringfunctions.o(i.arm_iir_lattice_q15), (238 bytes).
-    Removing filteringfunctions.o(i.arm_iir_lattice_q31), (236 bytes).
-    Removing filteringfunctions.o(i.arm_levinson_durbin_f32), (240 bytes).
-    Removing filteringfunctions.o(i.arm_levinson_durbin_q31), (396 bytes).
-    Removing filteringfunctions.o(i.arm_lms_f32), (164 bytes).
-    Removing filteringfunctions.o(i.arm_lms_init_f32), (44 bytes).
-    Removing filteringfunctions.o(i.arm_lms_init_q15), (40 bytes).
-    Removing filteringfunctions.o(i.arm_lms_init_q31), (40 bytes).
-    Removing filteringfunctions.o(i.arm_lms_norm_f32), (208 bytes).
-    Removing filteringfunctions.o(i.arm_lms_norm_init_f32), (60 bytes).
-    Removing filteringfunctions.o(i.arm_lms_norm_init_q15), (56 bytes).
-    Removing filteringfunctions.o(i.arm_lms_norm_init_q31), (56 bytes).
-    Removing filteringfunctions.o(i.arm_lms_norm_q15), (362 bytes).
-    Removing filteringfunctions.o(i.arm_lms_norm_q31), (438 bytes).
-    Removing filteringfunctions.o(i.arm_lms_q15), (222 bytes).
-    Removing filteringfunctions.o(i.arm_lms_q31), (244 bytes).
-    Removing filteringfunctionsf16.o(.rev16_text), (4 bytes).
-    Removing filteringfunctionsf16.o(.revsh_text), (4 bytes).
-    Removing filteringfunctionsf16.o(.rrx_text), (6 bytes).
-    Removing interpolationfunctions.o(.rev16_text), (4 bytes).
-    Removing interpolationfunctions.o(.revsh_text), (4 bytes).
-    Removing interpolationfunctions.o(.rrx_text), (6 bytes).
-    Removing interpolationfunctions.o(i.arm_bilinear_interp_f32), (148 bytes).
-    Removing interpolationfunctions.o(i.arm_bilinear_interp_q15), (156 bytes).
-    Removing interpolationfunctions.o(i.arm_bilinear_interp_q31), (124 bytes).
-    Removing interpolationfunctions.o(i.arm_bilinear_interp_q7), (120 bytes).
-    Removing interpolationfunctions.o(i.arm_linear_interp_f32), (122 bytes).
-    Removing interpolationfunctions.o(i.arm_linear_interp_q15), (72 bytes).
-    Removing interpolationfunctions.o(i.arm_linear_interp_q31), (62 bytes).
-    Removing interpolationfunctions.o(i.arm_linear_interp_q7), (60 bytes).
-    Removing interpolationfunctions.o(i.arm_spline_f32), (244 bytes).
-    Removing interpolationfunctions.o(i.arm_spline_init_f32), (416 bytes).
-    Removing interpolationfunctionsf16.o(.rev16_text), (4 bytes).
-    Removing interpolationfunctionsf16.o(.revsh_text), (4 bytes).
-    Removing interpolationfunctionsf16.o(.rrx_text), (6 bytes).
-    Removing matrixfunctions.o(.rev16_text), (4 bytes).
-    Removing matrixfunctions.o(.revsh_text), (4 bytes).
-    Removing matrixfunctions.o(.rrx_text), (6 bytes).
-    Removing matrixfunctions.o(i.arm_mat_add_f32), (42 bytes).
-    Removing matrixfunctions.o(i.arm_mat_add_q15), (42 bytes).
-    Removing matrixfunctions.o(i.arm_mat_add_q31), (36 bytes).
-    Removing matrixfunctions.o(i.arm_mat_cholesky_f32), (172 bytes).
-    Removing matrixfunctions.o(i.arm_mat_cholesky_f64), (252 bytes).
-    Removing matrixfunctions.o(i.arm_mat_cmplx_mult_f32), (152 bytes).
-    Removing matrixfunctions.o(i.arm_mat_cmplx_mult_q15), (346 bytes).
-    Removing matrixfunctions.o(i.arm_mat_cmplx_mult_q31), (246 bytes).
-    Removing matrixfunctions.o(i.arm_mat_cmplx_trans_f32), (68 bytes).
-    Removing matrixfunctions.o(i.arm_mat_cmplx_trans_q15), (66 bytes).
-    Removing matrixfunctions.o(i.arm_mat_cmplx_trans_q31), (66 bytes).
-    Removing matrixfunctions.o(i.arm_mat_init_f32), (8 bytes).
-    Removing matrixfunctions.o(i.arm_mat_init_q15), (8 bytes).
-    Removing matrixfunctions.o(i.arm_mat_init_q31), (8 bytes).
-    Removing matrixfunctions.o(i.arm_mat_inverse_f32), (512 bytes).
-    Removing matrixfunctions.o(i.arm_mat_inverse_f64), (672 bytes).
-    Removing matrixfunctions.o(i.arm_mat_ldlt_f32), (492 bytes).
-    Removing matrixfunctions.o(i.arm_mat_ldlt_f64), (600 bytes).
-    Removing matrixfunctions.o(i.arm_mat_mult_f32), (116 bytes).
-    Removing matrixfunctions.o(i.arm_mat_mult_f64), (216 bytes).
-    Removing matrixfunctions.o(i.arm_mat_mult_fast_q15), (782 bytes).
-    Removing matrixfunctions.o(i.arm_mat_mult_fast_q31), (420 bytes).
-    Removing matrixfunctions.o(i.arm_mat_mult_opt_q31), (134 bytes).
-    Removing matrixfunctions.o(i.arm_mat_mult_q15), (214 bytes).
-    Removing matrixfunctions.o(i.arm_mat_mult_q31), (134 bytes).
-    Removing matrixfunctions.o(i.arm_mat_mult_q7), (128 bytes).
-    Removing matrixfunctions.o(i.arm_mat_scale_f32), (34 bytes).
-    Removing matrixfunctions.o(i.arm_mat_scale_q15), (48 bytes).
-    Removing matrixfunctions.o(i.arm_mat_scale_q31), (54 bytes).
-    Removing matrixfunctions.o(i.arm_mat_solve_lower_triangular_f32), (144 bytes).
-    Removing matrixfunctions.o(i.arm_mat_solve_lower_triangular_f64), (216 bytes).
-    Removing matrixfunctions.o(i.arm_mat_solve_upper_triangular_f32), (142 bytes).
-    Removing matrixfunctions.o(i.arm_mat_solve_upper_triangular_f64), (212 bytes).
-    Removing matrixfunctions.o(i.arm_mat_sub_f32), (42 bytes).
-    Removing matrixfunctions.o(i.arm_mat_sub_f64), (70 bytes).
-    Removing matrixfunctions.o(i.arm_mat_sub_q15), (42 bytes).
-    Removing matrixfunctions.o(i.arm_mat_sub_q31), (36 bytes).
-    Removing matrixfunctions.o(i.arm_mat_trans_f32), (52 bytes).
-    Removing matrixfunctions.o(i.arm_mat_trans_f64), (78 bytes).
-    Removing matrixfunctions.o(i.arm_mat_trans_q15), (52 bytes).
-    Removing matrixfunctions.o(i.arm_mat_trans_q31), (52 bytes).
-    Removing matrixfunctions.o(i.arm_mat_trans_q7), (52 bytes).
-    Removing matrixfunctions.o(i.arm_mat_vec_mult_f32), (256 bytes).
-    Removing matrixfunctions.o(i.arm_mat_vec_mult_q15), (560 bytes).
-    Removing matrixfunctions.o(i.arm_mat_vec_mult_q31), (336 bytes).
-    Removing matrixfunctions.o(i.arm_mat_vec_mult_q7), (574 bytes).
-    Removing matrixfunctionsf16.o(.rev16_text), (4 bytes).
-    Removing matrixfunctionsf16.o(.revsh_text), (4 bytes).
-    Removing matrixfunctionsf16.o(.rrx_text), (6 bytes).
-    Removing quaternionmathfunctions.o(.rev16_text), (4 bytes).
-    Removing quaternionmathfunctions.o(.revsh_text), (4 bytes).
-    Removing quaternionmathfunctions.o(.rrx_text), (6 bytes).
-    Removing quaternionmathfunctions.o(i.arm_quaternion2rotation_f32), (204 bytes).
-    Removing quaternionmathfunctions.o(i.arm_quaternion_conjugate_f32), (68 bytes).
-    Removing quaternionmathfunctions.o(i.arm_quaternion_inverse_f32), (112 bytes).
-    Removing quaternionmathfunctions.o(i.arm_quaternion_norm_f32), (74 bytes).
-    Removing quaternionmathfunctions.o(i.arm_quaternion_normalize_f32), (118 bytes).
-    Removing quaternionmathfunctions.o(i.arm_quaternion_product_f32), (36 bytes).
-    Removing quaternionmathfunctions.o(i.arm_quaternion_product_single_f32), (210 bytes).
-    Removing quaternionmathfunctions.o(i.arm_rotation2quaternion_f32), (464 bytes).
-    Removing svmfunctions.o(.rev16_text), (4 bytes).
-    Removing svmfunctions.o(.revsh_text), (4 bytes).
-    Removing svmfunctions.o(.rrx_text), (6 bytes).
-    Removing svmfunctions.o(i.arm_svm_linear_init_f32), (22 bytes).
-    Removing svmfunctions.o(i.arm_svm_linear_predict_f32), (104 bytes).
-    Removing svmfunctions.o(i.arm_svm_polynomial_init_f32), (28 bytes).
-    Removing svmfunctions.o(i.arm_svm_polynomial_predict_f32), (136 bytes).
-    Removing svmfunctions.o(i.arm_svm_rbf_init_f32), (28 bytes).
-    Removing svmfunctions.o(i.arm_svm_rbf_predict_f32), (140 bytes).
-    Removing svmfunctions.o(i.arm_svm_sigmoid_init_f32), (24 bytes).
-    Removing svmfunctions.o(i.arm_svm_sigmoid_predict_f32), (140 bytes).
-    Removing svmfunctionsf16.o(.rev16_text), (4 bytes).
-    Removing svmfunctionsf16.o(.revsh_text), (4 bytes).
-    Removing svmfunctionsf16.o(.rrx_text), (6 bytes).
-    Removing statisticsfunctions.o(.rev16_text), (4 bytes).
-    Removing statisticsfunctions.o(.revsh_text), (4 bytes).
-    Removing statisticsfunctions.o(.rrx_text), (6 bytes).
-    Removing statisticsfunctions.o(i.arm_absmax_f32), (54 bytes).
-    Removing statisticsfunctions.o(i.arm_absmax_f64), (102 bytes).
-    Removing statisticsfunctions.o(i.arm_absmax_no_idx_f32), (44 bytes).
-    Removing statisticsfunctions.o(i.arm_absmax_no_idx_f64), (84 bytes).
-    Removing statisticsfunctions.o(i.arm_absmax_no_idx_q15), (146 bytes).
-    Removing statisticsfunctions.o(i.arm_absmax_no_idx_q31), (122 bytes).
-    Removing statisticsfunctions.o(i.arm_absmax_no_idx_q7), (146 bytes).
-    Removing statisticsfunctions.o(i.arm_absmax_q15), (182 bytes).
-    Removing statisticsfunctions.o(i.arm_absmax_q31), (156 bytes).
-    Removing statisticsfunctions.o(i.arm_absmax_q7), (182 bytes).
-    Removing statisticsfunctions.o(i.arm_absmin_f32), (54 bytes).
-    Removing statisticsfunctions.o(i.arm_absmin_f64), (102 bytes).
-    Removing statisticsfunctions.o(i.arm_absmin_no_idx_f32), (44 bytes).
-    Removing statisticsfunctions.o(i.arm_absmin_no_idx_f64), (84 bytes).
-    Removing statisticsfunctions.o(i.arm_absmin_no_idx_q15), (146 bytes).
-    Removing statisticsfunctions.o(i.arm_absmin_no_idx_q31), (122 bytes).
-    Removing statisticsfunctions.o(i.arm_absmin_no_idx_q7), (146 bytes).
-    Removing statisticsfunctions.o(i.arm_absmin_q15), (182 bytes).
-    Removing statisticsfunctions.o(i.arm_absmin_q31), (156 bytes).
-    Removing statisticsfunctions.o(i.arm_absmin_q7), (182 bytes).
-    Removing statisticsfunctions.o(i.arm_entropy_f32), (52 bytes).
-    Removing statisticsfunctions.o(i.arm_entropy_f64), (88 bytes).
-    Removing statisticsfunctions.o(i.arm_kullback_leibler_f32), (60 bytes).
-    Removing statisticsfunctions.o(i.arm_kullback_leibler_f64), (104 bytes).
-    Removing statisticsfunctions.o(i.arm_logsumexp_dot_prod_f32), (26 bytes).
-    Removing statisticsfunctions.o(i.arm_logsumexp_f32), (96 bytes).
-    Removing statisticsfunctions.o(i.arm_max_f32), (46 bytes).
-    Removing statisticsfunctions.o(i.arm_max_f64), (78 bytes).
-    Removing statisticsfunctions.o(i.arm_max_no_idx_f32), (44 bytes).
-    Removing statisticsfunctions.o(i.arm_max_no_idx_f64), (72 bytes).
-    Removing statisticsfunctions.o(i.arm_max_no_idx_q15), (26 bytes).
-    Removing statisticsfunctions.o(i.arm_max_no_idx_q31), (22 bytes).
-    Removing statisticsfunctions.o(i.arm_max_no_idx_q7), (26 bytes).
-    Removing statisticsfunctions.o(i.arm_max_q15), (36 bytes).
-    Removing statisticsfunctions.o(i.arm_max_q31), (32 bytes).
-    Removing statisticsfunctions.o(i.arm_max_q7), (36 bytes).
-    Removing statisticsfunctions.o(i.arm_mean_f32), (44 bytes).
-    Removing statisticsfunctions.o(i.arm_mean_f64), (96 bytes).
-    Removing statisticsfunctions.o(i.arm_mean_q15), (28 bytes).
-    Removing statisticsfunctions.o(i.arm_mean_q31), (44 bytes).
-    Removing statisticsfunctions.o(i.arm_mean_q7), (28 bytes).
-    Removing statisticsfunctions.o(i.arm_min_f32), (46 bytes).
-    Removing statisticsfunctions.o(i.arm_min_f64), (78 bytes).
-    Removing statisticsfunctions.o(i.arm_min_no_idx_f32), (44 bytes).
-    Removing statisticsfunctions.o(i.arm_min_no_idx_f64), (72 bytes).
-    Removing statisticsfunctions.o(i.arm_min_no_idx_q15), (26 bytes).
-    Removing statisticsfunctions.o(i.arm_min_no_idx_q31), (22 bytes).
-    Removing statisticsfunctions.o(i.arm_min_no_idx_q7), (26 bytes).
-    Removing statisticsfunctions.o(i.arm_min_q15), (36 bytes).
-    Removing statisticsfunctions.o(i.arm_min_q31), (32 bytes).
-    Removing statisticsfunctions.o(i.arm_min_q7), (36 bytes).
-    Removing statisticsfunctions.o(i.arm_mse_f32), (56 bytes).
-    Removing statisticsfunctions.o(i.arm_mse_f64), (116 bytes).
-    Removing statisticsfunctions.o(i.arm_mse_q15), (66 bytes).
-    Removing statisticsfunctions.o(i.arm_mse_q31), (78 bytes).
-    Removing statisticsfunctions.o(i.arm_mse_q7), (52 bytes).
-    Removing statisticsfunctions.o(i.arm_power_f32), (32 bytes).
-    Removing statisticsfunctions.o(i.arm_power_f64), (72 bytes).
-    Removing statisticsfunctions.o(i.arm_power_q15), (28 bytes).
-    Removing statisticsfunctions.o(i.arm_power_q31), (40 bytes).
-    Removing statisticsfunctions.o(i.arm_power_q7), (26 bytes).
-    Removing statisticsfunctions.o(i.arm_rms_f32), (68 bytes).
-    Removing statisticsfunctions.o(i.arm_rms_q15), (58 bytes).
-    Removing statisticsfunctions.o(i.arm_rms_q31), (68 bytes).
-    Removing statisticsfunctions.o(i.arm_std_f32), (48 bytes).
-    Removing statisticsfunctions.o(i.arm_std_f64), (24 bytes).
-    Removing statisticsfunctions.o(i.arm_std_q15), (92 bytes).
-    Removing statisticsfunctions.o(i.arm_std_q31), (124 bytes).
-    Removing statisticsfunctions.o(i.arm_var_f32), (108 bytes).
-    Removing statisticsfunctions.o(i.arm_var_f64), (216 bytes).
-    Removing statisticsfunctions.o(i.arm_var_q15), (82 bytes).
-    Removing statisticsfunctions.o(i.arm_var_q31), (120 bytes).
-    Removing statisticsfunctionsf16.o(.rev16_text), (4 bytes).
-    Removing statisticsfunctionsf16.o(.revsh_text), (4 bytes).
-    Removing statisticsfunctionsf16.o(.rrx_text), (6 bytes).
-    Removing supportfunctions.o(.rev16_text), (4 bytes).
-    Removing supportfunctions.o(.revsh_text), (4 bytes).
-    Removing supportfunctions.o(.rrx_text), (6 bytes).
-    Removing supportfunctions.o(i.arm_barycenter_f32), (104 bytes).
-    Removing supportfunctions.o(i.arm_bitonic_sort_core_f32), (136 bytes).
-    Removing supportfunctions.o(i.arm_bitonic_sort_f32), (80 bytes).
-    Removing supportfunctions.o(i.arm_bubble_sort_f32), (90 bytes).
-    Removing supportfunctions.o(i.arm_copy_f32), (20 bytes).
-    Removing supportfunctions.o(i.arm_copy_f64), (20 bytes).
-    Removing supportfunctions.o(i.arm_copy_q15), (20 bytes).
-    Removing supportfunctions.o(i.arm_copy_q31), (14 bytes).
-    Removing supportfunctions.o(i.arm_copy_q7), (20 bytes).
-    Removing supportfunctions.o(i.arm_fill_f32), (16 bytes).
-    Removing supportfunctions.o(i.arm_fill_f64), (16 bytes).
-    Removing supportfunctions.o(i.arm_fill_q15), (16 bytes).
-    Removing supportfunctions.o(i.arm_fill_q31), (12 bytes).
-    Removing supportfunctions.o(i.arm_fill_q7), (16 bytes).
-    Removing supportfunctions.o(i.arm_float_to_q15), (44 bytes).
-    Removing supportfunctions.o(i.arm_float_to_q31), (60 bytes).
-    Removing supportfunctions.o(i.arm_float_to_q7), (44 bytes).
-    Removing supportfunctions.o(i.arm_heap_sort_f32), (94 bytes).
-    Removing supportfunctions.o(i.arm_heapify), (136 bytes).
-    Removing supportfunctions.o(i.arm_insertion_sort_f32), (88 bytes).
-    Removing supportfunctions.o(i.arm_merge_sort_core_f32), (156 bytes).
-    Removing supportfunctions.o(i.arm_merge_sort_f32), (60 bytes).
-    Removing supportfunctions.o(i.arm_merge_sort_init_f32), (6 bytes).
-    Removing supportfunctions.o(i.arm_q15_to_float), (40 bytes).
-    Removing supportfunctions.o(i.arm_q15_to_q31), (20 bytes).
-    Removing supportfunctions.o(i.arm_q15_to_q7), (22 bytes).
-    Removing supportfunctions.o(i.arm_q31_to_float), (36 bytes).
-    Removing supportfunctions.o(i.arm_q31_to_q15), (18 bytes).
-    Removing supportfunctions.o(i.arm_q31_to_q7), (18 bytes).
-    Removing supportfunctions.o(i.arm_q7_to_float), (40 bytes).
-    Removing supportfunctions.o(i.arm_q7_to_q15), (22 bytes).
-    Removing supportfunctions.o(i.arm_q7_to_q31), (20 bytes).
-    Removing supportfunctions.o(i.arm_quick_sort_core_f32), (178 bytes).
-    Removing supportfunctions.o(i.arm_quick_sort_f32), (40 bytes).
-    Removing supportfunctions.o(i.arm_selection_sort_f32), (122 bytes).
-    Removing supportfunctions.o(i.arm_sort_f32), (58 bytes).
-    Removing supportfunctions.o(i.arm_sort_init_f32), (6 bytes).
-    Removing supportfunctions.o(i.arm_weighted_sum_f32), (44 bytes).
-    Removing supportfunctionsf16.o(.rev16_text), (4 bytes).
-    Removing supportfunctionsf16.o(.revsh_text), (4 bytes).
-    Removing supportfunctionsf16.o(.rrx_text), (6 bytes).
-    Removing transformfunctions.o(.rev16_text), (4 bytes).
-    Removing transformfunctions.o(.revsh_text), (4 bytes).
-    Removing transformfunctions.o(.rrx_text), (6 bytes).
-    Removing transformfunctions.o(i.arm_bitreversal_16), (64 bytes).
-    Removing transformfunctions.o(i.arm_bitreversal_32), (62 bytes).
-    Removing transformfunctions.o(i.arm_bitreversal_64), (108 bytes).
-    Removing transformfunctions.o(i.arm_bitreversal_f32), (168 bytes).
-    Removing transformfunctions.o(i.arm_bitreversal_q15), (102 bytes).
-    Removing transformfunctions.o(i.arm_bitreversal_q31), (170 bytes).
-    Removing transformfunctions.o(i.arm_cfft_f32), (204 bytes).
-    Removing transformfunctions.o(i.arm_cfft_f64), (256 bytes).
-    Removing transformfunctions.o(i.arm_cfft_init_f32), (148 bytes).
-    Removing transformfunctions.o(i.arm_cfft_init_f64), (148 bytes).
-    Removing transformfunctions.o(i.arm_cfft_init_q15), (148 bytes).
-    Removing transformfunctions.o(i.arm_cfft_init_q31), (148 bytes).
-    Removing transformfunctions.o(i.arm_cfft_q15), (172 bytes).
-    Removing transformfunctions.o(i.arm_cfft_q31), (172 bytes).
-    Removing transformfunctions.o(i.arm_cfft_radix2_f32), (60 bytes).
-    Removing transformfunctions.o(i.arm_cfft_radix2_init_f32), (284 bytes).
-    Removing transformfunctions.o(i.arm_cfft_radix2_init_q15), (192 bytes).
-    Removing transformfunctions.o(i.arm_cfft_radix2_init_q31), (192 bytes).
-    Removing transformfunctions.o(i.arm_cfft_radix2_q15), (46 bytes).
-    Removing transformfunctions.o(i.arm_cfft_radix2_q31), (46 bytes).
-    Removing transformfunctions.o(i.arm_cfft_radix4_f32), (60 bytes).
-    Removing transformfunctions.o(i.arm_cfft_radix4_init_f32), (176 bytes).
-    Removing transformfunctions.o(i.arm_cfft_radix4_init_q15), (124 bytes).
-    Removing transformfunctions.o(i.arm_cfft_radix4_init_q31), (124 bytes).
-    Removing transformfunctions.o(i.arm_cfft_radix4_q15), (54 bytes).
-    Removing transformfunctions.o(i.arm_cfft_radix4_q31), (54 bytes).
-    Removing transformfunctions.o(i.arm_cfft_radix4by2_f64), (286 bytes).
-    Removing transformfunctions.o(i.arm_cfft_radix4by2_inverse_q15), (190 bytes).
-    Removing transformfunctions.o(i.arm_cfft_radix4by2_inverse_q31), (190 bytes).
-    Removing transformfunctions.o(i.arm_cfft_radix4by2_q15), (190 bytes).
-    Removing transformfunctions.o(i.arm_cfft_radix4by2_q31), (190 bytes).
-    Removing transformfunctions.o(i.arm_cfft_radix8by2_f32), (392 bytes).
-    Removing transformfunctions.o(i.arm_cfft_radix8by4_f32), (1068 bytes).
-    Removing transformfunctions.o(i.arm_dct4_f32), (196 bytes).
-    Removing transformfunctions.o(i.arm_dct4_init_f32), (132 bytes).
-    Removing transformfunctions.o(i.arm_dct4_init_q15), (128 bytes).
-    Removing transformfunctions.o(i.arm_dct4_init_q31), (128 bytes).
-    Removing transformfunctions.o(i.arm_dct4_q15), (180 bytes).
-    Removing transformfunctions.o(i.arm_dct4_q31), (170 bytes).
-    Removing transformfunctions.o(i.arm_mfcc_f32), (240 bytes).
-    Removing transformfunctions.o(i.arm_mfcc_init_f32), (34 bytes).
-    Removing transformfunctions.o(i.arm_mfcc_init_q15), (36 bytes).
-    Removing transformfunctions.o(i.arm_mfcc_init_q31), (36 bytes).
-    Removing transformfunctions.o(i.arm_mfcc_q15), (324 bytes).
-    Removing transformfunctions.o(i.arm_mfcc_q31), (296 bytes).
-    Removing transformfunctions.o(i.arm_radix2_butterfly_f32), (334 bytes).
-    Removing transformfunctions.o(i.arm_radix2_butterfly_inverse_f32), (342 bytes).
-    Removing transformfunctions.o(i.arm_radix2_butterfly_inverse_q15), (614 bytes).
-    Removing transformfunctions.o(i.arm_radix2_butterfly_inverse_q31), (440 bytes).
-    Removing transformfunctions.o(i.arm_radix2_butterfly_q15), (658 bytes).
-    Removing transformfunctions.o(i.arm_radix2_butterfly_q31), (432 bytes).
-    Removing transformfunctions.o(i.arm_radix4_butterfly_f32), (324 bytes).
-    Removing transformfunctions.o(i.arm_radix4_butterfly_f64), (768 bytes).
-    Removing transformfunctions.o(i.arm_radix4_butterfly_inverse_f32), (534 bytes).
-    Removing transformfunctions.o(i.arm_radix4_butterfly_inverse_q15), (908 bytes).
-    Removing transformfunctions.o(i.arm_radix4_butterfly_inverse_q31), (944 bytes).
-    Removing transformfunctions.o(i.arm_radix4_butterfly_q15), (908 bytes).
-    Removing transformfunctions.o(i.arm_radix4_butterfly_q31), (944 bytes).
-    Removing transformfunctions.o(i.arm_radix8_butterfly_f32), (1220 bytes).
-    Removing transformfunctions.o(i.arm_rfft_1024_fast_init_f32), (44 bytes).
-    Removing transformfunctions.o(i.arm_rfft_1024_fast_init_f64), (52 bytes).
-    Removing transformfunctions.o(i.arm_rfft_128_fast_init_f32), (40 bytes).
-    Removing transformfunctions.o(i.arm_rfft_128_fast_init_f64), (48 bytes).
-    Removing transformfunctions.o(i.arm_rfft_2048_fast_init_f32), (44 bytes).
-    Removing transformfunctions.o(i.arm_rfft_2048_fast_init_f64), (52 bytes).
-    Removing transformfunctions.o(i.arm_rfft_256_fast_init_f32), (40 bytes).
-    Removing transformfunctions.o(i.arm_rfft_256_fast_init_f64), (48 bytes).
-    Removing transformfunctions.o(i.arm_rfft_32_fast_init_f32), (40 bytes).
-    Removing transformfunctions.o(i.arm_rfft_32_fast_init_f64), (48 bytes).
-    Removing transformfunctions.o(i.arm_rfft_4096_fast_init_f32), (44 bytes).
-    Removing transformfunctions.o(i.arm_rfft_4096_fast_init_f64), (52 bytes).
-    Removing transformfunctions.o(i.arm_rfft_512_fast_init_f32), (44 bytes).
-    Removing transformfunctions.o(i.arm_rfft_512_fast_init_f64), (52 bytes).
-    Removing transformfunctions.o(i.arm_rfft_64_fast_init_f32), (40 bytes).
-    Removing transformfunctions.o(i.arm_rfft_64_fast_init_f64), (48 bytes).
-    Removing transformfunctions.o(i.arm_rfft_f32), (126 bytes).
-    Removing transformfunctions.o(i.arm_rfft_fast_f32), (54 bytes).
-    Removing transformfunctions.o(i.arm_rfft_fast_f64), (68 bytes).
-    Removing transformfunctions.o(i.arm_rfft_fast_init_f32), (120 bytes).
-    Removing transformfunctions.o(i.arm_rfft_fast_init_f64), (120 bytes).
-    Removing transformfunctions.o(i.arm_rfft_init_f32), (116 bytes).
-    Removing transformfunctions.o(i.arm_rfft_init_q15), (200 bytes).
-    Removing transformfunctions.o(i.arm_rfft_init_q31), (200 bytes).
-    Removing transformfunctions.o(i.arm_rfft_q15), (100 bytes).
-    Removing transformfunctions.o(i.arm_rfft_q31), (100 bytes).
-    Removing transformfunctions.o(i.arm_split_rfft_f32), (200 bytes).
-    Removing transformfunctions.o(i.arm_split_rfft_q15), (276 bytes).
-    Removing transformfunctions.o(i.arm_split_rfft_q31), (226 bytes).
-    Removing transformfunctions.o(i.arm_split_rifft_f32), (110 bytes).
-    Removing transformfunctions.o(i.arm_split_rifft_q15), (166 bytes).
-    Removing transformfunctions.o(i.arm_split_rifft_q31), (100 bytes).
-    Removing transformfunctions.o(i.merge_rfft_f32), (160 bytes).
-    Removing transformfunctions.o(i.merge_rfft_f64), (332 bytes).
-    Removing transformfunctions.o(i.stage_rfft_f32), (164 bytes).
-    Removing transformfunctions.o(i.stage_rfft_f64), (360 bytes).
-    Removing transformfunctionsf16.o(.rev16_text), (4 bytes).
-    Removing transformfunctionsf16.o(.revsh_text), (4 bytes).
-    Removing transformfunctionsf16.o(.rrx_text), (6 bytes).
-
-1307 unused section(s) (total 1038251 bytes) removed from the image.

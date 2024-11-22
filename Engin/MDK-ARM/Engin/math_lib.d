@@ -33,15 +33,4 @@ engin\math_lib.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
 engin\math_lib.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 engin\math_lib.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 engin\math_lib.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
-engin\math_lib.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h
-engin\math_lib.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-engin\math_lib.o: ../Core/Inc/FreeRTOSConfig.h
-engin\math_lib.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
-engin\math_lib.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
-engin\math_lib.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
-engin\math_lib.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
-engin\math_lib.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
-engin\math_lib.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
-engin\math_lib.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
-engin\math_lib.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
 engin\math_lib.o: bsp\struct_typedef.h

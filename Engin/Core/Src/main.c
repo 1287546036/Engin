@@ -20,19 +20,19 @@
 #include "main.h"
 #include "can.h"
 #include "dma.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "pid.h"
-#include "motor.h"
-#include "struct_typedef.h"
-#include "remote_control.h"
+
 #include "Chassis_Task.h"
 #include "Lifting_Task.h"
 #include "Gimbal_Task.h"
-#include "referee.h"
+#include "MechanicalArm_Task.h"
+
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -41,29 +41,25 @@
 #define angle_ratio 0.1*8191/660.0	
 DBUS remoter;
 uint8_t dbus_resive[18];
-uint8_t	  airpump_tx[1];
+
 /*chassis*/
 
-
-
-//pids chassis_motor_pid;
-
 /*lifting*/
-//fp32 rc_lifting_angle,rc_protract_angle;
-//fp32 set_lifting_angle,set_protract_angle;
-//fp32 real_angle_keep;
-//pids lifting_motor_pid;
-//int16_t pid_lifting[4];
 
 /*debug*/
 
 
-extern motor_measure_t motor_chassis[4];
-pids motor_pid;
+//extern motor_measure_t motor_chassis[4];
+//pids motor_pid;
 
-int16_t current[4];
-int16_t speed[4];
+//int16_t current[4];
+//int16_t speed[4];
 
+ 
+static uint8_t rxBuffer[MAX_RX_BUFFER_SIZE];  // 定义接收数据的数组
+uint32_t rxBufferIdx = 0;  // 定义接收数据的索引
+
+static float encoder_angle_set[4];
 
 /* USER CODE END PTD */
 
@@ -88,8 +84,13 @@ int16_t speed[4];
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
+
 void airpump_transmit(void);
-void USART_SendData(USART_TypeDef* USARTx, uint16_t Data);
+
+void LED_RX_Status_display(void);
+
+
+  uint8_t	airpump_tx[] ="STM32F407xx" ;
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -105,9 +106,15 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-	////写一个根据电机接收情况亮灯的反馈//先每个任务写�?个初始化,然后�?有初始化写一个函�?
-	//�?有pid数据�?类参数整理成�?,分别放在task.h,名称有指向�??
-	//缺少各类函数优化,电机过零处理�?//电机,通道值各类方向要便于修改
+// 等待优化列表
+// DWT 延时引入
+//	 学习引入pid优化 
+// 写一个根据电机接收情况亮灯的反馈
+// 先每个任务写个初始化,然后所有初始化封装为一个
+// pid 参数整理,分别放在task.h,名称有指向
+// 缺少各类函数优化,电机过零处理�?
+// 电机,通道值各类方向要便于修改
+// 状态机优化完整,宏或其他方法
 
   /* USER CODE END 1 */
 
@@ -117,15 +124,20 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
+	
+	mechanicalarm_init();
 
- airpump_tx[0]=1;
+	remote_control_init();
+    can_start();
+
+
   /* USER CODE END Init */
 
   /* Configure the system clock */
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-//	refereeINIT(TIM6);//??????
+  
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -136,17 +148,20 @@ int main(void)
   MX_USART1_UART_Init();
   MX_CAN2_Init();
   MX_USART6_UART_Init();
+  MX_TIM6_Init();
+  MX_TIM4_Init();
+  MX_TIM5_Init();
   /* USER CODE BEGIN 2 */
-	remote_control_init();
-  HAL_UART_Receive_DMA(&huart3,dbus_resive,18);
-  __HAL_UART_ENABLE_IT(&huart3, UART_IT_IDLE);
-  can_start();
-  HAL_UART_Transmit_IT(&huart1,airpump_tx,1);
-  
+
+// HAL_UART_Transmit(&huart1, airpump_tx, sizeof(airpump_tx),500);
+
+//  HAL_UART_Receive_DMA(&huart3,dbus_resive,18);
+//  __HAL_UART_ENABLE_IT(&huart3, UART_IT_IDLE);
+
+    HAL_UART_Receive_IT(&huart6,rxBuffer,MAX_RX_BUFFER_SIZE);
  /*         debug        */
-  __HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);
-//com_tar_angle[0]+=motor_chassis[0].real_angle;
- 
+//  __HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);
+  
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -156,19 +171,16 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-/*            air_pump
-		  */
 		  
-//	USART_SendData(USART1,1);	  
-//			airpump_transmit();
-
-//		   HAL_UART_Transmit(&huart1, airpump_tx, sizeof(airpump_tx), 0xffff);
-//		  HAL_Delay(100);
-//f407tx,f107rx,由于库不同,当前的无法使用
-		  //但机械臂可用,同为f407接收
+/*    
+		  air_pump
+*/
 		  
-		  
-		  
+////	if(rc_ctrl.rc.s[1] == 2){
+// HAL_UART_Transmit(&huart1, airpump_tx, sizeof(airpump_tx),500);//发送没有问题,注意rx,tx
+////	}
+//		  
+//		  
 		  
 		  
 /* 
@@ -185,10 +197,24 @@ int main(void)
 //*/
 
 
-lifitng_task();
+//lifitng_task();
+
+
+/*						MechanicalArm_Task
+*/
+	HAL_UART_Receive(&huart6,rxBuffer,MAX_RX_BUFFER_SIZE,0xffff);
+	HAL_UART_Receive_IT(&huart6,rxBuffer,MAX_RX_BUFFER_SIZE);
+	encoder_to_damiao(rxBuffer,encoder_angle_set);
+
+
+	mechanicalarm_task(encoder_angle_set);
+
+
 ///*                     debug
 //			                  
 //*/
+
+//JustFloat(0, 0, motor_lifting[1].real_angle,motor_lifting[0].real_angle, &huart6);//vofa
 
 //pidINIT(&motor_pid,PID_POSITION,3,3,0,10000,200);
 ////fp32 set_angle=5000;//rc_ctrl.rc.ch[1]*8191/660*0.01;
@@ -253,51 +279,61 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 
-
-
 /*          AIR PUMP        */
-//void USART_SendData(USART_TypeDef* USARTx, uint16_t Data)
-//{
-//  /* Check the parameters */
-//  assert_param(IS_USART_ALL_PERIPH(USARTx));
-//  assert_param(IS_USART_DATA(Data)); 
-//    
-//  /* Transmit Data */
-//  USARTx->DR = (Data & (uint16_t)0x01FF);
-//	HAL_Delay(1);
-//}
-void airpump_transmit(void)
+
+
+
+
+/*		debug_damiao_rx		*/
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-	if(rc_ctrl.rc.s[1] == 2)
-		airpump_tx[0]=0;
-	else
-		airpump_tx[0]=1;
+	if(huart == &huart6)  // 假设是串口6的接收中断
+  {
+    rxBuffer[rxBufferIdx++] = huart->Instance->DR;  // 将接收到的数据存入数组，并更新索引
+
+    if (rxBufferIdx >= MAX_RX_BUFFER_SIZE)
+    {
+      rxBufferIdx = 0;  // 如果超过了数组大小，可以选择重置索引或者其他处理方式
+    }
+  }
+
 }
 
 
+/////*        亮灯显示接收状态              */
+//void LED_RX_Status_display(void)//有问题,灯点不亮
+//{
+//	//每个电机分开写if,怎么判断值齐不齐?//不需要判断,都有就不会进if
+//	//缺那几个id的就连续闪几下,隔几秒再闪几下
+//	//不同部分颜色分开,分先后
+//	uint8_t id,n;
+//	for(id=0;id<=3;id++)
+//	{
+//		if(motor_chassis[id].temperate == NULL)
+//		{	for(n=0;n<=id;n++)
+//			{
+//				HAL_GPIO_WritePin(GPIOH,GPIO_PIN_11,GPIO_PIN_SET);
+//				HAL_Delay(500);
+//				HAL_GPIO_WritePin(GPIOH,GPIO_PIN_11,GPIO_PIN_RESET);
+//				HAL_Delay(500);
+//				
+//				HAL_GPIO_WritePin(GPIOH,GPIO_PIN_10,GPIO_PIN_SET);
+//				HAL_Delay(500);
+//				HAL_GPIO_WritePin(GPIOH,GPIO_PIN_10,GPIO_PIN_RESET);
+//				HAL_Delay(500);
+//				
+//				HAL_GPIO_WritePin(GPIOH,GPIO_PIN_12,GPIO_PIN_SET);
+//				HAL_Delay(500);
+//				HAL_GPIO_WritePin(GPIOH,GPIO_PIN_12,GPIO_PIN_RESET);
+//				HAL_Delay(500);
+//			}
+//		HAL_Delay(2000);
+//		}
+//	}
+//}
 
 /* USER CODE END 4 */
-
-/**
-  * @brief  Period elapsed callback in non blocking mode
-  * @note   This function is called  when TIM6 interrupt took place, inside
-  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
-  * a global variable "uwTick" used as application time base.
-  * @param  htim : TIM handle
-  * @retval None
-  */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-  /* USER CODE BEGIN Callback 0 */
-
-  /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM6) {
-    HAL_IncTick();
-  }
-  /* USER CODE BEGIN Callback 1 */
-
-  /* USER CODE END Callback 1 */
-}
 
 /**
   * @brief  This function is executed in case of error occurrence.

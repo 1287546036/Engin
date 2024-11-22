@@ -1,5 +1,5 @@
-engin\chassis_task.o: app\Chassis_Task.c
-engin\chassis_task.o: app\Chassis_Task.h
+engin\chassis_task.o: task\Chassis_Task.c
+engin\chassis_task.o: task\Chassis_Task.h
 engin\chassis_task.o: ../Core/Inc/can.h
 engin\chassis_task.o: ../Core/Inc/main.h
 engin\chassis_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
@@ -36,6 +36,8 @@ engin\chassis_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 engin\chassis_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 engin\chassis_task.o: ./bsp/struct_typedef.h
 engin\chassis_task.o: ./bsp/pid.h
-engin\chassis_task.o: ./bsp/motor.h
-engin\chassis_task.o: ./bsp/remote_control.h
+engin\chassis_task.o: ./bsp/pid_data.h
+engin\chassis_task.o: ./app/motor.h
+engin\chassis_task.o: ./bsp/bsp_can.h
+engin\chassis_task.o: ./app/remote_control.h
 engin\chassis_task.o: ./bsp/bsp_rc.h
