@@ -108,8 +108,8 @@ HAL_UART_Receive_IT(&huart2,&rxBuffer[rxBufferIdx],1);
 //	  HAL_Delay(500);
 //		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_8,GPIO_PIN_RESET);
 //	  HAL_Delay(500);
-
-	  
+//	  HAL_GPIO_WritePin(GPIOA,GPIO_PIN_8,GPIO_PIN_SET);
+//	  
 	  //	  HAL_UART_Transmit(&huart2, data, sizeof(data), 500);
     /* USER CODE END WHILE */
 
@@ -161,16 +161,15 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-  if (huart == &huart2)  // 假设是串口2的接收中断
-  {
+//  if (huart == &huart2)  // 假设是串口2的接收中断
+//  {
 //    rxBuffer[rxBufferIdx++] = huart->Instance->DR;
 //  } // 将接收到的数据存入数组，并更新索引
 //  if(rxBuffer[0])
 //  {
 	  HAL_GPIO_WritePin(GPIOA,GPIO_PIN_8,GPIO_PIN_SET);
-		HAL_Delay(5);	 
-		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_8,GPIO_PIN_RESET);	  
-  }
+  
+//  }
 //	else
 //	 HAL_GPIO_WritePin(GPIOA,GPIO_PIN_8,GPIO_PIN_RESET);
 //		HAL_Delay(500);
